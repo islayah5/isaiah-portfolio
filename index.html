@@ -322,17 +322,30 @@
             ::-webkit-scrollbar-thumb { background: var(--color-accent-primary); border-radius: 4px; }
             ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-secondary); }
 
-            /* --- Custom Cursor Styles --- */
-            #custom-cursor {
-                position: fixed; top: -20px; left: -20px; width: 24px; height: 24px;
-                border: 3px solid var(--color-accent-primary); border-radius: 50%;
-                pointer-events: none; z-index: 9999;
-                transition: transform 0.12s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
-                mix-blend-mode: difference; filter: drop-shadow(0 0 5px var(--color-accent-primary));
-                opacity: 0;
-            }
-            #custom-cursor.visible { opacity: 1; }
-            #custom-cursor.interactive { width: 30px; height: 30px; border-color: var(--color-accent-secondary); filter: drop-shadow(0 0 8px var(--color-accent-secondary)); }
+/* --- Custom Cursor Styles --- */
+#custom-cursor {
+  position: fixed;
+  top: 0; /* Reset top */
+  left: 0; /* Reset left */
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-accent-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.12s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: difference;
+  filter: drop-shadow(0 0 5px var(--color-accent-primary));
+  opacity: 0;
+  transform: translate(-50%, -50%); /* Center the circle */
+}
+#custom-cursor.visible { opacity: 1; }
+#custom-cursor.interactive {
+  width: 30px;
+  height: 30px;
+  border-color: var(--color-accent-secondary);
+  filter: drop-shadow(0 0 8px var(--color-accent-secondary));
+}
 
             /* --- Particle Styles --- */
             .particle {
