@@ -3,799 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isaiah Chandler - Interactive Portfolio</title>
+    <title>Isaiah Chandler - Perfected Interactive Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- Color Palette --- */
         :root {
-            --color-bg-dark: #1A1A2E;
-            --color-bg-gradient-start: #1A1A2E;
-            --color-bg-gradient-end: #2A2A4A;
-            --color-accent-primary: #00F0FF; /* Cyan */
-            --color-accent-secondary: #FF00A0; /* Magenta */
-            --color-accent-muted: #5A5A7A;
-            --color-text-light: #F0F0F0;
-            --color-text-muted: #A0A0C0;
-            --color-card-bg: #2A2A4A;
-            --color-btn-bg: #3A3A5A;
-            --color-btn-hover-bg: var(--color-accent-primary);
-            --color-btn-text: var(--color-text-light);
-            --color-btn-hover-text: var(--color-bg-dark);
+            --color-bg-dark: #12121c;
+            --color-bg-light: #1a1a2e;
+            --color-accent-primary: #00aaff;
+            --color-accent-secondary: #ff4081;
+            --color-text-light: #e0e0e0;
+            --color-text-muted: #a0a0c0;
+            --color-card-bg: rgba(26, 26, 46, 0.7);
             --radius-lg: 16px;
             --radius-md: 12px;
-            --radius-sm: 8px;
         }
 
-        /* --- Base Styles (Mobile First) --- */
         html {
             scroll-behavior: smooth;
-            box-sizing: border-box;
-        }
-        *, *:before, *:after {
-            box-sizing: inherit;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom right, var(--color-bg-gradient-start), var(--color-bg-gradient-end));
+            background: linear-gradient(135deg, var(--color-bg-dark), var(--color-bg-light));
             color: var(--color-text-light);
-            line-height: 1.6;
-            margin: 0;
             overflow-x: hidden;
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            opacity: 0; /* Start Invisible */
-            transition: opacity 0.8s ease-in-out;
-            padding-bottom: 65px; /* Space for bottom nav */
-            padding-top: 0;
-            cursor: default; /* Mobile default */
-            background-color: var(--color-bg-dark); /* Fallback bg */
+            cursor: none;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
+
         body.loaded {
-            opacity: 1; /* Fade In */
+            opacity: 1;
         }
 
-        /* Headings */
-        h1, h2, h3, h4, h5, h6 {
-            margin-top: 0;
-            font-weight: 600;
-            transition: text-shadow 0.3s ease-in-out;
-            text-shadow: 0 0 6px rgba(0, 240, 255, 0.2);
-        }
-        /* Hover only applies on devices that support hover */
-        @media (hover: hover) {
-            h1:hover, h2:hover, h3:hover {
-                 text-shadow: 0 0 8px var(--color-accent-primary);
-            }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--color-bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--color-accent-primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-secondary); }
+
+        #custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-accent-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+            mix-blend-mode: exclusion;
         }
 
-
-        /* Sections */
-        section, header#home {
-            padding: 3rem 1rem; /* Mobile padding */
-            margin-bottom: 1rem;
-            opacity: 0; /* Fade In */
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
-            position: relative;
-            z-index: 1;
-            min-height: 20vh;
+        #custom-cursor.interactive {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 170, 255, 0.2);
         }
-         header#home {
-            padding: 1rem;
-            min-height: 85vh; /* Adjusted height slightly */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            transition-delay: 0.4s; /* Sync delay with transition */
-         }
-        section.is-visible, header#home.is-visible {
+
+        #interactive-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        section {
+            padding: 5rem 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            min-height: 50vh;
+        }
+
+        section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Cards */
         .card {
             background-color: var(--color-card-bg);
             border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            border: 2px solid transparent;
-        }
-         .gallery-card {
-            background-color: var(--color-card-bg);
-            border-radius: var(--radius-md);
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            overflow: hidden;
-            position: relative;
         }
 
-        /* Buttons */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-accent-primary);
+        }
+        
+        .gallery-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 10px var(--color-accent-secondary);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+
         .btn {
             display: inline-block;
-            background-color: var(--color-btn-bg);
-            color: var(--color-btn-text);
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius-sm);
+            background: linear-gradient(45deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.4);
             font-weight: 600;
-            -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
-        }
-        .btn:active { /* Mobile tap feedback */
-            transform: translateY(1px) scale(0.98); /* Add slight scale */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-         #copy-email-btn {
-            background-color: var(--color-accent-muted);
-            margin-left: 0rem; /* Stack vertically on mobile */
-            margin-top: 0.75rem; /* Add space */
-         }
-
-        /* Skill details card */
-        #skill-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out, margin-bottom 0.5s ease-in-out, opacity 0.5s ease-in-out;
-            padding: 0 1.5rem;
-            margin-bottom: 0;
-            opacity: 0;
-            border: 2px solid transparent; /* Add border for consistency */
-        }
-        #skill-details.visible {
-            max-height: 500px; /* Adjust if content longer */
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            opacity: 1;
-        }
-         #close-skill-details {
-             -webkit-tap-highlight-color: transparent;
-         }
-
-        /* --- Collectible Icon Styles --- */
-        .collectible-icon {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            color: var(--color-accent-secondary);
-            font-size: 1.3rem;
-            opacity: 0.6; /* Slightly more subtle when inactive */
-            pointer-events: auto;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            z-index: 5;
-            cursor: pointer;
-            transform: scale(1);
-            -webkit-tap-highlight-color: transparent;
-        }
-        .collectible-icon:active { /* Mobile tap feedback */
-            opacity: 1;
-            transform: scale(1.3); /* Slightly larger pop on tap */
-        }
-        .collectible-icon.collected {
-             opacity: 0;
-             transform: scale(0.5);
-             pointer-events: none;
-             cursor: default;
-             transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
-        /* Responsive Images */
-        .responsive-img { max-width: 100%; height: auto; display: block; border-radius: var(--radius-md); }
-        .gallery-img { max-width: 100%; height: auto; display: block; border-radius: var(--radius-sm); object-fit: cover; aspect-ratio: 1 / 1; }
-        #home img {
-            border: 4px solid var(--color-accent-primary);
-            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
-            width: 150px;
-            height: 150px;
-            margin-bottom: 1.5rem;
-            z-index: 10;
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.5);
         }
-
-        /* Navigation Bar (Mobile First - Bottom) */
+        
         #main-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(26, 26, 46, 0.95); /* Slightly less transparent */
-            z-index: 50;
-            display: flex;
-            justify-content: space-around;
-            padding: 0.5rem 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-            /* backdrop-filter: blur(5px); */ /* Disabled for potential iOS issues */
-            /* -webkit-backdrop-filter: blur(5px); */
-        }
-        #main-nav a {
-            color: var(--color-text-muted);
-            text-decoration: none;
-            padding: 0.4rem 0.5rem;
-            font-size: 0.8rem;
-            transition: color 0.3s ease, transform 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex-grow: 1;
-            flex-basis: 0;
-             -webkit-tap-highlight-color: transparent;
-        }
-        #main-nav a i { margin-bottom: 0.2rem; font-size: 1.1rem; }
-        #main-nav a:active { transform: translateY(2px); }
-        #main-nav a.active-nav { color: var(--color-accent-secondary); font-weight: bold; }
-        #collectible-counter {
-            color: var(--color-text-muted);
-            align-self: center;
-            font-size: 0.8rem;
-            display: none; /* Hide on smallest screens */
-            padding: 0 0.5rem;
-        }
-         #collectible-counter i { font-size: 1rem; color: var(--color-accent-secondary); margin-right: 0.25rem; }
-        @media (min-width: 400px) { #collectible-counter { display: flex; align-items: center;} }
-
-        /* Messages (Copy confirm, Easter Egg) */
-        #copy-confirm-message, #easter-egg-message {
-            position: fixed;
-            bottom: 80px; /* Above nav */
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius-sm);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: var(--color-card-bg);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
             z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            text-align: center;
-            font-size: 0.9rem;
-            pointer-events: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        #copy-confirm-message { background-color: var(--color-accent-primary); color: var(--color-bg-dark); }
-        #easter-egg-message { background-color: var(--color-accent-secondary); color: var(--color-bg-dark); max-width: 90%; }
-        #copy-confirm-message.visible, #easter-egg-message.visible { opacity: 1; visibility: visible; }
 
-        /* Text highlight */
-        .text-highlight { transition: background-color 0.3s ease, padding 0.3s ease, border-radius 0.3s ease; }
-         @media (hover: hover) {
-             .text-highlight:hover { background-color: rgba(255, 0, 160, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px; cursor: pointer; }
-         }
-         .text-highlight:active { /* Add active state for touch */
-            background-color: rgba(255, 0, 160, 0.15); /* Slightly darker on tap */
-            padding: 0.2rem 0.4rem;
+        #main-nav a {
+            color: var(--color-text-muted);
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        #main-nav a:hover, #main-nav a.active-nav {
+            color: var(--color-accent-primary);
+        }
+        
+        .text-highlight:hover {
+            background-color: rgba(255, 64, 129, 0.15);
+            padding: 0.1rem 0.3rem;
             border-radius: 4px;
-         }
+        }
+        
+        .collectible-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--color-accent-secondary);
+            font-size: 1.5rem;
+            opacity: 0.3;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .collectible-icon:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        .collectible-icon.collected {
+            color: var(--color-accent-primary);
+            opacity: 1;
+            cursor: default;
+        }
 
-        /* --- Desktop / Larger Screen Enhancements --- */
-        @media (min-width: 768px) {
-            body {
-                cursor: none; /* Hide default ONLY on desktop */
-                padding-bottom: 0;
-                padding-top: 75px; /* Adjust based on final nav height */
-            }
-            section, header#home { padding: 5rem 2rem; margin-bottom: 2rem; }
-            header#home { padding: 2rem; min-height: 90vh; }
-            #home img { width: 200px; height: 200px; margin-bottom: 2rem; }
-
+        @media (max-width: 768px) {
             #main-nav {
-                bottom: auto; top: 0; justify-content: center; padding: 0.75rem 0;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-                 /* Can re-enable backdrop-filter here if desired for desktop */
-                 /* backdrop-filter: blur(5px); */
-                 /* -webkit-backdrop-filter: blur(5px); */
+                width: 95%;
+                bottom: 10px;
+                top: auto;
+                display: flex;
+                justify-content: space-around;
             }
-            #main-nav a { flex-direction: row; font-size: 1rem; margin: 0 1rem; padding: 0.5rem 1rem; flex-grow: 0; flex-basis: auto; }
-            #main-nav a i { margin-bottom: 0; margin-right: 0.5rem; font-size: 1.1rem; }
-            #main-nav a:hover { color: var(--color-accent-primary); transform: translateY(-2px); }
-            #collectible-counter { margin-left: 2rem; font-size: 0.9rem; padding: 0; }
-
-            .card:hover { transform: translateY(-8px); background-color: #3A3A5A; box-shadow: 0 0 15px rgba(0, 240, 255, 0.8); border-color: transparent; }
-            .card.active { border-color: var(--color-accent-primary); box-shadow: 0 0 20px rgba(0, 240, 255, 1); }
-            .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); }
-
-            .btn:hover { background-color: var(--color-btn-hover-bg); color: var(--color-btn-hover-text); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
-            #copy-email-btn { margin-top: 0; margin-left: 0.5rem; } /* Adjust layout */
-            #copy-email-btn:hover { background-color: var(--color-accent-primary); color: var(--color-btn-hover-text); }
-
-            #copy-confirm-message, #easter-egg-message { bottom: 20px; /* Lower position */ }
-
-            ::-webkit-scrollbar { width: 8px; }
-            ::-webkit-scrollbar-track { background: var(--color-bg-dark); }
-            ::-webkit-scrollbar-thumb { background: var(--color-accent-primary); border-radius: 4px; }
-            ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-secondary); }
-
-/* --- Custom Cursor Styles --- */
-#custom-cursor {
-  position: fixed;
-  top: 0; /* Reset top */
-  left: 0; /* Reset left */
-  width: 24px;
-  height: 24px;
-  border: 3px solid var(--color-accent-primary);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.12s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
-  mix-blend-mode: difference;
-  filter: drop-shadow(0 0 5px var(--color-accent-primary));
-  opacity: 0;
-  transform: translate(-50%, -50%); /* Center the circle */
-}
-#custom-cursor.visible { opacity: 1; }
-#custom-cursor.interactive {
-  width: 30px;
-  height: 30px;
-  border-color: var(--color-accent-secondary);
-  filter: drop-shadow(0 0 8px var(--color-accent-secondary));
-}
-
-            /* --- Particle Styles --- */
-            .particle {
-                position: fixed; width: 4px; height: 4px; background-color: var(--color-accent-secondary);
-                border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 1;
-                transform: translate(-50%, -50%) scale(1); transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-                filter: drop-shadow(0 0 3px var(--color-accent-secondary));
+            #main-nav a {
+                padding: 0.5rem;
             }
-
-             /* --- Ripple Effect Styles --- */
-            .ripple {
-                position: fixed; border-radius: 50%; background-color: rgba(0, 240, 255, 0.3);
-                pointer-events: none; transform: scale(0); animation: ripple-animation 0.8s ease-out forwards;
-                z-index: 999; transform-origin: center;
-            }
-            @keyframes ripple-animation { to { transform: scale(3); opacity: 0; } }
-
-             /* Collectible hover */
-             .collectible-icon:hover { opacity: 1; transform: scale(1.2); }
-
-        } /* End @media (min-width: 768px) */
-
-
-        /* --- Non-Desktop Specific Interactive Styles --- */
-
-        /* Canvas Background */
-        #interactive-bg-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none;
-        }
-
-        /* Hidden Easter Egg Element */
-         #hidden-easter-egg {
-            position: absolute; width: 30px; height: 30px; top: 5%; left: 5%; z-index: 10;
-            cursor: pointer; opacity: 0.001; /* Practically invisible */
-            -webkit-tap-highlight-color: transparent;
-        }
-        #hidden-easter-egg i { color: var(--color-accent-secondary); font-size: 20px; display: block; }
-
-        /* Glitch Effect */
-        .glitch { position: relative; animation: glitch-animation 0.5s infinite linear alternate; text-shadow: 2px 0 var(--color-accent-secondary), -2px 0 var(--color-accent-primary); }
-        .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; color: var(--color-text-light); }
-        .glitch::before { left: 2px; text-shadow: -2px 0 var(--color-accent-secondary); clip-path: polygon(0 5%, 100% 5%, 100% 10%, 0 10%); animation: glitch-animation-before 0.7s infinite linear alternate-reverse; }
-        .glitch::after { left: -2px; text-shadow: -2px 0 var(--color-accent-primary); clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%); animation: glitch-animation-after 0.9s infinite linear alternate-reverse; }
-        @keyframes glitch-animation { 0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); } 40% { transform: translate(-2px, -2px); } 60% { transform: translate(2px, 2px); } 80% { transform: translate(2px, -2px); } to { transform: translate(0); } }
-        @keyframes glitch-animation-before { 0% { clip-path: polygon(0 5%, 100% 5%, 100% 10%, 0 10%); } 100% { clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%); } }
-        @keyframes glitch-animation-after { 0% { clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%); } 100% { clip-path: polygon(0 35%, 100% 35%, 100% 40%, 0 40%); } }
-
-        /* Explicitly hide desktop features on touch devices */
-        @media (hover: none) and (pointer: coarse) {
-           body { cursor: default !important; }
-           #custom-cursor, .particle, .ripple { display: none !important; }
+            #collectible-counter { display: none; }
         }
 
     </style>
 </head>
 <body>
-
     <div id="custom-cursor"></div>
-
     <canvas id="interactive-bg-canvas"></canvas>
 
-    <div id="hidden-easter-egg">
-        <i class="fas fa-code"></i>
-    </div>
-
     <nav id="main-nav">
-        <a href="#home"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="#about"><i class="fas fa-user"></i><span>About</span></a>
-        <a href="#skills"><i class="fas fa-cogs"></i><span>Skills</span></a>
-        <a href="#gallery"><i class="fas fa-images"></i><span>Gallery</span></a>
-        <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
-        <span id="collectible-counter">
-             <i class="fas fa-star"></i>
-             <span id="collected-count">0</span>/<span id="total-collectibles">0</span>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <span id="collectible-counter" class="text-sm text-gray-400 flex items-center ml-4">
+            <i class="fas fa-star mr-2" style="color: var(--color-accent-secondary);"></i>
+            <span id="collected-count">0</span>/<span id="total-collectibles">0</span>
         </span>
     </nav>
 
-    <header class="relative" id="home">
-        <img src="https://drive.google.com/thumbnail?id=1Smgwqljb51TJbFPuqbpitH3Dzz3vocGr&sz=w1000" alt="Isaiah Chandler Headshot" class="responsive-img rounded-full object-cover mx-auto">
-        <h1 class="text-4xl md:text-6xl font-bold mb-3 md:mb-4"><span id="hero-title"></span></h1>
-        <p class="text-lg md:text-2xl text-gray-300 mb-6 md:mb-8">Bridging Creative Vision with Technical Execution</p>
-        <a href="#about" class="btn">Explore My Work</a>
+    <header class="h-screen flex flex-col justify-center items-center text-center px-4" id="home">
+        <img src="https://drive.google.com/thumbnail?id=1Smgwqljb51TJbFPuqbpitH3Dzz3vocGr&sz=w1000" alt="Isaiah Chandler Headshot" class="w-48 h-48 rounded-full mb-6 border-4 border-cyan-400 shadow-lg object-cover">
+        <h1 class="text-5xl md:text-7xl font-bold mb-3"><span id="hero-title"></span></h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-8">Creative Strategist | Digital Explorer</p>
+        <a href="#about" class="btn">Explore My Universe</a>
     </header>
 
-    <section id="about">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">My Approach</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <div class="card">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="approach-strategy"></i>
-                     <h3 class="text-xl font-semibold mb-3">Insight-Driven Strategy</h3>
-                     <p class="text-gray-300 text-highlight">I combine psychological principles with data analysis to craft strategies that not only capture attention but also drive meaningful engagement and achieve measurable outcomes.</p>
+    <main>
+        <section id="about">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-8">My Approach</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="text-2xl font-semibold mb-3">Strategic Thinking</h3>
+                        <p class="text-gray-300 text-highlight">Blending psychological insights with data-driven strategies to build impactful campaigns that resonate and convert.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-2xl font-semibold mb-3">Technical Execution</h3>
+                        <p class="text-gray-300 text-highlight">Leveraging tools and code to optimize processes, automate tasks, and measure performance effectively.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="approach-execution"></i>
-                    <h3 class="text-xl font-semibold mb-3">Precise Execution</h3>
-                    <p class="text-gray-300 text-highlight">Leveraging a toolkit of modern digital platforms and coding skills, I focus on optimizing workflows, automating processes, and ensuring flawless technical implementation.</p>
+                 <p class="text-center mt-12 text-gray-400">
+                    For a detailed breakdown of my experience, check out my <a href="https://docs.google.com/document/d/1MQ6gHrFDmRJ9moEIwyv7gDQFMT-ywIhIKomsEEyfAiM/edit?usp=sharing" target="_blank" class="font-semibold hover:underline" style="color: var(--color-accent-primary);">resume</a>.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold mb-12 text-center">Core Competencies</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="card text-center interactive-element" data-skill="strategy">
+                        <i class="fas fa-lightbulb text-4xl mb-4 text-cyan-400"></i>
+                        <h3 class="text-lg font-semibold">Campaign Strategy</h3>
+                    </div>
+                    <div class="card text-center interactive-element" data-skill="messaging">
+                        <i class="fas fa-comments text-4xl mb-4 text-cyan-400"></i>
+                        <h3 class="text-lg font-semibold">Psychology & Messaging</h3>
+                    </div>
+                    <div class="card text-center interactive-element" data-skill="tools">
+                        <i class="fas fa-tools text-4xl mb-4 text-cyan-400"></i>
+                        <h3 class="text-lg font-semibold">Tools & Optimization</h3>
+                    </div>
+                    <div class="card text-center interactive-element" data-skill="visual">
+                         <i class="fas fa-paint-brush text-4xl mb-4 text-cyan-400"></i>
+                         <h3 class="text-lg font-semibold">Visual Projects</h3>
+                    </div>
+                    <div class="card text-center interactive-element" data-skill="data">
+                        <i class="fas fa-chart-bar text-4xl mb-4 text-cyan-400"></i>
+                        <h3 class="text-lg font-semibold">Data Analysis</h3>
+                    </div>
+                    <div class="card text-center interactive-element" data-skill="coding">
+                        <i class="fas fa-code text-4xl mb-4 text-cyan-400"></i>
+                        <h3 class="text-lg font-semibold">Coding & Automation</h3>
+                    </div>
                 </div>
-                <div class="card">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="approach-creative"></i>
-                    <h3 class="text-xl font-semibold mb-3">Innovative Problem-Solving</h3>
-                    <p class="text-gray-300 text-highlight">Challenges are opportunities. I approach obstacles with curiosity and originality, developing unique solutions that push creative boundaries while delivering tangible results.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="approach-collab"></i>
-                    <h3 class="text-xl font-semibold mb-3">Collaborative Synergy</h3>
-                    <p class="text-gray-300 text-highlight">Great work happens together. I thrive in team environments, fostering clear communication and shared goals to bring complex projects to successful completion.</p>
+                <div id="skill-details" class="card mt-8 hidden">
+                    <h3 class="text-xl font-semibold mb-2" id="skill-title"></h3>
+                    <p class="text-gray-300" id="skill-description"></p>
                 </div>
             </div>
-             <p class="text-center mt-8 text-gray-400">
-                 For a detailed professional history, view my <a href="https://docs.google.com/document/d/1MQ6gHrFDmRJ9moEIwyv7gDQFMT-ywIhIKomsEEyfAiM/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style="color: var(--color-accent-primary);">resume</a>.
-            </p>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Core Competencies</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
-                <div class="card text-center interactive-element" data-skill="strategy">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="skill-strategy"></i>
-                    <i class="fas fa-lightbulb text-3xl md:text-4xl mb-2" style="color: var(--color-accent-primary);"></i>
-                    <h3 class="text-base md:text-lg font-semibold mb-1 md:mb-2">Campaign Strategy</h3>
-                    <p class="text-gray-400 text-xs md:text-sm">Details</p> </div>
-                 <div class="card text-center interactive-element" data-skill="messaging">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="skill-messaging"></i>
-                     <i class="fas fa-comments text-3xl md:text-4xl mb-2" style="color: var(--color-accent-primary);"></i>
-                     <h3 class="text-base md:text-lg font-semibold mb-1 md:mb-2">Psychology & Messaging</h3>
-                     <p class="text-gray-400 text-xs md:text-sm">Details</p>
-                 </div>
-                <div class="card text-center interactive-element" data-skill="tools">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="skill-tools"></i>
-                    <i class="fas fa-tools text-3xl md:text-4xl mb-2" style="color: var(--color-accent-primary);"></i>
-                    <h3 class="text-base md:text-lg font-semibold mb-1 md:mb-2">Digital Tools & Optimization</h3>
-                    <p class="text-gray-400 text-xs md:text-sm">Details</p>
-                </div>
-                 <div class="card text-center interactive-element" data-skill="visual">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="skill-visual"></i>
-                     <i class="fas fa-paint-brush text-3xl md:text-4xl mb-2" style="color: var(--color-accent-primary);"></i>
-                     <h3 class="text-base md:text-lg font-semibold mb-1 md:mb-2">Visual Communication</h3>
-                     <p class="text-gray-400 text-xs md:text-sm">Details</p>
-                 </div>
-                <div class="card text-center interactive-element" data-skill="data">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="skill-data"></i>
-                     <i class="fas fa-chart-bar text-3xl md:text-4xl mb-2" style="color: var(--color-accent-primary);"></i>
-                     <h3 class="text-base md:text-lg font-semibold mb-1 md:mb-2">Data Analysis & Insights</h3>
-                     <p class="text-gray-400 text-xs md:text-sm">Details</p>
-                 </div>
-                 <div class="card text-center interactive-element" data-skill="coding">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="skill-coding"></i>
-                     <i class="fas fa-code text-3xl md:text-4xl mb-2" style="color: var(--color-accent-primary);"></i>
-                     <h3 class="text-base md:text-lg font-semibold mb-1 md:mb-2">Coding & Automation</h3>
-                     <p class="text-gray-400 text-xs md:text-sm">Details</p>
+        </section>
+        
+        <section id="gallery">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-4xl font-bold mb-12 text-center">Visual Gallery</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=15k_zapx7H1n9hv_HvyO6k8zfgjUA55R7&sz=w1000" alt="Demo Event 1" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="demo-event-1"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1h0U7xaBX1ZEmQl-g__C-Hx9vrat__7tD&sz=w1000" alt="Demo Event 2" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="demo-event-2"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1Rv8sS6Xzfg9qzkLmREtVMTttugGGUYEE&sz=w1000" alt="Demo Event 3" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="demo-event-3"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=15AW6MAG7CZc5Hb8ZGVxdoY2D0z5R7PKU&sz=w1000" alt="Demo Event 4" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="demo-event-4"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000" alt="Suzanne's Bakery 1" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="bakery-1"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1yxVENqYHw3h5HzBQfoiP3c07AuiHypdY&sz=w1000" alt="Suzanne's Bakery 2" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="bakery-2"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=18twOl0U8H86yHCHyFeXuuFFNzNjVfJ2V&sz=w1000" alt="Suzanne's Bakery 3" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="bakery-3"></i></div>
+                    <div class="gallery-card"><img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000" alt="Humane Society Handout" class="gallery-img"><i class="fas fa-star collectible-icon" data-collectible-id="humane-society"></i></div>
                 </div>
             </div>
+        </section>
 
-            <div id="skill-details" class="card mt-6 md:mt-8">
-                 <div class="flex justify-between items-start">
-                     <h3 class="text-xl font-semibold mb-3" id="skill-title">Select a Skill</h3>
-                     <button id="close-skill-details" class="text-gray-400 hover:text-white text-2xl leading-none -mt-2 -mr-2">&times;</button>
-                 </div>
-                 <p class="text-gray-300" id="skill-description">Click on a skill card above to see the details here.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold mb-10 md:mb-12 text-center">Project Gallery</h2> <h3 class="text-2xl font-semibold mb-6 text-center text-highlight">Event Marketing Examples</h3> <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-12">
-                <div class="gallery-card interactive-element">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="demo-event-1"></i>
-                    <img src="https://drive.google.com/thumbnail?id=15k_zapx7H1n9hv_HvyO6k8zfgjUA55R7&sz=w1000" alt="Demo Event 1" class="gallery-img">
-                </div>
-                <div class="gallery-card interactive-element">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="demo-event-2"></i>
-                    <img src="https://drive.google.com/thumbnail?id=1h0U7xaBX1ZEmQl-g__C-Hx9vrat__7tD&sz=w1000" alt="Demo Event 2" class="gallery-img">
-                </div>
-                <div class="gallery-card interactive-element">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="demo-event-3"></i>
-                    <img src="https://drive.google.com/thumbnail?id=1Rv8sS6Xzfg9qzkLmREtVMTttugGGUYEE&sz=w1000" alt="Demo Event 3" class="gallery-img">
-                </div>
-                <div class="gallery-card interactive-element">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="demo-event-4"></i>
-                    <img src="https://drive.google.com/thumbnail?id=15AW6MAG7CZc5Hb8ZGVxdoY2D0z5R7PKU&sz=w1000" alt="Demo Event 4" class="gallery-img">
+        <section id="contact">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-4">Let's Create Together</h2>
+                <p class="text-xl text-gray-300 mb-8">Have a project in mind or just want to connect? Reach out.</p>
+                <a href="mailto:isaiahchandler5@gmail.com" class="btn">Say Hello</a>
+                 <div class="flex justify-center space-x-8 mt-12 text-3xl">
+                    <a href="https://www.linkedin.com/in/isaiah-chandler/" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/IChandler1" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github"></i></a>
                 </div>
             </div>
-
-            <h3 class="text-2xl font-semibold mb-6 text-center text-highlight">Small Business Branding</h3> <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-12">
-                 <div class="gallery-card interactive-element">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="bakery-1"></i>
-                     <img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000" alt="Suzanne's Bakery 1" class="gallery-img">
-                 </div>
-                 <div class="gallery-card interactive-element">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="bakery-2"></i>
-                     <img src="https://drive.google.com/thumbnail?id=1yxVENqYHw3h5HzBQfoiP3c07AuiHypdY&sz=w1000" alt="Suzanne's Bakery 2" class="gallery-img">
-                 </div>
-                 <div class="gallery-card interactive-element">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="bakery-3"></i>
-                     <img src="https://drive.google.com/thumbnail?id=18twOl0U8H86yHCHyFeXuuFFNzNjVfJ2V&sz=w1000" alt="Suzanne's Bakery 3" class="gallery-img">
-                 </div>
-                 <div class="gallery-card interactive-element">
-                     <i class="fas fa-star collectible-icon" data-collectible-id="bakery-4"></i>
-                     <img src="https://drive.google.com/thumbnail?id=1b1VgDzm6_GxWIEL9DJjMsRJnM-yE2-g9&sz=w1000" alt="Suzanne's Bakery 4" class="gallery-img">
-                 </div>
-            </div>
-
-            <h3 class="text-2xl font-semibold mb-6 text-center text-highlight">Non-Profit Support</h3> <div class="max-w-xl mx-auto">
-                 <div class="card interactive-element">
-                    <i class="fas fa-star collectible-icon" data-collectible-id="humane-society"></i>
-                    <h4 class="text-xl font-semibold mb-4">Humane Society Outreach</h4>
-                    <img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000" alt="Humane Society Handout" class="responsive-img mb-4">
-                     <p class="text-gray-300 mb-4 text-highlight">Developed promotional materials for a local Humane Society adoption event, focusing on clear calls-to-action and visually engaging design to maximize community participation.</p>
-                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="max-w-2xl mx-auto text-center px-4">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8">Let's Collaborate</h2> <p class="text-lg md:text-xl text-gray-300 mb-8">Interested in discussing a project or learning more? I'm always open to new opportunities and connections. Reach out!</p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
-                 <a href="mailto:isaiahchandler5@gmail.com" class="btn w-full sm:w-auto">Email Me</a>
-                 <button id="copy-email-btn" class="btn w-full sm:w-auto">Copy Email</button>
-             </div>
-
-             <div class="flex justify-center space-x-6 mt-10">
-                 <a href="https://www.linkedin.com/in/isaiah-chandler/" target="_blank" rel="noopener noreferrer" class="text-3xl transition-colors duration-300 text-gray-400 hover:text-[var(--color-accent-primary)]" aria-label="LinkedIn Profile">
-                     <i class="fab fa-linkedin"></i>
-                 </a>
-                 <a href="https://islayah5.github.io/isaiah-portfolio/" target="_blank" rel="noopener noreferrer" class="text-3xl transition-colors duration-300 text-gray-400 hover:text-[var(--color-accent-primary)]" aria-label="GitHub Profile">
-                     <i class="fab fa-github"></i>
-                 </a>
-            </div>
-        </div>
-    </section>
-
-    <div id="copy-confirm-message">Email copied!</div>
-    <div id="easter-egg-message">Wow, a secret message!</div>
-
-
+        </section>
+    </main>
+    
     <script>
-        console.log("SCRIPT START: Basic script execution begins.");
+    document.addEventListener('DOMContentLoaded', () => {
+        const body = document.body;
+        const cursor = document.getElementById('custom-cursor');
+        const interactiveElements = document.querySelectorAll('a, .interactive-element, .gallery-card, .collectible-icon');
+        const heroTitleElement = document.getElementById('hero-title');
+        const heroTitleText = "Isaiah Chandler";
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('#main-nav a');
+        const skillCards = document.querySelectorAll('#skills .interactive-element');
+        const skillDetails = document.getElementById('skill-details');
+        const skillTitle = document.getElementById('skill-title');
+        const skillDescription = document.getElementById('skill-description');
+        const collectibleIcons = document.querySelectorAll('.collectible-icon');
+        const collectedCountSpan = document.getElementById('collected-count');
+        const totalCollectiblesSpan = document.getElementById('total-collectibles');
+        const collectedStateKey = 'isaiah_portfolio_collected_v2';
+        let collectedState = {};
 
-        // --- Basic Setup & Utility ---
-        const isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-        console.log("Device Info: Is Touch =", isTouchDevice);
+        // --- Sound Engine ---
+        let toneStarted = false;
+        const synths = {};
+        if (typeof Tone !== 'undefined') {
+            synths.hover = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.05, release: 0.1 }, volume: -25 }).toDestination();
+            synths.click = new Tone.PluckSynth({ attackNoise: 0.5, dampening: 4000, resonance: 0.7, volume: -10 }).toDestination();
+            synths.collect = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.01, decay: 0.2, sustain: 0.1, release: 0.4 }, volume: -15 }).toDestination();
+        }
+        const startTone = () => { if (Tone && !toneStarted) { Tone.start().then(() => toneStarted = true); } };
+        document.documentElement.addEventListener('mousedown', startTone, { once: true });
+        document.documentElement.addEventListener('touchstart', startTone, { once: true });
+        const playSound = (sound, note = "C4") => {
+            if (toneStarted && synths[sound]) {
+                if(synths[sound].triggerAttackRelease) synths[sound].triggerAttackRelease(note, "8n");
+            }
+        };
 
-        // --- Aggressive Visibility - Add 'loaded' class ASAP ---
-        function makeBodyVisible() {
-            if (!document.body.classList.contains('loaded')) {
-                console.log("VISIBILITY: Adding 'loaded' class.");
-                document.body.classList.add('loaded');
-                if (window.getComputedStyle(document.body).opacity === '0') {
-                     console.warn("VISIBILITY: Forcing opacity style!");
-                     document.body.style.opacity = '1';
-                }
+        // --- Typing Effect ---
+        let charIndex = 0;
+        function typeWriter() {
+            if (charIndex < heroTitleText.length) {
+                heroTitleElement.textContent += heroTitleText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 120);
             }
         }
 
-        // Try on DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log("EVENT: DOMContentLoaded fired.");
-            makeBodyVisible();
-            try {
-                 console.log("DOM READY INIT: Setting up DOM-dependent listeners.");
-                 initializeCollectibles();
-                 updateActiveNavLink();
-                 setupNavClickListeners();
-                 setupSkillCardListeners(); // Pass updated content
-                 setupCopyButton();
-                 setupEasterEggListeners();
-             } catch(e) { console.error("Error in DOMContentLoaded initializations:", e); }
-        });
-
-        // Fallback and deferred setup on window.onload
-        window.onload = function() {
-            console.log("EVENT: window.onload fired.");
-            makeBodyVisible(); // Fallback visibility check
-            try {
-                console.log("ONLOAD INIT: Starting deferred tasks.");
-                setupToneJS();
-                if (typeof typeWriter === 'function') { setTimeout(typeWriter, 100); }
-                initCanvasBackground();
-             } catch (error) { console.error("Error during window.onload:", error); }
-        };
-
-        // --- Tone.js Setup ---
-        let toneStarted = false;
-        let clickSynth, glitchNoise, distortion, easterEggSynth, iconEasterEggSynth, collectibleSynth;
-        function setupToneJS() { /* ... (Tone.js setup logic same as previous version) ... */
-            console.log("ToneJS: Setting up...");
-            if (typeof Tone !== 'undefined') {
-                try {
-                    clickSynth = new Tone.PluckSynth({ attackNoise: 0.8, dampening: 4000, resonance: 0.8 }).toDestination();
-                    glitchNoise = new Tone.NoiseSynth({ noise: { type: 'pink' }, envelope: { attack: 0.001, decay: 0.05, sustain: 0 } });
-                    distortion = new Tone.Distortion(0.6).toDestination();
-                    glitchNoise.connect(distortion);
-                    easterEggSynth = new Tone.DuoSynth({ voice0: { oscillator: { type: 'triangle' }, envelope: { attack: 0.02, decay: 0.1, sustain: 0.2, release: 0.5 } }, voice1: { oscillator: { type: 'sine' }, envelope: { attack: 0.05, decay: 0.1, sustain: 0.1, release: 0.4 } }, vibratoAmount: 0.3, vibratoRate: 5 }).toDestination();
-                    easterEggSynth.volume.value = -12;
-                    iconEasterEggSynth = new Tone.Synth({ oscillator: { type: 'square' }, envelope: { attack: 0.01, decay: 0.1, sustain: 0, release: 0.1 } }).toDestination();
-                    iconEasterEggSynth.volume.value = -15;
-                    collectibleSynth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.05, release: 0.3 }, volume: -10 }).toDestination();
-                    console.log("ToneJS: Synths created.");
-                    const startToneInteraction = () => { if (typeof Tone !== 'undefined' && !toneStarted && Tone.context && Tone.context.state !== 'running') { Tone.start().then(() => { toneStarted = true; console.log("ToneJS: AudioContext started."); document.documentElement.removeEventListener('mousedown', startToneInteraction); document.documentElement.removeEventListener('touchstart', startToneInteraction); }).catch(e => console.error("Tone.start() failed:", e)); } else if (typeof Tone !== 'undefined' && Tone.context && Tone.context.state === 'running'){ toneStarted = true; document.documentElement.removeEventListener('mousedown', startToneInteraction); document.documentElement.removeEventListener('touchstart', startToneInteraction);}};
-                    document.documentElement.addEventListener('mousedown', startToneInteraction, { once: true });
-                    document.documentElement.addEventListener('touchstart', startToneInteraction, { once: true, passive: true });
-                    console.log("ToneJS: Interaction listeners added.");
-                } catch (error) { console.error("Error initializing Tone.js synths:", error); }
-            } else { console.warn("Tone.js not loaded/defined. Sounds disabled."); }
-        }
-        // --- Sound Play Functions ---
-        function playClickSound() { if (toneStarted && clickSynth) clickSynth.triggerAttackRelease("C4", "8n", Tone.now()); }
-        function playGlitchSound() { if (toneStarted && glitchNoise) glitchNoise.triggerAttackRelease("0.1", Tone.now()); }
-        function playEasterEggSound() { if (toneStarted && easterEggSynth) easterEggSynth.triggerAttackRelease("C4", "0.5", Tone.now()); }
-        function playIconEasterEggSound() { if (toneStarted && iconEasterEggSynth) iconEasterEggSynth.triggerAttackRelease("G5", "16n", Tone.now()); }
-        function playCollectibleSound() { if (toneStarted && collectibleSynth) collectibleSynth.triggerAttackRelease("E5", "8n", Tone.now()); }
-
-
-        // --- Section Fade-in ---
-        try { /* ... (IntersectionObserver logic same as previous version) ... */
-            const sections = document.querySelectorAll('section, header#home');
-            if (sections.length > 0 && typeof IntersectionObserver !== 'undefined') {
-                console.log("Setting up IntersectionObserver for sections.");
-                const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
-                const sectionObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } }); }, observerOptions);
-                sections.forEach(section => sectionObserver.observe(section));
-            } else { console.warn("IntersectionObserver not supported or no sections found. Making sections visible."); document.querySelectorAll('section, header#home').forEach(s => s.classList.add('is-visible'));}
-        } catch (error) { console.error("Error setting up IntersectionObserver:", error); document.querySelectorAll('section, header#home').forEach(s => s.classList.add('is-visible'));}
-
-        // --- Typing Effect ---
-        const heroTitleElement = document.getElementById('hero-title');
-        const heroTitleText = "Isaiah Chandler";
-        let charIndex = 0;
-        function typeWriter() { if (heroTitleElement && charIndex < heroTitleText.length) { heroTitleElement.textContent += heroTitleText.charAt(charIndex); charIndex++; setTimeout(typeWriter, 100); } }
-
-        // --- Skill Card Interactivity ---
-        // UPDATED skillContent with more descriptive text
-        const skillContent = {
-            strategy: { title: "Campaign Strategy", description: "Designing and executing end-to-end marketing campaigns informed by user psychology, journey mapping, and data analytics. Expertise includes SEO, SEM, content strategy, and multi-channel social media planning focused on achieving specific business objectives and ROI." },
-            messaging: { title: "Psychology & Messaging", description: "Applying principles of cognitive psychology and behavioral economics to craft resonant narratives, value propositions, and calls-to-action. Proficient in A/B testing methodologies to optimize messaging for maximum impact and conversion." },
-            tools: { title: "Digital Tools & Optimization", description: "Skilled in utilizing marketing automation platforms, analytics suites, CRM systems, and various optimization tools. Focused on streamlining workflows, improving campaign performance, and generating actionable reports." },
-            visual: { title: "Visual Communication", description: "Creating compelling visual assets for digital platforms and email templates, including social media graphics, website elements, presentations, and basic video content. Strong understanding of design principles and limited experience with tools like Figma, Canva, and Adobe Creative Suite fundamentals." },
-            data: { title: "Data Analysis & Insights", description: "Collecting, interpreting, and visualizing marketing data to uncover trends, measure campaign effectiveness (ROI), and inform strategic pivots. Experience with basic tools for clear data presentation." },
-            coding: { title: "Coding & Automation", description: "Leveraging HTML, CSS, and JavaScript for front-end development, landing page customization, and interactive elements. Utilizing scripting languages to automate repetitive tasks, process data, and enhance marketing efficiency." }
-        };
-        function setupSkillCardListeners() { /* ... (Setup logic same, uses updated skillContent object) ... */
-            const skillCards = document.querySelectorAll('#skills .interactive-element');
-            const skillDetails = document.getElementById('skill-details');
-            const skillTitle = document.getElementById('skill-title');
-            const skillDescription = document.getElementById('skill-description');
-            const closeSkillDetailsBtn = document.getElementById('close-skill-details');
-            let activeSkillCard = null;
-            if (!skillCards.length || !skillDetails || !skillTitle || !skillDescription || !closeSkillDetailsBtn) { console.warn("Skill card elements missing, skipping listeners setup."); return; }
-            console.log("Setting up skill card listeners.");
-            skillCards.forEach(card => {
-                 card.addEventListener('click', (e) => {
-                     if (e.target.closest('.collectible-icon')) return;
-                     playClickSound();
-                     const skillKey = card.getAttribute('data-skill');
-                     const content = skillContent[skillKey]; // Uses the updated content object
-                     if (content) {
-                         if (activeSkillCard) activeSkillCard.classList.remove('active');
-                         card.classList.add('active'); activeSkillCard = card;
-                         skillTitle.textContent = content.title; skillDescription.textContent = content.description;
-                         skillDetails.classList.add('visible');
-                         if (!isTouchDevice && typeof triggerCanvasBurst === 'function') { const rect = card.getBoundingClientRect(); triggerCanvasBurst(rect.left + rect.width / 2, rect.top + rect.height / 2); }
-                     }
-                 });
+        // --- Custom Cursor ---
+        if (window.matchMedia("(pointer: fine)").matches) {
+            let mouseX = -100, mouseY = -100;
+            document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+            const updateCursor = () => {
+                if (cursor) cursor.style.transform = `translate(${mouseX - cursor.offsetWidth / 2}px, ${mouseY - cursor.offsetHeight / 2}px)`;
+                requestAnimationFrame(updateCursor);
+            };
+            updateCursor();
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('interactive');
+                    playSound('hover', 'A5');
+                });
+                el.addEventListener('mouseleave', () => cursor.classList.remove('interactive'));
             });
-            closeSkillDetailsBtn.addEventListener('click', () => { playClickSound(); skillDetails.classList.remove('visible'); if (activeSkillCard) { activeSkillCard.classList.remove('active'); activeSkillCard = null; } });
+        } else {
+            if(cursor) cursor.style.display = 'none';
         }
 
-        // --- Copy Email Button ---
-        function setupCopyButton() { /* ... (Setup logic same) ... */
-            const copyEmailBtn = document.getElementById('copy-email-btn');
-            const emailAddress = 'isaiahchandler5@gmail.com';
-            const copyConfirmMessage = document.getElementById('copy-confirm-message');
-            if (!copyEmailBtn || !copyConfirmMessage) { console.warn("Copy email button/message element missing, skipping setup."); return; }
-            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-                console.log("Setting up copy email button listener.");
-                copyEmailBtn.addEventListener('click', () => { navigator.clipboard.writeText(emailAddress).then(() => { copyConfirmMessage.classList.add('visible'); playClickSound(); setTimeout(() => { copyConfirmMessage.classList.remove('visible'); }, 2000); }).catch(err => { console.error('Failed to copy email: ', err); alert('Failed to copy email. Please try manually.'); }); });
-            } else { console.warn("Clipboard API (writeText) not supported. Hiding copy button."); copyEmailBtn.style.display = 'none'; }
-        }
+        // --- Section Observer ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
 
-        // --- Easter Eggs ---
-        // ... (Easter egg variables and helper functions: showEasterEgg, checkSequence, triggerGlitchEffect same) ...
-        function setupEasterEggListeners() { /* ... (Setup logic same) ... */
-             const hiddenEasterEggElement = document.getElementById('hidden-easter-egg');
-             const mainHeading = document.querySelector('#home h1');
-             if (mainHeading) { console.log("Setting up heading click listener for easter egg."); mainHeading.addEventListener('click', () => { headingClickCount++; playClickSound(); if (headingClickCount >= glitchThreshold) { showEasterEgg(`Whoa, ${headingClickCount} clicks... feeling glitchy?`); triggerGlitchEffect(mainHeading); } }); } else { console.warn("Main heading not found for click easter egg."); }
-             if (hiddenEasterEggElement) { console.log("Setting up hidden icon click listener for easter egg."); hiddenEasterEggElement.addEventListener('click', () => { console.log("Hidden icon clicked!"); playIconEasterEggSound(); showEasterEgg("You found the invisible button!"); if (!isTouchDevice && typeof triggerCanvasBurst === 'function') { const rect = hiddenEasterEggElement.getBoundingClientRect(); triggerCanvasBurst(rect.left + rect.width / 2, rect.top + rect.height / 2); } }); } else { console.warn("Hidden easter egg element not found."); }
-             console.log("Setting up Konami code listener."); document.addEventListener('keydown', (e) => { if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) { konamiIndex++; if (konamiIndex === konamiCode.length) { showEasterEgg("Konami code activated!"); triggerGlitchEffect(document.body); konamiIndex = 0; } } else { konamiIndex = 0; } });
-        }
+        // --- Nav Active State ---
+        const updateActiveNavLink = () => {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 150) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active-nav', link.getAttribute('href') === `#${currentSectionId}`);
+            });
+        };
 
-        // --- Custom Cursor & Particles (Desktop Only) ---
-        // ... (Setup logic including createParticle same as previous version) ...
-        const customCursor = document.getElementById('custom-cursor');
-        let mouse = { x: -100, y: -100 };
-        function createParticle(x, y) { if (isTouchDevice || !document.body) return; const particle = document.createElement('div'); particle.classList.add('particle'); document.body.appendChild(particle); particle.style.left = `${x}px`; particle.style.top = `${y}px`; const angle = Math.random() * Math.PI * 2; const distance = Math.random() * 40 + 20; const dx = Math.cos(angle) * distance; const dy = Math.sin(angle) * distance; requestAnimationFrame(() => { particle.style.transform = `translate(${dx}px, ${dy}px) scale(0)`; particle.style.opacity = '0'; }); particle.addEventListener('transitionend', () => particle.remove()); }
-        if (!isTouchDevice && customCursor) { console.log("Setting up custom cursor & particles for desktop."); let cursorVisible = false; let isInteractive = false; let cursorAnimFrame; document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; if (!cursorVisible) { customCursor.classList.add('visible'); cursorVisible = true; } if (Math.random() < 0.08) { createParticle(mouse.x, mouse.y); } }, { passive: true }); function updateCursor() { const scale = isInteractive ? 1.2 : 1; const cursorSize = 24 * scale; customCursor.style.transform = `translate(${mouse.x - cursorSize / 2}px, ${mouse.y - cursorSize / 2}px) scale(${scale})`; cursorAnimFrame = requestAnimationFrame(updateCursor); } updateCursor(); document.querySelectorAll('a, .btn, .card.interactive-element, #hidden-easter-egg, .collectible-icon, .gallery-card, .text-highlight').forEach(interactiveEl => { interactiveEl.addEventListener('mouseenter', () => { customCursor.classList.add('interactive'); isInteractive = true; }); interactiveEl.addEventListener('mouseleave', () => { customCursor.classList.remove('interactive'); isInteractive = false; }); }); document.addEventListener('mouseleave', () => { customCursor.classList.remove('visible'); cursorVisible = false; }); document.addEventListener('mouseenter', () => { if (!cursorVisible && mouse.x > -100) { customCursor.classList.add('visible'); cursorVisible = true; } }); } else if (customCursor) { customCursor.style.display = 'none'; console.log("Hiding custom cursor for touch device."); }
-
-        // --- Interactive Background Canvas ---
-        // ... (BgParticle class, init/animate/burst/getPositions functions same as previous version) ...
-        const canvas = document.getElementById('interactive-bg-canvas'); const ctx = canvas ? canvas.getContext('2d') : null; let particlesArray = []; let canvasAnimFrameId = null; let interactiveElementPositions = [];
-        class BgParticle { constructor(x, y, canvasWidth, canvasHeight) { this.x = x; this.y = y; this.canvasWidth = canvasWidth; this.canvasHeight = canvasHeight; this.size = Math.random() * 1.5 + 1; this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3; this.baseColor = `rgba(0, 240, 255, ${Math.random() * 0.3 + 0.1})`; this.influenceRadius = 80; this.repelForce = 0.5; } update(mousePos, elementPositions) { if (mousePos.x !== null) { const dx = this.x - mousePos.x; const dy = this.y - mousePos.y; const distSq = dx * dx + dy * dy; if (distSq < this.influenceRadius * this.influenceRadius) { const dist = Math.sqrt(distSq); const force = (this.influenceRadius - dist) / this.influenceRadius * this.repelForce; this.vx += (dx / dist) * force; this.vy += (dy / dist) * force; } } elementPositions.forEach(pos => { const dx = this.x - pos.x; const dy = this.y - pos.y; const distSq = dx * dx + dy * dy; const elRadius = this.influenceRadius * 0.8; if (distSq < elRadius * elRadius) { const dist = Math.sqrt(distSq); const force = (elRadius - dist) / elRadius * (this.repelForce * 0.6); this.vx += (dx / dist) * force; this.vy += (dy / dist) * force; } }); this.vx *= 0.96; this.vy *= 0.96; this.x += this.vx; this.y += this.vy; if (this.x < 0) this.x = this.canvasWidth; if (this.x > this.canvasWidth) this.x = 0; if (this.y < 0) this.y = this.canvasHeight; if (this.y > this.canvasHeight) this.y = 0; } draw(context) { context.fillStyle = this.baseColor; context.beginPath(); context.arc(this.x, this.y, this.size, 0, Math.PI * 2); context.fill(); } }
-        function initCanvasBackground() { if (!canvas || !ctx) { console.warn("Canvas not found, skipping background init."); return; } console.log("Canvas Init: Setting up canvas size and particles."); canvas.width = window.innerWidth; canvas.height = window.innerHeight; particlesArray = []; const particleCount = isTouchDevice ? 25 : Math.min(50, Math.floor(canvas.width / 30)); console.log(`Canvas Init: Creating ${particleCount} particles.`); for (let i = 0; i < particleCount; i++) { particlesArray.push(new BgParticle( Math.random() * canvas.width, Math.random() * canvas.height, canvas.width, canvas.height )); } getInteractiveElementPositions(); if (!canvasAnimFrameId) { animateCanvasBackground(); } else { console.log("Canvas animation already running."); } }
-        function animateCanvasBackground() { if (!ctx || !canvas) { cancelAnimationFrame(canvasAnimFrameId); canvasAnimFrameId = null; return; } ctx.fillStyle = `rgba(26, 26, 46, ${isTouchDevice ? 0.4 : 0.25})`; ctx.fillRect(0, 0, canvas.width, canvas.height); particlesArray.forEach(p => { p.update(mouse, interactiveElementPositions); p.draw(ctx); }); const maxLineDist = isTouchDevice ? 60 : 80; const lineOpacity = isTouchDevice ? 0.15 : 0.3; ctx.lineWidth = 0.5; for (let a = 0; a < particlesArray.length; a++) { for (let b = a + 1; b < particlesArray.length; b++) { const dx = particlesArray[a].x - particlesArray[b].x; const dy = particlesArray[a].y - particlesArray[b].y; const distSq = dx * dx + dy * dy; if (distSq < maxLineDist * maxLineDist) { const opacity = (1 - Math.sqrt(distSq) / maxLineDist) * lineOpacity; ctx.strokeStyle = `rgba(0, 240, 255, ${opacity})`; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke(); } } } canvasAnimFrameId = requestAnimationFrame(animateCanvasBackground); }
-        function triggerCanvasBurst(x, y, count = 10, force = 2.5) { if (isTouchDevice || !particlesArray || !canvas) return; particlesArray.forEach(p => { const dx = p.x - x; const dy = p.y - y; const distSq = dx * dx + dy * dy; const burstRadius = 100; if (distSq < burstRadius * burstRadius) { const dist = Math.sqrt(distSq); const burstForce = (burstRadius - dist) / burstRadius * force; p.vx += (dx / dist) * burstForce; p.vy += (dy / dist) * burstForce; } }); }
-        function getInteractiveElementPositions() { interactiveElementPositions = []; document.querySelectorAll('.card.interactive-element, .btn, #hidden-easter-egg').forEach(el => { const rect = el.getBoundingClientRect(); if (rect.bottom > -50 && rect.top < window.innerHeight + 50) { interactiveElementPositions.push({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }); } }); }
-
-
-        // --- Global Event Listeners ---
-        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-        window.addEventListener('touchmove', (e) => { if (e.touches.length > 0) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; } }, { passive: true });
-        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-        window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
-
-        // --- Debounced Resize Handler ---
-        let resizeTimeout; window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { console.log("Debounced Resize: Re-init canvas & update UI."); if (canvasAnimFrameId) { cancelAnimationFrame(canvasAnimFrameId); canvasAnimFrameId = null; } initCanvasBackground(); updateActiveNavLink(); getInteractiveElementPositions(); }, 250); });
-
-        // --- Debounced Scroll Handler ---
-        let scrollTimeout; document.addEventListener('scroll', () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(() => { getInteractiveElementPositions(); updateActiveNavLink(); }, 150); }, { passive: true });
-
-        // --- Navigation Link Handling ---
-        function updateActiveNavLink() { /* ... (Logic same as previous version) ... */
-             const navLinksForUpdate = document.querySelectorAll('#main-nav a[href^="#"]'); const sectionsForNavUpdate = document.querySelectorAll('section[id], header[id]'); if (!navLinksForUpdate.length || !sectionsForNavUpdate.length) return; let currentSectionId = ''; const scrollPosition = window.scrollY; const navHeight = document.getElementById('main-nav')?.offsetHeight || 60; const offset = window.innerWidth >= 768 ? navHeight + 30 : 50; const detectionPoint = scrollPosition + offset; sectionsForNavUpdate.forEach(section => { if (section.offsetTop <= detectionPoint && (section.offsetTop + section.offsetHeight) > detectionPoint) { currentSectionId = section.getAttribute('id'); } }); if (!currentSectionId && scrollPosition < sectionsForNavUpdate[0].offsetTop) { currentSectionId = sectionsForNavUpdate[0].id; } if ((window.innerHeight + scrollPosition + 15) >= document.body.offsetHeight) { const lastSection = sectionsForNavUpdate[sectionsForNavUpdate.length - 1]; if (lastSection) currentSectionId = lastSection.id; } navLinksForUpdate.forEach(link => { const linkHref = link.getAttribute('href'); if (linkHref === `#${currentSectionId}`) { link.classList.add('active-nav'); } else { link.classList.remove('active-nav'); } });
-        }
-        function setupNavClickListeners() { /* ... (Logic same as previous version) ... */
-             const navLinksForClick = document.querySelectorAll('#main-nav a[href^="#"]'); if (!navLinksForClick.length) { console.warn("Nav links not found, skipping click listeners setup."); return; } console.log("Setting up nav link click listeners."); navLinksForClick.forEach(link => { link.addEventListener('click', function(event) { event.preventDefault(); const targetId = this.getAttribute('href'); const targetElement = document.querySelector(targetId); if (targetElement) { playClickSound(); const navHeight = document.getElementById('main-nav')?.offsetHeight || 0; const offset = window.innerWidth >= 768 ? navHeight : -5; const targetPosition = targetElement.offsetTop - offset; window.scrollTo({ top: targetPosition, behavior: 'smooth' }); navLinksForClick.forEach(l => l.classList.remove('active-nav')); this.classList.add('active-nav'); checkSequence(targetId); } else { console.warn("Target element not found for nav link:", targetId); } }); });
-        }
-
-        // --- Ripple Effect (Desktop Only) ---
-        function createRipple(e) { /* ... (Logic same as previous version) ... */
-             if (isTouchDevice || !document.body) return; const ripple = document.createElement('div'); ripple.classList.add('ripple'); document.body.appendChild(ripple); const size = Math.max(window.innerWidth, window.innerHeight) * 0.04; ripple.style.width = `${size}px`; ripple.style.height = `${size}px`; const clientX = e.clientX || mouse.x || 0; const clientY = e.clientY || mouse.y || 0; ripple.style.left = `${clientX - size / 2}px`; ripple.style.top = `${clientY - size / 2}px`; ripple.addEventListener('animationend', () => ripple.remove());
-        }
-        if (!isTouchDevice) { console.log("Setting up ripple effect listener."); document.addEventListener('click', createRipple); }
-
+        // --- Skills Section ---
+        const skillContent = {
+            strategy: { title: "Campaign Strategy", description: "Developing data-driven marketing strategies focusing on user psychology and journey mapping to achieve measurable business goals." },
+            messaging: { title: "Psychology & Messaging", description: "Crafting compelling narratives and messaging that resonate with target audiences by applying principles of cognitive psychology." },
+            tools: { title: "Tools & Optimization", description: "Proficient with marketing automation platforms, analytics suites, and CRM systems to streamline workflows and improve campaign performance." },
+            visual: { title: "Visual Projects", description: "Creating engaging visual content including graphics, presentations, and basic video editing, guided by strong design principles." },
+            data: { title: "Data Analysis", description: "Analyzing marketing data to identify trends, measure ROI, and inform strategic decisions, using tools like Google Analytics and Looker Studio." },
+            coding: { title: "Coding & Automation", description: "Utilizing HTML, CSS, JavaScript, and scripting for front-end development and automating repetitive marketing tasks." }
+        };
+        skillCards.forEach(card => {
+            card.addEventListener('click', () => {
+                playSound('click');
+                const skillKey = card.dataset.skill;
+                if (skillContent[skillKey]) {
+                    skillTitle.textContent = skillContent[skillKey].title;
+                    skillDescription.textContent = skillContent[skillKey].description;
+                    skillDetails.classList.remove('hidden');
+                    skillDetails.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+        
         // --- Collectible System ---
-        // ... (Logic and helper functions: initializeCollectibles, handleCollectClick, collectCollectible, triggerFinalEasterEgg same as previous version) ...
-        const collectedStateKey = 'isaiah_portfolio_collected_v3'; let collectedState = {}; let collectedCount = 0;
-        function initializeCollectibles() { console.log("Collectible Init: Starting."); const collectibleIcons = document.querySelectorAll('.collectible-icon'); const collectedCountSpan = document.getElementById('collected-count'); const totalCollectiblesSpan = document.getElementById('total-collectibles'); const totalCollectibles = collectibleIcons.length; if (!collectedCountSpan || !totalCollectiblesSpan || totalCollectibles === 0) { console.warn("Collectible counter/icons missing."); const counterElement = document.getElementById('collectible-counter'); if (counterElement) counterElement.style.display = 'none'; return; } try { const saved = localStorage.getItem(collectedStateKey); collectedState = saved ? JSON.parse(saved) : {}; } catch (e) { console.error("Collectible Init: localStorage parse error:", e); collectedState = {}; } collectedCount = 0; collectibleIcons.forEach(icon => { const collectibleId = icon.getAttribute('data-collectible-id'); if (!collectibleId) { console.warn("Collectible Init: Icon missing ID."); return; } if (collectedState[collectibleId]) { icon.classList.add('collected'); collectedCount++; } else { icon.classList.remove('collected'); icon.removeEventListener('click', handleCollectClick); icon.addEventListener('click', handleCollectClick); } }); totalCollectiblesSpan.textContent = totalCollectibles; collectedCountSpan.textContent = collectedCount; console.log(`Collectible Init: Finished. ${collectedCount}/${totalCollectibles}.`); }
-        function handleCollectClick(event) { event.stopPropagation(); collectCollectible(event.currentTarget); }
-        function collectCollectible(icon) { if (!icon || icon.classList.contains('collected')) return; const collectibleId = icon.getAttribute('data-collectible-id'); if (!collectibleId) return; console.log("Collecting:", collectibleId); collectedState[collectibleId] = true; try { localStorage.setItem(collectedStateKey, JSON.stringify(collectedState)); } catch (e) { console.error("Collectible Save Error:", e); } collectedCount++; const countSpan = document.getElementById('collected-count'); if(countSpan) countSpan.textContent = collectedCount; playCollectibleSound(); icon.classList.add('collected'); icon.removeEventListener('click', handleCollectClick); if (!isTouchDevice && typeof triggerCanvasBurst === 'function') { const rect = icon.getBoundingClientRect(); triggerCanvasBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 8, 2); } const totalSpan = document.getElementById('total-collectibles'); const totalCollectibles = totalSpan ? parseInt(totalSpan.textContent || '0', 10) : 0; if (totalCollectibles > 0 && collectedCount === totalCollectibles) { triggerFinalEasterEgg(); } }
-        function triggerFinalEasterEgg() { console.log("All collectibles found!"); showEasterEgg("You found all the hidden gems! ✨"); if (!isTouchDevice && particlesArray) { particlesArray.forEach(p => { p.repelForce *= 1.5; p.influenceRadius *= 1.2; }); setTimeout(() => { particlesArray.forEach(p => { p.repelForce /= 1.5; p.influenceRadius /= 1.2; }); }, 2000); } }
+        function initializeCollectibles() {
+            try {
+                const saved = localStorage.getItem(collectedStateKey);
+                collectedState = saved ? JSON.parse(saved) : {};
+            } catch (e) { collectedState = {}; }
+            
+            collectibleIcons.forEach(icon => {
+                const id = icon.dataset.collectibleId;
+                if (collectedState[id]) {
+                    icon.classList.add('collected');
+                }
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (!icon.classList.contains('collected')) {
+                        playSound('collect', 'E5');
+                        icon.classList.add('collected');
+                        collectedState[id] = true;
+                        localStorage.setItem(collectedStateKey, JSON.stringify(collectedState));
+                        updateCollectedCount();
+                    }
+                });
+            });
+            updateCollectedCount();
+        }
 
-        // --- Final Log ---
-        console.log("SCRIPT END: Initial script parsing finished.");
+        function updateCollectedCount() {
+            const count = Object.keys(collectedState).length;
+            if(collectedCountSpan) collectedCountSpan.textContent = count;
+            if(totalCollectiblesSpan) totalCollectiblesSpan.textContent = collectibleIcons.length;
+        }
 
+        // --- Background Canvas ---
+        const canvas = document.getElementById('interactive-bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const numParticles = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 170, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        // --- Init ---
+        body.classList.add('loaded');
+        typeWriter();
+        updateActiveNavLink();
+        initializeCollectibles();
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('scroll', updateActiveNavLink);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            initParticles();
+        });
+        document.querySelectorAll('.btn, #main-nav a').forEach(el => el.addEventListener('click', () => playSound('click')));
+    });
     </script>
-
 </body>
 </html>
