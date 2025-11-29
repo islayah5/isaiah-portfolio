@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isaiah Chandler | Strategic Brand Manager</title>
-    <!-- Dynamic Animated Favicon: A pulsing Nazar/Eye symbol -->
-    <!-- Updated with properly encoded SVG data URI -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E@keyframes pulse { 0%25 { transform: scale(0.9); opacity: 0.8; } 50%25 { transform: scale(1.1); opacity: 1; } 100%25 { transform: scale(0.9); opacity: 0.8; } } .eye { transform-origin: center; animation: pulse 3s infinite ease-in-out; }%3C/style%3E%3Ccircle cx='50' cy='50' r='45' fill='%230b1221' /%3E%3Ccircle cx='50' cy='50' r='35' fill='%231d4ed8' class='eye' /%3E%3Ccircle cx='50' cy='50' r='20' fill='%2393c5fd' /%3E%3Ccircle cx='50' cy='50' r='10' fill='%23000' /%3E%3Ccircle cx='55' cy='45' r='4' fill='%23fff' /%3E%3C/svg%3E" type="image/svg+xml">
+    <!-- Dynamic Animated Favicon: Placeholder link updated by JavaScript -->
+    <link id="favicon" rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABY6HEcAAAAAXNSR0IArs4c6QAAAHBJREFUWIXtltsNgCAQRc/7N+01n9yEaD+WzDqg/y+Q1qS9pE4VAGB0YdY8l24lC1YfA+j/eH6Fk48y4FvBqg02x+QhLgBYk62j9gYAuVj2i640Wb/5E0G/A26C3B9m3E4p3gXgOQ1f/dG8B+DcgN/8P/QvgDwA3A/wH3A/sB5f911956f4e6AAAAAElFTkSuQmCC">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,12 +15,12 @@
             theme: {
                 extend: {
                     colors: {
-                        deep: '#020408',     /* Absolute Void Navy */
+                        deep: '#020408',      /* Absolute Void Navy */
                         surface: '#0b1221',  /* Executive Navy */
-                        gold: '#c5a059',     /* Champagne Gold */
+                        gold: '#c5a059',      /* Champagne Gold */
                         goldlight: '#e6c888',
-                        text: '#e2e8f0',     /* Soft White */
-                        muted: '#64748b'     /* Slate 500 */
+                        text: '#e2e8f0',      /* Soft White */
+                        muted: '#64748b'      /* Slate 500 */
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -462,7 +461,6 @@
 
             <div class="mt-20 flex justify-center gap-10 opacity-50 hover:opacity-100 transition-opacity duration-500">
                 <a href="https://www.linkedin.com/in/isaiah-chandler/" target="_blank" class="text-white hover:text-gold transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/IChandler1" target="_blank" class="text-white hover:text-gold transition-colors text-2xl"><i class="fab fa-github"></i></a>
                 <a href="mailto:isaiahchandler5@gmail.com" class="text-white hover:text-gold transition-colors text-2xl"><i class="fas fa-envelope"></i></a>
             </div>
             
@@ -481,8 +479,148 @@
             <!-- Content injected here -->
         </div>
     </div>
+    
+    <!-- Hidden Canvas Elements for Favicon Generation -->
+    <canvas id="faviconCanvas" width="32" height="32" class="hidden"></canvas>
+    <canvas id="displayCanvas" width="500" height="500" class="hidden"></canvas>
+
 
     <script>
+        // --- Favicon Generation Logic (New) ---
+        const FAVICON_SIZE = 32;
+        const FPS = 30;
+        const interval = 1000 / FPS;
+
+        const faviconCanvas = document.getElementById('faviconCanvas');
+        const displayCanvas = document.getElementById('displayCanvas'); // Not strictly needed, but kept for context
+        const faviconCtx = faviconCanvas.getContext('2d');
+        const displayCtx = displayCanvas.getContext('2d');
+        const faviconLink = document.getElementById('favicon');
+
+        let rotationAngle = 0;
+        let lastTime = 0;
+        let animationFrameId;
+
+        /**
+         * Draws the "Cosmic Nazar Eye" animation on a given canvas context.
+         * @param {CanvasRenderingContext2D} ctx - The canvas context to draw on.
+         * @param {number} size - The size (width/height) of the canvas.
+         * @param {number} time - Current time in seconds for animation logic.
+         */
+        function drawCosmicEye(ctx, size, time) {
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const outerRadius = size * 0.45;
+            const irisRadius = size * 0.35;
+            
+            // Calculate dynamic pulse (0 to 1) for glow and size variations
+            const pulse = (Math.sin(time * 5) + 1) / 2; // Faster pulse for more energy
+
+            // Clear for transparency
+            ctx.clearRect(0, 0, size, size);
+
+            // 1. Outer Glow/Halo (Purple/Cyan)
+            const haloColor = `rgba(138, 43, 226, ${0.1 + pulse * 0.2})`; // BlueViolet/Purple
+            ctx.shadowBlur = size * (0.8 + pulse * 0.4);
+            ctx.shadowColor = haloColor;
+
+            // 2. The Dark Sclera/Eye Base
+            ctx.fillStyle = '#1A1A30'; // Dark background of the eye
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 3. The Iris (Pulsing Purple/Indigo)
+            // Intensify inner eye glow
+            ctx.shadowBlur = size * 0.3;
+            ctx.shadowColor = `rgba(0, 255, 255, ${0.5 + pulse * 0.3})`; // Cyan
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            
+            // Rotation applied to the whole eye structure
+            ctx.rotate(rotationAngle);
+
+            // Draw the main iris color
+            ctx.fillStyle = '#4B0082'; // Indigo
+            ctx.beginPath();
+            ctx.arc(0, 0, irisRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw Radial Iris Texture (lines radiating out)
+            const numLines = 48;
+            const lineLength = irisRadius * 0.4;
+            ctx.lineWidth = size * 0.01;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 + pulse * 0.4})`; // White/Cyan for energy lines
+
+            for (let i = 0; i < numLines; i++) {
+                const angle = (i / numLines) * Math.PI * 2;
+                
+                ctx.save();
+                ctx.rotate(angle);
+                
+                ctx.beginPath();
+                ctx.moveTo(irisRadius * 0.6, 0);
+                ctx.lineTo(irisRadius, 0);
+                ctx.stroke();
+                
+                ctx.restore();
+            }
+
+            ctx.restore();
+
+            // Clear Shadow for core details
+            ctx.shadowBlur = 0; 
+            
+            // 4. The Pupil (Pulsing size)
+            const pupilRadius = size * 0.07 * (1 + 0.5 * pulse); // More dramatic pulse
+            
+            ctx.fillStyle = '#000000'; // Black pupil
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, pupilRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 5. Final Glint/Highlight
+            const highlightRadius = size * 0.02;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.arc(centerX + pupilRadius * 0.6, centerY - pupilRadius * 0.6, highlightRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 6. Outer Border (Defines the shape clearly)
+            ctx.strokeStyle = '#00ffff'; // Electric border
+            ctx.lineWidth = size * 0.04; // Thicker border
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        /** The main animation loop */
+        function animate(timestamp) {
+            animationFrameId = requestAnimationFrame(animate);
+
+            // Throttle the animation to maintain a steady FPS (30 FPS)
+            const elapsed = timestamp - lastTime;
+            if (elapsed > interval) {
+                lastTime = timestamp - (elapsed % interval);
+                
+                // Update rotation angle (smooth, continuous rotation - faster now)
+                rotationAngle += (2 * Math.PI) / (FPS * 5); // 1 rotation every 5 seconds
+
+                const time = timestamp / 1000; // Time in seconds
+
+                // 1. Draw the animation on the small (32x32) favicon canvas
+                drawCosmicEye(faviconCtx, FAVICON_SIZE, time);
+
+                // 2. Convert the small canvas to a data URL and update the favicon
+                faviconLink.href = faviconCanvas.toDataURL('image/png');
+
+                // The display canvas drawing is omitted here as it is not displayed in the portfolio
+            }
+        }
+
+        // --- Original Portfolio Logic Continuation ---
+
         // --- Spotlight Effect Logic ---
         function handleMouseMove(e) {
             const cards = document.getElementsByClassName("spotlight-card");
@@ -557,6 +695,16 @@
             if (e.key === 'Escape' && !lightbox.classList.contains('invisible')) closeLightbox();
         });
 
+        // Combined onload function to ensure all scripts run when the page is ready
+        window.addEventListener('load', () => {
+             // Start the favicon animation loop
+            animate(0); 
+        });
+
+        // Clean up on window unload (good practice)
+        window.onunload = function() {
+            cancelAnimationFrame(animationFrameId);
+        };
     </script>
 </body>
 </html>
