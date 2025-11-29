@@ -114,12 +114,31 @@
             transform: translateY(0);
         }
         
-        /* Gallery Hover */
-        .gallery-item:hover img, .gallery-item:hover video {
-            transform: scale(1.03);
+        /* Gallery Improvements */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* Rounded corners */
+            background-color: #0b1221; /* Fallback color */
+            aspect-ratio: 16 / 9; /* Enforce consistent aspect ratio */
         }
+        
+        .gallery-item img, 
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crucial: Covers the area without distortion */
+            object-position: center; /* Crucial: Centers the content */
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img, 
+        .gallery-item:hover video {
+            transform: scale(1.05); /* Smooth zoom on hover */
+        }
+
         .gallery-overlay {
-            background: linear-gradient(to top, #020408 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(2, 4, 8, 0.95) 0%, rgba(2, 4, 8, 0.6) 50%, transparent 100%);
         }
 
     </style>
@@ -151,7 +170,8 @@
         <div class="mb-10 relative group reveal">
             <div class="absolute -inset-0.5 bg-gradient-to-tr from-gold/40 to-surface/0 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-700"></div>
             <div class="relative w-40 h-40 rounded-full overflow-hidden border border-white/10 shadow-2xl">
-                <img src="https://islayah5.github.io/isaiah-portfolio/IC%E2%80%93Headshot.PNG" 
+                <!-- Updated to use local file based on your screenshot -->
+                <img src="IC-Headshot.PNG" 
                      alt="Isaiah Chandler" 
                      class="w-full h-full object-cover filter brightness-110 contrast-110">
             </div>
@@ -333,24 +353,30 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <!-- Project 1 (New 3D Event Video) -->
-                <div class="gallery-item group relative h-80 rounded-lg overflow-hidden cursor-pointer reveal">
-                    <video autoplay loop muted playsinline poster="https://islayah5.github.io/isaiah-portfolio/3D-SMR_Model.mp4" class="w-full h-full object-cover transition-transform duration-700">
-                        <source src="marketing-event.mp4" type="video/mp4">
-                        <!-- Fallback Image -->
-                        <img src="https://drive.google.com/thumbnail?id=15k_zapx7H1n9hv_HvyO6k8zfgjUA55R7&sz=w1000" alt="Project 1" class="w-full h-full object-cover">
+                <div class="gallery-item group cursor-pointer reveal">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                        <!-- Updated filename to match your repo -->
+                        <source src="3D-SMR_Model.mp4" type="video/mp4">
+                        <!-- Placeholder while video loads -->
+                        <div class="absolute inset-0 bg-surface/50 flex items-center justify-center">
+                            <span class="text-muted text-xs">Loading Video...</span>
+                        </div>
                     </video>
                     <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Spatial Design</p>
-                        <h4 class="text-white text-xl font-bold">3D Presentaion Asset</h4>
+                        <h4 class="text-white text-xl font-bold">3D Event Experience</h4>
                     </div>
                 </div>
 
                 <!-- Project 2 (Video Presentation) -->
-                <div class="gallery-item group relative h-80 rounded-lg overflow-hidden cursor-pointer reveal delay-100">
-                    <video autoplay loop muted playsinline poster="https://islayah5.github.io/isaiah-portfolio/portfolio-presentation.mp4" class="w-full h-full object-cover transition-transform duration-700">
+                <div class="gallery-item group cursor-pointer reveal delay-100">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                        <!-- Updated filename to match your repo -->
                         <source src="portfolio-presentation.mp4" type="video/mp4">
-                        <!-- Fallback Image if video fails -->
-                        <img src="https://drive.google.com/thumbnail?id=1h0U7xaBX1ZEmQl-g__C-Hx9vrat__7tD&sz=w1000" alt="Project 2" class="w-full h-full object-cover">
+                        <!-- Placeholder -->
+                        <div class="absolute inset-0 bg-surface/50 flex items-center justify-center">
+                            <span class="text-muted text-xs">Loading Video...</span>
+                        </div>
                     </video>
                     <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Strategy</p>
@@ -359,8 +385,8 @@
                 </div>
 
                 <!-- Project 3 -->
-                <div class="gallery-item group relative h-80 rounded-lg overflow-hidden cursor-pointer reveal delay-200">
-                    <img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000" alt="Project 3" class="w-full h-full object-cover transition-transform duration-700">
+                <div class="gallery-item group cursor-pointer reveal delay-200">
+                    <img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000" alt="Project 3">
                     <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Local Growth</p>
                         <h4 class="text-white text-xl font-bold">Bakery Rebrand</h4>
@@ -368,8 +394,8 @@
                 </div>
 
                 <!-- Project 4 -->
-                <div class="gallery-item group relative h-80 rounded-lg overflow-hidden cursor-pointer reveal delay-300">
-                    <img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000" alt="Project 4" class="w-full h-full object-cover transition-transform duration-700">
+                <div class="gallery-item group cursor-pointer reveal delay-300">
+                    <img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000" alt="Project 4">
                     <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Graphic Design</p>
                         <h4 class="text-white text-xl font-bold">Print Collateral</h4>
