@@ -298,8 +298,7 @@
             <a href="#work" class="btn-gold px-8 py-3.5 rounded-full text-xs tracking-widest uppercase">
                 View Selected Work
             </a>
-            <a href="https://docs.google.com/document/d/1MQ6gHrFDmRJ9moEIwyv7gDQFMT-ywIhIKomsEEyfAiM/edit?usp=sharing"
-                target="_blank"
+            <a href="#" id="resume-btn"
                 class="px-8 py-3.5 rounded-full text-xs tracking-widest uppercase border border-white/10 hover:border-gold/50 hover:text-gold transition-colors text-slate-300 bg-surface/50 backdrop-blur-sm">
                 Access Resume
             </a>
@@ -969,6 +968,29 @@
                 lightbox.classList.add('visible', 'opacity-100');
             });
         });
+
+        // --- Resume Lightbox Logic ---
+        const resumeBtn = document.getElementById('resume-btn');
+        if (resumeBtn) {
+            resumeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                lightboxContent.innerHTML = '';
+
+                const iframe = document.createElement('iframe');
+                iframe.src = "Isaiah-Chandler-Resume.pdf";
+                iframe.title = "Resume PDF";
+                iframe.classList.add('w-full', 'h-[85vh]', 'rounded-lg', 'border-0', 'shadow-2xl');
+
+                const container = document.createElement('div');
+                container.classList.add('w-full', 'max-w-5xl', 'mx-auto');
+                container.appendChild(iframe);
+
+                lightboxContent.appendChild(container);
+
+                lightbox.classList.remove('invisible', 'opacity-0');
+                lightbox.classList.add('visible', 'opacity-100');
+            });
+        }
 
         // Close functions
         const closeLightbox = () => {
