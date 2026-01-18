@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isaiah Chandler | Strategic Brand Manager</title>
-    
+
     <!-- Dynamic Favicon Link (Updated via JS) -->
-    <link id="favicon" rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABY6HEcAAAAAXNSR0IArs4c6QAAAHBJREFUWIXtltsNgCAQRc/7N+01n9yEaD+WzDqg/y+Q1qS9pE4VAGB0YdY8l24lC1YfA+j/eH6Fk48y4FvBqg02x+QhLgBYk62j9gYAuVj2i640Wb/5E0G/A26C3B9m3E4p3gXgOQ1f/dG8B+DcgN/8P/QvgDwA3A/wH3A/sB5f911956f4e6AAAAAElFTkSuQmCC">
+    <link id="favicon" rel="icon" type="image/png"
+        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABY6HEcAAAAAXNSR0IArs4c6QAAAHBJREFUWIXtltsNgCAQRc/7N+01n9yEaD+WzDqg/y+Q1qS9pE4VAGB0YdY8l24lC1YfA+j/eH6Fk48y4FvBqg02x+QhLgBYk62j9gYAuVj2i640Wb/5E0G/A26C3B9m3E4p3gXgOQ1f/dG8B+DcgN/8P/QvgDwA3A/wH3A/sB5f911956f4e6AAAAAElFTkSuQmCC">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -59,11 +63,14 @@
             overflow: hidden;
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        
+
         .spotlight-card::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(197, 160, 89, 0.06), transparent 40%);
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -102,6 +109,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(197, 160, 89, 0.15);
         }
+
         .btn-gold:hover {
             box-shadow: 0 4px 30px rgba(197, 160, 89, 0.3);
             transform: translateY(-2px);
@@ -113,64 +121,113 @@
             transform: translateY(20px);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         /* Gallery Improvements */
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 0.75rem; /* Rounded corners */
-            background-color: #0b1221; /* Fallback color */
-            aspect-ratio: 16 / 9; /* Enforce consistent aspect ratio for uniformity */
+            border-radius: 0.75rem;
+            /* Rounded corners */
+            background-color: #0b1221;
+            /* Fallback color */
+            aspect-ratio: 16 / 9;
+            /* Enforce consistent aspect ratio for uniformity */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        .gallery-item img, 
+
+        .gallery-item img,
         .gallery-item video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Default: fills the box */
-            object-position: center; 
+            object-fit: cover;
+            /* Default: fills the box */
+            object-position: center;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Special class for items that need to be fully visible (like documents) */
         .gallery-item.contain-image img {
-            object-fit: contain; /* Ensures the whole image is visible */
-            background-color: #0f172a; /* Dark background for empty space */
-            padding: 1rem; /* Slight padding so it doesn't touch edges */
+            object-fit: contain;
+            /* Ensures the whole image is visible */
+            background-color: #0f172a;
+            /* Dark background for empty space */
+            padding: 1rem;
+            /* Slight padding so it doesn't touch edges */
         }
 
-        .gallery-item:hover img, 
+        .gallery-item:hover img,
         .gallery-item:hover video {
-            transform: scale(1.05); 
+            transform: scale(1.05);
         }
 
         .gallery-overlay {
             background: linear-gradient(to top, rgba(2, 4, 8, 0.95) 0%, rgba(2, 4, 8, 0.6) 50%, transparent 100%);
         }
 
+
         /* Lightbox Styles */
         #lightbox {
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
+
         #lightbox.active {
             opacity: 1;
             visibility: visible;
         }
-        #lightbox video, #lightbox img {
+
+        #lightbox video,
+        #lightbox img {
             max-height: 85vh;
             max-width: 90vw;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
             border-radius: 8px;
         }
 
+        /* --- Masonry Grid --- */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+
+        /* Prevent break inside items for masonry */
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Filter Styles */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background-color: #c5a059;
+            /* Gold */
+            color: #020408;
+            /* Deep */
+            border-color: #c5a059;
+        }
     </style>
 </head>
+
 <body class="antialiased selection:bg-gold selection:text-deep" onmousemove="handleMouseMove(event)">
 
     <!-- Hidden Canvas used for generating the animated Favicon -->
@@ -178,44 +235,58 @@
 
     <!-- Ambient Background -->
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-surface/50 rounded-full blur-[100px] animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-gold/3 rounded-full blur-[120px] animate-blob animation-delay-4000"></div>
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] animate-blob">
+        </div>
+        <div
+            class="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-surface/50 rounded-full blur-[100px] animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-gold/3 rounded-full blur-[120px] animate-blob animation-delay-4000">
+        </div>
     </div>
 
     <!-- Navigation -->
     <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-lg">
         <div class="nav-pill rounded-full px-1.5 py-1.5 flex justify-between items-center shadow-2xl">
-            <a href="#home" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">HOME</a>
-            <a href="#about" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">ABOUT</a>
-            <a href="#capabilities" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">SKILLS</a>
-            <a href="#work" class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">WORK</a>
-            <a href="mailto:isaiahchandler5@gmail.com" class="px-5 py-2 rounded-full text-xs font-bold tracking-wide bg-gold text-deep hover:bg-white transition-colors">CONTACT</a>
+            <a href="#home"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">HOME</a>
+            <a href="#about"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">ABOUT</a>
+            <a href="#capabilities"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">SKILLS</a>
+            <a href="#work"
+                class="px-5 py-2 rounded-full text-xs font-medium tracking-wide text-muted hover:text-white hover:bg-white/5 transition-colors">WORK</a>
+            <a href="mailto:isaiahchandler5@gmail.com"
+                class="px-5 py-2 rounded-full text-xs font-bold tracking-wide bg-gold text-deep hover:bg-white transition-colors">CONTACT</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative pt-20">
-        
+
         <!-- Animated Avatar Ring -->
         <div class="mb-10 relative group reveal">
-            <div class="absolute -inset-0.5 bg-gradient-to-tr from-gold/40 to-surface/0 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-700"></div>
+            <div
+                class="absolute -inset-0.5 bg-gradient-to-tr from-gold/40 to-surface/0 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-700">
+            </div>
             <div class="relative w-40 h-40 rounded-full overflow-hidden border border-white/10 shadow-2xl">
                 <!-- Using local file name directly -->
-                <img src="IC–Headshot.PNG" 
-                     alt="Isaiah Chandler" 
-                     class="w-full h-full object-cover filter brightness-110 contrast-110">
+                <img src="IC–Headshot.PNG" alt="Isaiah Chandler"
+                    class="w-full h-full object-cover filter brightness-110 contrast-110">
             </div>
         </div>
 
         <!-- Main Typography -->
         <div class="reveal delay-100">
             <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight leading-tight">
-                <span class="text-white">Isaiah</span> <span class="text-gradient-gold serif-font italic">Chandler</span>
+                <span class="text-white">Isaiah</span> <span
+                    class="text-gradient-gold serif-font italic">Chandler</span>
             </h1>
-            <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 opacity-50"></div>
+            <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 opacity-50">
+            </div>
         </div>
-        
+
         <!-- Professional Subtitle -->
         <p class="text-lg md:text-xl text-muted font-light tracking-wide max-w-2xl mx-auto mb-10 reveal delay-200">
             Brand Strategy & Revenue Operations.<br>
@@ -227,7 +298,9 @@
             <a href="#work" class="btn-gold px-8 py-3.5 rounded-full text-xs tracking-widest uppercase">
                 View Selected Work
             </a>
-            <a href="https://docs.google.com/document/d/1MQ6gHrFDmRJ9moEIwyv7gDQFMT-ywIhIKomsEEyfAiM/edit?usp=sharing" target="_blank" class="px-8 py-3.5 rounded-full text-xs tracking-widest uppercase border border-white/10 hover:border-gold/50 hover:text-gold transition-colors text-slate-300 bg-surface/50 backdrop-blur-sm">
+            <a href="https://docs.google.com/document/d/1MQ6gHrFDmRJ9moEIwyv7gDQFMT-ywIhIKomsEEyfAiM/edit?usp=sharing"
+                target="_blank"
+                class="px-8 py-3.5 rounded-full text-xs tracking-widest uppercase border border-white/10 hover:border-gold/50 hover:text-gold transition-colors text-slate-300 bg-surface/50 backdrop-blur-sm">
                 Access Resume
             </a>
         </div>
@@ -242,7 +315,7 @@
     <section id="about" class="py-32 px-6 border-t border-white/5 bg-surface/20">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                
+
                 <!-- Left: The Narrative -->
                 <div class="lg:col-span-7 reveal">
                     <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-4">The Advantage</h2>
@@ -253,30 +326,37 @@
                     </h3>
                     <div class="space-y-6 text-muted text-lg font-light leading-relaxed">
                         <p>
-                            In modern marketing, speed is currency. I eliminate the friction between creative strategy and technical implementation. 
+                            In modern marketing, speed is currency. I eliminate the friction between creative strategy
+                            and technical implementation.
                         </p>
                         <p>
-                            By possessing the technical fluency to architect my own campaigns, automations, and assets, I reduce dependency on external resources and accelerate time-to-market for high-impact initiatives.
+                            By possessing the technical fluency to architect my own campaigns, automations, and assets,
+                            I reduce dependency on external resources and accelerate time-to-market for high-impact
+                            initiatives.
                         </p>
                     </div>
                 </div>
 
                 <!-- Right: The Metrics (Glass Card) -->
                 <div class="lg:col-span-5 reveal delay-200">
-                    <div class="spotlight-card rounded-2xl p-8 md:p-10 bg-deep/50 backdrop-blur-xl border border-white/5 shadow-2xl">
+                    <div
+                        class="spotlight-card rounded-2xl p-8 md:p-10 bg-deep/50 backdrop-blur-xl border border-white/5 shadow-2xl">
                         <div class="grid grid-cols-1 gap-8">
                             <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
                                     <i class="fas fa-chart-line"></i>
                                 </div>
                                 <div>
                                     <div class="text-2xl font-bold text-white">Revenue Impact</div>
-                                    <div class="text-xs text-muted uppercase tracking-widest">High-Velocity Sales Pipeline</div>
+                                    <div class="text-xs text-muted uppercase tracking-widest">High-Velocity Sales
+                                        Pipeline</div>
                                 </div>
                             </div>
                             <div class="h-px bg-white/5 w-full"></div>
                             <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
                                     <i class="fas fa-mouse-pointer"></i>
                                 </div>
                                 <div>
@@ -286,12 +366,14 @@
                             </div>
                             <div class="h-px bg-white/5 w-full"></div>
                             <div class="flex items-center gap-5">
-                                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
                                     <i class="fas fa-layer-group"></i>
                                 </div>
                                 <div>
                                     <div class="text-2xl font-bold text-white">Versatility</div>
-                                    <div class="text-xs text-muted uppercase tracking-widest">Multi-Vertical Strategy</div>
+                                    <div class="text-xs text-muted uppercase tracking-widest">Multi-Vertical Strategy
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -317,7 +399,8 @@
                         <i class="fas fa-chess-queen text-2xl text-gold"></i>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-3">Campaign Strategy</h4>
-                    <p class="text-muted text-sm leading-relaxed">Developing full-funnel marketing strategies that align user psychology with strict business KPIs and revenue goals.</p>
+                    <p class="text-muted text-sm leading-relaxed">Developing full-funnel marketing strategies that align
+                        user psychology with strict business KPIs and revenue goals.</p>
                 </div>
 
                 <!-- Card 2 -->
@@ -326,7 +409,8 @@
                         <i class="fas fa-rocket text-2xl text-gold"></i>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-3">Rapid Deployment</h4>
-                    <p class="text-muted text-sm leading-relaxed">Leveraging technical skills to build interactive assets and automate workflows, bypassing traditional production bottlenecks.</p>
+                    <p class="text-muted text-sm leading-relaxed">Leveraging technical skills to build interactive
+                        assets and automate workflows, bypassing traditional production bottlenecks.</p>
                 </div>
 
                 <!-- Card 3 -->
@@ -335,7 +419,8 @@
                         <i class="fas fa-microchip text-2xl text-gold"></i>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-3">AI Integration</h4>
-                    <p class="text-muted text-sm leading-relaxed">Expert prompting and integration of GenAI tools (Gemini, ChatGPT) to scale content production and operational efficiency.</p>
+                    <p class="text-muted text-sm leading-relaxed">Expert prompting and integration of GenAI tools
+                        (Gemini, ChatGPT) to scale content production and operational efficiency.</p>
                 </div>
 
                 <!-- Card 4 -->
@@ -344,7 +429,8 @@
                         <i class="fas fa-chart-pie text-2xl text-gold"></i>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-3">Data Analysis</h4>
-                    <p class="text-muted text-sm leading-relaxed">Turning raw data and discovery into actionable narrative insights that drive decision making.</p>
+                    <p class="text-muted text-sm leading-relaxed">Turning raw data and discovery into actionable
+                        narrative insights that drive decision making.</p>
                 </div>
 
                 <!-- Card 5 -->
@@ -353,7 +439,8 @@
                         <i class="fas fa-pen-nib text-2xl text-gold"></i>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-3">Copy & Messaging</h4>
-                    <p class="text-muted text-sm leading-relaxed">Writing persuasive, brand-aligned copy for emails, landing pages, and pitch decks that actually converts.</p>
+                    <p class="text-muted text-sm leading-relaxed">Writing persuasive, brand-aligned copy for emails,
+                        landing pages, and pitch decks that actually converts.</p>
                 </div>
 
                 <!-- Card 6 -->
@@ -362,7 +449,8 @@
                         <i class="fas fa-database text-2xl text-gold"></i>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-3">CRM & Project Management</h4>
-                    <p class="text-muted text-sm leading-relaxed">Architecting pipelines and managing data integrity in Salesforce, GoHighLevel, ClickUp, Jira, and Bullhorn for maximum efficiency.</p>
+                    <p class="text-muted text-sm leading-relaxed">Architecting pipelines and managing data integrity in
+                        Salesforce, GoHighLevel, ClickUp, Jira, and Bullhorn for maximum efficiency.</p>
                 </div>
             </div>
         </div>
@@ -377,179 +465,288 @@
                     <h3 class="text-3xl md:text-4xl font-bold">Featured Projects</h3>
                 </div>
                 <div class="hidden md:block">
-                    <a href="mailto:isaiahchandler5@gmail.com" class="text-sm font-semibold text-white border-b border-gold pb-1 hover:text-gold transition-colors">Request Full Portfolio</a>
+                    <a href="mailto:isaiahchandler5@gmail.com"
+                        class="text-sm font-semibold text-white border-b border-gold pb-1 hover:text-gold transition-colors">Request
+                        Full Portfolio</a>
                 </div>
             </div>
 
-            <!-- Changed grid-cols for better responsiveness with 5 items -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Project 1 (New 3D Event Video) -->
-                <div class="gallery-item group cursor-pointer reveal">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <!-- Updated path -->
+            <!-- Filter Menu -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal" id="gallery-filters">
+                <button
+                    class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
+                    data-filter="all">All</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
+                    data-filter="spatial">Spatial</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
+                    data-filter="motion">Motion</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
+                    data-filter="social">Social</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
+                    data-filter="graphic">Graphic</button>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="masonry-grid" id="gallery-grid">
+
+                <!-- Project 1 (Spatial) -->
+                <div class="gallery-item group cursor-pointer reveal" data-category="spatial">
+                    <video autoplay loop muted playsinline class="w-full h-auto object-cover rounded-xl">
                         <source src="3D-model/3D-SMR_Model.mp4" type="video/mp4">
-                        <div class="absolute inset-0 bg-surface/50 flex items-center justify-center">
-                            <span class="text-muted text-xs">Loading...</span>
-                        </div>
                     </video>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
+                    <!-- Standardize overlay across standard items -->
+                    <div
+                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Spatial Design</p>
                         <h4 class="text-white text-xl font-bold">3D Event Experience</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
                     </div>
                 </div>
 
-                <!-- Project 2 (Video Presentation) -->
-                <div class="gallery-item group cursor-pointer reveal delay-100">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <!-- Updated path -->
+                <!-- Project 2 (Social Strategy - Presentation) -->
+                <div class="gallery-item group cursor-pointer reveal delay-100" data-category="social">
+                    <video autoplay loop muted playsinline class="w-full h-auto object-cover rounded-xl">
                         <source src="presentation/portfolio-presentation.mp4" type="video/mp4">
-                        <div class="absolute inset-0 bg-surface/50 flex items-center justify-center">
-                            <span class="text-muted text-xs">Loading...</span>
-                        </div>
                     </video>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
+                    <div
+                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Strategy</p>
                         <h4 class="text-white text-xl font-bold">Digital Campaign</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="gallery-item group cursor-pointer reveal delay-200">
-                    <!-- Assuming file is uploaded; using placeholder if not -->
-                    <img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000" alt="Project 3">
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
+                <!-- Project 3 (Local Growth - Bakery) -->
+                <div class="gallery-item group cursor-pointer reveal delay-200" data-category="graphic">
+                    <img src="https://drive.google.com/thumbnail?id=1trNtW8PMxxg78Snv6YLOnfJ57TT0qun1&sz=w1000"
+                        alt="Bakery Rebrand" class="w-full h-auto object-cover rounded-xl">
+                    <div
+                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Local Growth</p>
                         <h4 class="text-white text-xl font-bold">Bakery Rebrand</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
                     </div>
                 </div>
 
-                <!-- Project 4 (Print Collateral - Fully Visible) -->
-                <!-- Added 'contain-image' class to ensure the flyer is not cropped -->
-                <div class="gallery-item group cursor-pointer reveal delay-300 contain-image">
-                    <!-- Assuming file is uploaded; using placeholder if not -->
-                    <img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000" alt="Project 4">
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
+                <!-- Project 4 (Print Collateral - Graphic) -->
+                <div class="gallery-item group cursor-pointer reveal delay-300 contain-image" data-category="graphic">
+                    <img src="https://drive.google.com/thumbnail?id=1-2IvZWX88pA9uefB-NZsVNW7nhGAIJyr&sz=w1000"
+                        alt="Print Collateral" class="w-full h-auto object-cover rounded-xl">
+                    <div
+                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Graphic Design</p>
                         <h4 class="text-white text-xl font-bold">Print Collateral</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
                     </div>
                 </div>
 
-                <!-- Project 5 (Non-Profit Event Promo - Fully Visible) -->
-                <div class="gallery-item group cursor-pointer reveal delay-100 contain-image">
-                    <img src="social media/YES-Maddie.jpg" alt="Non-Profit Event Promo">
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none">
+                <!-- Project 5 (Maddie - Social/Graphic) -->
+                <!-- Categorized as Social for now as it's an event promo -->
+                <div class="gallery-item group cursor-pointer reveal delay-100 contain-image" data-category="social">
+                    <img src="social media/YES-Maddie.jpg" alt="Non-Profit Event Promo"
+                        class="w-full h-auto object-cover rounded-xl">
+                    <div
+                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Community Outreach</p>
                         <h4 class="text-white text-xl font-bold">Non-Profit Event Promo</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="fas fa-expand mr-1"></i> Click to Enlarge</p>
                     </div>
                 </div>
 
-                <!-- CUSTOM ANIMATIONS (YouTube) -->
-                
+                <!-- CUSTOM ANIMATIONS (YouTube - Motion) -->
+
                 <!-- Animation 1 -->
-                <div class="gallery-item group cursor-pointer reveal">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/xmkE5oUD1mw?controls=0&mute=1&loop=1&playlist=xmkE5oUD1mw" title="Animation 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <!-- Overlay to capture click for lightbox -->
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal" data-category="motion"
+                    data-youtube-id="xmkE5oUD1mw">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/xmkE5oUD1mw/maxresdefault.jpg" alt="Animation 1"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-xl ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Motion Design</p>
-                        <h4 class="text-white text-xl font-bold">Custom Animation 1</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="far fa-play-circle mr-1"></i> Watch Video</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Custom Animation 1</h4>
                     </div>
                 </div>
 
-                <!-- Animation 2 -->
-                <div class="gallery-item group cursor-pointer reveal delay-100">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/j5UFDNy4IKEo?controls=0&mute=1&loop=1&playlist=j5UFDNy4IKEo" title="Animation 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <!-- Animation 2 (Fixed Link ID: j5UFDNy4IKE) -->
+                <div class="gallery-item group cursor-pointer reveal delay-100" data-category="motion"
+                    data-youtube-id="j5UFDNy4IKE">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/j5UFDNy4IKE/maxresdefault.jpg" alt="Animation 2"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-xl ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Motion Design</p>
-                        <h4 class="text-white text-xl font-bold">Custom Animation 2</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="far fa-play-circle mr-1"></i> Watch Video</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Custom Animation 2</h4>
                     </div>
                 </div>
 
                 <!-- Animation 3 -->
-                <div class="gallery-item group cursor-pointer reveal delay-200">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/RYaOFHZ03AA?controls=0&mute=1&loop=1&playlist=RYaOFHZ03AA" title="Animation 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal delay-200" data-category="motion"
+                    data-youtube-id="RYaOFHZ03AA">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/RYaOFHZ03AA/maxresdefault.jpg" alt="Animation 3"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-xl ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Motion Design</p>
-                        <h4 class="text-white text-xl font-bold">Custom Animation 3</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="far fa-play-circle mr-1"></i> Watch Video</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Custom Animation 3</h4>
                     </div>
                 </div>
 
                 <!-- Animation 4 -->
-                <div class="gallery-item group cursor-pointer reveal">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/0Ofg-HNsL4M?controls=0&mute=1&loop=1&playlist=0Ofg-HNsL4M" title="Animation 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal" data-category="motion"
+                    data-youtube-id="0Ofg-HNsL4M">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/0Ofg-HNsL4M/maxresdefault.jpg" alt="Animation 4"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-xl ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Motion Design</p>
-                        <h4 class="text-white text-xl font-bold">Custom Animation 4</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="far fa-play-circle mr-1"></i> Watch Video</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Custom Animation 4</h4>
                     </div>
                 </div>
 
                 <!-- Animation 5 -->
-                <div class="gallery-item group cursor-pointer reveal delay-100">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/3Zrkj3GDuWo?controls=0&mute=1&loop=1&playlist=3Zrkj3GDuWo" title="Animation 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal delay-100" data-category="motion"
+                    data-youtube-id="3Zrkj3GDuWo">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/3Zrkj3GDuWo/maxresdefault.jpg" alt="Animation 5"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-xl ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Motion Design</p>
-                        <h4 class="text-white text-xl font-bold">Custom Animation 5</h4>
-                        <p class="text-white/70 text-xs mt-1"><i class="far fa-play-circle mr-1"></i> Watch Video</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Custom Animation 5</h4>
                     </div>
                 </div>
 
-                <!-- SOCIAL MEDIA SHORTS -->
+                <!-- SOCIAL MEDIA SHORTS (Social) -->
+                <!-- Using Facades to preserve vertical aspect ratio in masonry -->
 
                 <!-- Short 1 -->
-                <div class="gallery-item group cursor-pointer reveal delay-200">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/t1X4R8wVXpI?controls=0&mute=1&loop=1&playlist=t1X4R8wVXpI" title="Social Short 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal delay-200" data-category="social"
+                    data-youtube-id="t1X4R8wVXpI">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <!-- 'hqdefault' often works better for shorts if maxres isn't available, but we'll try maxres -->
+                        <img src="https://img.youtube.com/vi/t1X4R8wVXpI/maxresdefault.jpg" alt="Short 1"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-sm ml-1"></i>
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 bg-black/50 px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">
+                                Shorts</div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Media</p>
-                        <h4 class="text-white text-xl font-bold">Short 1</h4>
-                         <p class="text-white/70 text-xs mt-1"><i class="fab fa-youtube mr-1"></i> View Short</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Viral Short 1</h4>
                     </div>
                 </div>
 
                 <!-- Short 2 -->
-                <div class="gallery-item group cursor-pointer reveal">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/q1Js4FcHkq0?controls=0&mute=1&loop=1&playlist=q1Js4FcHkq0" title="Social Short 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal" data-category="social"
+                    data-youtube-id="q1Js4FcHkq0">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/q1Js4FcHkq0/maxresdefault.jpg" alt="Short 2"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-sm ml-1"></i>
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 bg-black/50 px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">
+                                Shorts</div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Media</p>
-                        <h4 class="text-white text-xl font-bold">Short 2</h4>
-                         <p class="text-white/70 text-xs mt-1"><i class="fab fa-youtube mr-1"></i> View Short</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Viral Short 2</h4>
                     </div>
                 </div>
 
                 <!-- Short 3 -->
-                <div class="gallery-item group cursor-pointer reveal delay-100">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/YGnRDoRcUSQ?controls=0&mute=1&loop=1&playlist=YGnRDoRcUSQ" title="Social Short 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal delay-100" data-category="social"
+                    data-youtube-id="YGnRDoRcUSQ">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/YGnRDoRcUSQ/maxresdefault.jpg" alt="Short 3"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-sm ml-1"></i>
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 bg-black/50 px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">
+                                Shorts</div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Media</p>
-                        <h4 class="text-white text-xl font-bold">Short 3</h4>
-                         <p class="text-white/70 text-xs mt-1"><i class="fab fa-youtube mr-1"></i> View Short</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Viral Short 3</h4>
                     </div>
                 </div>
 
                 <!-- Short 4 -->
-                <div class="gallery-item group cursor-pointer reveal delay-200">
-                    <iframe class="w-full h-full object-cover pointer-events-none" src="https://www.youtube.com/embed/s-WkaXT0iOo?controls=0&mute=1&loop=1&playlist=s-WkaXT0iOo" title="Social Short 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute inset-0 z-10"></div>
-                    <div class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none z-20">
+                <div class="gallery-item group cursor-pointer reveal delay-200" data-category="social"
+                    data-youtube-id="s-WkaXT0iOo">
+                    <div class="relative w-full overflow-hidden rounded-xl">
+                        <img src="https://img.youtube.com/vi/s-WkaXT0iOo/maxresdefault.jpg" alt="Short 4"
+                            class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                            <div
+                                class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-play text-white text-sm ml-1"></i>
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 bg-black/50 px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">
+                                Shorts</div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
                         <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Social Media</p>
-                        <h4 class="text-white text-xl font-bold">Short 4</h4>
-                         <p class="text-white/70 text-xs mt-1"><i class="fab fa-youtube mr-1"></i> View Short</p>
+                        <h4 class="text-white text-lg font-bold leading-tight">Viral Short 4</h4>
                     </div>
                 </div>
 
@@ -560,15 +757,18 @@
     <!-- Footer / Contact -->
     <section class="py-32 px-6 text-center relative">
         <div class="max-w-4xl mx-auto reveal">
-            <a href="mailto:isaiahchandler5@gmail.com" class="btn-gold px-12 py-5 rounded-full text-sm font-bold tracking-widest uppercase inline-block">
+            <a href="mailto:isaiahchandler5@gmail.com"
+                class="btn-gold px-12 py-5 rounded-full text-sm font-bold tracking-widest uppercase inline-block">
                 Start A Conversation
             </a>
 
             <div class="mt-20 flex justify-center gap-10 opacity-50 hover:opacity-100 transition-opacity duration-500">
-                <a href="https://www.linkedin.com/in/isaiah-chandler/" target="_blank" class="text-white hover:text-gold transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:isaiahchandler5@gmail.com" class="text-white hover:text-gold transition-colors text-2xl"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/isaiah-chandler/" target="_blank"
+                    class="text-white hover:text-gold transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:isaiahchandler5@gmail.com"
+                    class="text-white hover:text-gold transition-colors text-2xl"><i class="fas fa-envelope"></i></a>
             </div>
-            
+
             <p class="mt-12 text-xs text-muted uppercase tracking-widest">
                 © 2025 Isaiah Chandler.
             </p>
@@ -576,8 +776,10 @@
     </section>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-deep/95 backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300">
-        <div class="absolute top-6 right-6 cursor-pointer text-white hover:text-gold transition-colors p-2" id="lightbox-close">
+    <div id="lightbox"
+        class="fixed inset-0 z-[100] bg-deep/95 backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <div class="absolute top-6 right-6 cursor-pointer text-white hover:text-gold transition-colors p-2"
+            id="lightbox-close">
             <i class="fas fa-times text-2xl"></i>
         </div>
         <div id="lightbox-content" class="relative max-w-[90vw] max-h-[85vh] w-full flex justify-center">
@@ -604,9 +806,9 @@
             const centerY = size / 2;
             const outerRadius = size * 0.45;
             const innerRadius = size * 0.15;
-            
+
             const pulse = (Math.sin(time * 12) + 1) / 2;
-            const rotationSpeed = (2 * Math.PI) / (FPS * 1.5); 
+            const rotationSpeed = (2 * Math.PI) / (FPS * 1.5);
 
             rotationAngle += rotationSpeed;
 
@@ -618,38 +820,38 @@
             ctx.shadowColor = goldGlow;
 
             // 2. The Dark Base (Deep Navy)
-            ctx.fillStyle = '#0b1221'; 
+            ctx.fillStyle = '#0b1221';
             ctx.beginPath();
             ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
             ctx.fill();
 
-            ctx.shadowBlur = 0; 
+            ctx.shadowBlur = 0;
 
             // 3. Draw Rotating Glyph Segments
             const numSegments = 4;
-            const chevronWidth = size * 0.12; 
-            
+            const chevronWidth = size * 0.12;
+
             ctx.save();
             ctx.translate(centerX, centerY);
             ctx.rotate(rotationAngle);
-            
+
             for (let i = 0; i < numSegments; i++) {
                 const angle = (i / numSegments) * Math.PI * 2;
-                
+
                 ctx.save();
                 ctx.rotate(angle);
-                
-                ctx.beginPath();
-                ctx.moveTo(innerRadius * 1.0, 0); 
-                ctx.lineTo(outerRadius * 0.95, -chevronWidth / 2); 
-                ctx.lineTo(outerRadius * 0.95, chevronWidth / 2); 
-                ctx.closePath(); 
 
-                ctx.fillStyle = `rgba(255, 230, 100, ${0.8 + pulse * 0.2})`; 
-                
+                ctx.beginPath();
+                ctx.moveTo(innerRadius * 1.0, 0);
+                ctx.lineTo(outerRadius * 0.95, -chevronWidth / 2);
+                ctx.lineTo(outerRadius * 0.95, chevronWidth / 2);
+                ctx.closePath();
+
+                ctx.fillStyle = `rgba(255, 230, 100, ${0.8 + pulse * 0.2})`;
+
                 ctx.shadowBlur = size * 0.3;
-                ctx.shadowColor = `rgba(255, 215, 0, ${0.8})`; 
-                
+                ctx.shadowColor = `rgba(255, 215, 0, ${0.8})`;
+
                 ctx.fill();
                 ctx.restore();
             }
@@ -658,18 +860,18 @@
 
             // 4. Central Core
             const coreRadius = innerRadius * 0.8;
-            
-            ctx.shadowBlur = size * 0.2 * (1 + pulse); 
-            ctx.shadowColor = `rgba(255, 255, 255, ${0.5 + pulse * 0.5})`; 
 
-            ctx.fillStyle = '#c5a059'; 
+            ctx.shadowBlur = size * 0.2 * (1 + pulse);
+            ctx.shadowColor = `rgba(255, 255, 255, ${0.5 + pulse * 0.5})`;
+
+            ctx.fillStyle = '#c5a059';
             ctx.beginPath();
             ctx.arc(centerX, centerY, coreRadius, 0, Math.PI * 2);
             ctx.fill();
-            
+
             ctx.shadowBlur = 0;
-            ctx.strokeStyle = '#333333'; 
-            ctx.lineWidth = size * 0.01; 
+            ctx.strokeStyle = '#333333';
+            ctx.lineWidth = size * 0.01;
             ctx.beginPath();
             ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
             ctx.stroke();
@@ -681,7 +883,7 @@
             const elapsed = timestamp - lastTime;
             if (elapsed > interval) {
                 lastTime = timestamp - (elapsed % interval);
-                const time = timestamp / 1000; 
+                const time = timestamp / 1000;
 
                 // Draw on hidden canvas
                 drawSentinelGlyph(faviconCtx, FAVICON_SIZE, time);
@@ -694,11 +896,11 @@
         // --- Spotlight Effect Logic ---
         function handleMouseMove(e) {
             const cards = document.getElementsByClassName("spotlight-card");
-            for(const card of cards) {
+            for (const card of cards) {
                 const rect = card.getBoundingClientRect(),
-                      x = e.clientX - rect.left,
-                      y = e.clientY - rect.top;
-                
+                    x = e.clientX - rect.left,
+                    y = e.clientY - rect.top;
+
                 card.style.setProperty("--mouse-x", `${x}px`);
                 card.style.setProperty("--mouse-y", `${y}px`);
             };
@@ -725,50 +927,42 @@
             item.addEventListener('click', () => {
                 const video = item.querySelector('video');
                 const img = item.querySelector('img');
-                const iframe = item.querySelector('iframe');
-                
+                const youtubeId = item.dataset.youtubeId; // Get Youtube ID if exists
+
                 lightboxContent.innerHTML = ''; // Clear previous
 
-                if (video) {
+                if (youtubeId) {
+                    const newIframe = document.createElement('iframe');
+                    // Create autoplaying embed
+                    newIframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`;
+                    newIframe.title = "YouTube Video";
+                    newIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                    newIframe.allowFullscreen = true;
+                    // Aspect ratio box for iframe
+                    newIframe.classList.add('w-full', 'aspect-video', 'max-h-[85vh]', 'rounded-lg', 'border-0', 'shadow-2xl');
+
+                    // Container to constrain width
+                    const container = document.createElement('div');
+                    container.classList.add('w-full', 'max-w-4xl', 'mx-auto');
+                    container.appendChild(newIframe);
+
+                    lightboxContent.appendChild(container);
+
+                } else if (video) {
                     const videoSrc = video.querySelector('source').src;
                     const newVideo = document.createElement('video');
                     newVideo.src = videoSrc;
                     newVideo.controls = true;
                     newVideo.autoplay = true;
-                    newVideo.classList.add('w-full', 'h-auto', 'max-h-[85vh]', 'rounded-lg');
+                    newVideo.classList.add('w-full', 'h-auto', 'max-h-[85vh]', 'rounded-lg', 'shadow-2xl');
                     lightboxContent.appendChild(newVideo);
-                } else if (img) {
+
+                } else if (img && !img.src.includes('img.youtube.com')) {
+                    // Special case: don't open the thumbnail image of a youtube video (handled by youtubeId check anyway, but safety first)
                     const newImg = document.createElement('img');
                     newImg.src = img.src;
-                    newImg.classList.add('w-auto', 'h-auto', 'max-h-[85vh]', 'rounded-lg', 'object-contain');
+                    newImg.classList.add('w-auto', 'h-auto', 'max-h-[85vh]', 'rounded-lg', 'object-contain', 'shadow-2xl');
                     lightboxContent.appendChild(newImg);
-                } else if (iframe) {
-                    const newIframe = document.createElement('iframe');
-                    // Use a more permissive src if needed, or just copy
-                    // Ensure autoplay is ON for the lightbox experience
-                    let src = iframe.src;
-                    if(src.indexOf('?') > -1){
-                        // modify existing params
-                         src = src.replace('controls=0', 'controls=1')
-                                  .replace('mute=1', 'mute=0')
-                                  .replace('loop=1', ''); 
-                    } else {
-                         src += '?autoplay=1';
-                    }
-                    
-                    newIframe.src = src;
-                    newIframe.title = iframe.title;
-                    newIframe.allow = iframe.allow;
-                    newIframe.allowFullscreen = true;
-                    // Aspect ratio box for iframe
-                    newIframe.classList.add('w-full', 'aspect-video', 'max-h-[85vh]', 'rounded-lg', 'border-0');
-                    
-                    // Container to constrain width
-                    const container = document.createElement('div');
-                     container.classList.add('w-full', 'max-w-4xl');
-                    container.appendChild(newIframe);
-                    
-                    lightboxContent.appendChild(container);
                 }
 
                 lightbox.classList.remove('invisible', 'opacity-0');
@@ -784,7 +978,7 @@
         };
 
         lightboxClose.addEventListener('click', closeLightbox);
-        
+
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
@@ -793,16 +987,50 @@
             if (e.key === 'Escape' && !lightbox.classList.contains('invisible')) closeLightbox();
         });
 
+        // --- Filtering Logic ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                filterBtns.forEach(b => b.classList.remove('active', 'bg-gold', 'text-deep', 'border-gold'));
+
+                // Add active class to clicked
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    // Reset Animation
+                    item.style.animation = 'none';
+                    item.offsetHeight; /* trigger reflow */
+                    item.style.animation = null;
+
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        // Optional: Add a subtle fade-in
+                        item.classList.add('reveal', 'active');
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Re-trigger Masonry/Layout if needed (CSS columns handle it automatically mostly)
+            });
+        });
+
         // Start favicon animation on load
-        window.onload = function() {
-            animateFavicon(0); 
+        window.onload = function () {
+            animateFavicon(0);
         }
-        
+
         // Clean up
-        window.onunload = function() {
+        window.onunload = function () {
             cancelAnimationFrame(animationFrameId);
         };
 
     </script>
 </body>
+
 </html>
