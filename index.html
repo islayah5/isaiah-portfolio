@@ -486,11 +486,28 @@
                     data-filter="social">Social</button>
                 <button
                     class="filter-btn px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
+                    data-filter="web">Web</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-muted hover:text-white hover:border-gold/50"
                     data-filter="graphic">Graphic</button>
             </div>
 
             <!-- Masonry Grid -->
             <div class="masonry-grid" id="gallery-grid">
+
+                <!-- Project 0 (Dashboard - White Label) -->
+                <a href="client-dashboard/index.html" target="_blank"
+                    class="gallery-item group cursor-pointer reveal block" data-category="web">
+                    <!-- Using the template image from the repo -->
+                    <img src="client-dashboard/Cyber-truck-template.png" alt="Enterprise GTM Dashboard"
+                        class="w-full h-auto object-cover rounded-xl">
+                    <div
+                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
+                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Full-Stack Strategy
+                            Platform</p>
+                        <h4 class="text-white text-xl font-bold">Enterprise GTM Dashboard</h4>
+                    </div>
+                </a>
 
                 <!-- Project 1 (Spatial) -->
                 <div class="gallery-item group cursor-pointer reveal" data-category="spatial">
