@@ -455,6 +455,168 @@
         </div>
     </section>
 
+    <!-- Performance Reporting & Strategic Analysis Section -->
+    <section id="strategy" class="py-32 px-6 border-t border-white/5 bg-surface/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-3">Strategic Analysis</h2>
+                <h3 class="text-3xl md:text-4xl font-bold mb-6">Performance Reporting</h3>
+                <p class="text-muted text-lg font-light max-w-2xl mx-auto leading-relaxed">
+                    Data without a directive is just noise. I build custom reporting infrastructure to identify specific
+                    levers—from hook rates to retention leaks—that drive revenue growth. Below are anonymized samples of
+                    strategic performance reports delivered to stakeholders.
+                </p>
+            </div>
+
+            <!-- 2x2 Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+                <!-- Report Card 1: Home Services -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal"
+                    onclick="openReportModal('home-services', 'Elite Air & Home', 'Home Services / HVAC', 'reports/home-services.html')">
+
+                    <!-- Visual Mockup Area -->
+                    <div
+                        class="h-64 bg-gradient-to-br from-[#1a1a1a] to-[#000000] relative flex items-center justify-center overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/1a1a1a/FFF?text=Report+Sample')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="relative z-10 text-center p-6">
+                            <div
+                                class="w-16 h-16 mx-auto bg-red-700 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-wrench text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">Elite Air & Home</h4>
+                        </div>
+                    </div>
+
+                    <!-- At a Glance Metric -->
+                    <div class="p-6 bg-deep/50 backdrop-blur-sm border-t border-white/5">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-muted uppercase tracking-widest">At A Glance</span>
+                            <span
+                                class="text-xs font-bold text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View
+                                Assessment &rarr;</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-bold text-white">1,834</span>
+                            <span class="text-sm text-green-500 font-medium">+ High Intent Views</span>
+                        </div>
+                        <p class="text-xs text-muted mt-2">Identified critical retention leak at 0:10s mark.</p>
+                    </div>
+                </div>
+
+                <!-- Report Card 2: Construction -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-100"
+                    onclick="openReportModal('construction', 'Apex Roofing Systems', 'Construction / Roofing', 'reports/construction.html')">
+
+                    <!-- Visual Mockup Area -->
+                    <div
+                        class="h-64 bg-gradient-to-br from-[#141414] to-[#000000] relative flex items-center justify-center overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/1a1a1a/FFF?text=Report+Sample')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="relative z-10 text-center p-6">
+                            <div
+                                class="w-16 h-16 mx-auto bg-red-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-hammer text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">Apex Roofing</h4>
+                        </div>
+                    </div>
+
+                    <!-- At a Glance Metric -->
+                    <div class="p-6 bg-deep/50 backdrop-blur-sm border-t border-white/5">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-muted uppercase tracking-widest">At A Glance</span>
+                            <span
+                                class="text-xs font-bold text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View
+                                Assessment &rarr;</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-bold text-green-500">+91.6%</span>
+                            <span class="text-sm text-white font-medium">Watch Time</span>
+                        </div>
+                        <p class="text-xs text-muted mt-2">Shifted strategy from broad reach to "Insurance Authority".
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Report Card 3: Biotech -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-200"
+                    onclick="openReportModal('biotech', 'BioGen Innovations', 'Biotech / Pharma', 'reports/biotech.html')">
+
+                    <!-- Visual Mockup Area -->
+                    <div
+                        class="h-64 bg-gradient-to-br from-[#f0f4f8] to-[#d9e2ec] relative flex items-center justify-center overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/e0e0e0/333?text=Report+Sample')] bg-cover bg-center opacity-10 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="relative z-10 text-center p-6">
+                            <div
+                                class="w-16 h-16 mx-auto bg-teal-500 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-dna text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-800 uppercase tracking-wider">BioGen Innovations
+                            </h4>
+                        </div>
+                    </div>
+
+                    <!-- At a Glance Metric -->
+                    <div class="p-6 bg-deep/50 backdrop-blur-sm border-t border-white/5">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-muted uppercase tracking-widest">At A Glance</span>
+                            <span
+                                class="text-xs font-bold text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View
+                                Assessment &rarr;</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-bold text-white">80%</span>
+                            <span class="text-sm text-teal-400 font-medium">Traffic from Shorts</span>
+                        </div>
+                        <p class="text-xs text-muted mt-2">Validated "Lab to User" simplified content strategy.</p>
+                    </div>
+                </div>
+
+                <!-- Report Card 4: CPG Strategy -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-300"
+                    onclick="openReportModal('cpg', 'StrategyOS', 'CPG / Food & Bev', 'reports/cpg-strategy.html')">
+
+                    <!-- Visual Mockup Area -->
+                    <div
+                        class="h-64 bg-gradient-to-br from-[#111] to-[#000] relative flex items-center justify-center overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/000/FFF?text=StrategyOS')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="relative z-10 text-center p-6">
+                            <div
+                                class="w-16 h-16 mx-auto bg-red-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-bullseye text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">StrategyOS</h4>
+                        </div>
+                    </div>
+
+                    <!-- At a Glance Metric -->
+                    <div class="p-6 bg-deep/50 backdrop-blur-sm border-t border-white/5">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-muted uppercase tracking-widest">At A Glance</span>
+                            <span
+                                class="text-xs font-bold text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View
+                                Assessment &rarr;</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-bold text-white">1.2M</span>
+                            <span class="text-sm text-red-500 font-medium">Total Reach</span>
+                        </div>
+                        <p class="text-xs text-muted mt-2">Authority pillar content drove 80% of engagement.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Work Showcase -->
     <section id="work" class="py-32 px-6 border-t border-white/5 bg-surface/30">
         <div class="max-w-7xl mx-auto">
@@ -495,9 +657,9 @@
             <!-- Masonry Grid -->
             <div class="masonry-grid" id="gallery-grid">
 
-                <!-- Project 0 (Dashboard - White Label) -->
-                <a href="client-dashboard/index.html" target="_blank"
-                    class="gallery-item group cursor-pointer reveal block" data-category="web">
+                <!-- Project 0 (Dashboard - White Label) - UPDATED TO OPEN MODAL -->
+                <div class="gallery-item group cursor-pointer reveal block" data-category="web"
+                    onclick="openReportModal('dashboard', 'Enterprise GTM Dashboard', 'Strategy Platform', 'white-label-dashboard/index.html')">
                     <!-- Using the template image from the repo -->
                     <img src="client-dashboard/Cyber-truck-template.png" alt="Enterprise GTM Dashboard"
                         class="w-full h-auto object-cover rounded-xl">
@@ -507,7 +669,7 @@
                             Platform</p>
                         <h4 class="text-white text-xl font-bold">Enterprise GTM Dashboard</h4>
                     </div>
-                </a>
+                </div>
 
                 <!-- Project 1 (Spatial) -->
                 <div class="gallery-item group cursor-pointer reveal" data-category="spatial">
@@ -867,6 +1029,112 @@
         </div>
     </div>
 
+    <!-- Deep Dive Report Modal -->
+    <div id="report-modal"
+        class="fixed inset-0 z-[120] bg-deep/95 backdrop-blur-xl flex items-center justify-center opacity-0 invisible transition-all duration-300">
+
+        <!-- Close Button -->
+        <div class="absolute top-6 right-6 z-[130] cursor-pointer text-white hover:text-gold transition-colors p-2 bg-black/20 rounded-full"
+            id="report-close">
+            <i class="fas fa-times text-2xl"></i>
+        </div>
+
+        <div class="w-full h-full max-w-[1600px] flex flex-col md:flex-row overflow-hidden relative">
+
+            <!-- Left Side: Context & Strategy (Mobile: Top) -->
+            <div
+                class="w-full md:w-[350px] lg:w-[400px] bg-surface/80 md:h-full overflow-y-auto border-r border-white/5 p-8 flex flex-col relative z-20 shadow-2xl">
+                <div class="mb-8">
+                    <span id="modal-category"
+                        class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-2 block">Category</span>
+                    <h2 id="modal-title" class="text-3xl font-bold text-white mb-4 leading-tight">Client Name</h2>
+                    <div class="h-1 w-20 bg-gold/50 rounded-full"></div>
+                </div>
+
+                <!-- Strategic Context -->
+                <div class="space-y-8 flex-grow">
+                    <div>
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3"><i
+                                class="fas fa-crosshairs text-gold mr-2"></i> The Objective</h4>
+                        <p class="text-sm text-muted leading-relaxed" id="modal-objective">
+                            To identify high-leverage friction points in the customer journey and implement a
+                            data-backed content strategy to resolve them.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3"><i
+                                class="fas fa-search-dollar text-gold mr-2"></i> Reporting Insight</h4>
+                        <p class="text-sm text-muted leading-relaxed" id="modal-insight">
+                            Analysis revealed a 55% drop-off at the 10-second mark, indicating a weak value proposition
+                            hook.
+                        </p>
+                    </div>
+
+                    <!-- Interactive Retention Slider Visualization -->
+                    <div class="bg-black/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Retention Impact</h4>
+                        <div class="relative h-24 w-full bg-deep rounded-lg overflow-hidden cursor-crosshair group"
+                            id="retention-graph-container">
+                            <!-- Grid Lines -->
+                            <div class="absolute inset-0 grid grid-cols-4 grid-rows-2">
+                                <div class="border-r border-white/5"></div>
+                                <div class="border-r border-white/5"></div>
+                                <div class="border-r border-white/5"></div>
+                                <div class=""></div>
+                            </div>
+
+                            <!-- Graph Label -->
+                            <div class="absolute top-2 left-2 text-[8px] text-muted">RETENTION %</div>
+
+                            <!-- Before Line (SVG) -->
+                            <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                                <path d="M0,10 Q50,90 100,95 L300,98" fill="none" stroke="#ef4444" stroke-width="2"
+                                    stroke-dasharray="4 2" class="opacity-60" />
+                            </svg>
+
+                            <!-- After Line (SVG) -->
+                            <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                                <path d="M0,10 Q80,20 300,30" fill="none" stroke="#22c55e" stroke-width="2" />
+                            </svg>
+
+                            <!-- Slider Handle (Pure CSS hover effect for now, could be interactive JS) -->
+                            <div
+                                class="absolute top-0 bottom-0 w-0.5 bg-white left-[40%] group-hover:left-[60%] transition-all duration-1000">
+                                <div
+                                    class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-deep text-[8px] font-bold px-1 rounded">
+                                    DRAG</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-2 text-[9px] text-muted uppercase font-bold">
+                            <span class="text-red-500">Before</span>
+                            <span class="text-green-500">After Strategy</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3"><i
+                                class="fas fa-check-circle text-gold mr-2"></i> The Result</h4>
+                        <p class="text-sm text-muted leading-relaxed" id="modal-result">
+                            Implemented "Value-First" hooks, increasing retention by 35% and driving a 20% uplift in
+                            qualified leads.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Iframe Container (Mobile: Scrollable) -->
+            <div class="flex-grow h-full bg-white relative">
+                <div class="absolute inset-0 flex items-center justify-center z-0">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-deep/20"></i>
+                </div>
+                <iframe id="report-iframe" src="" class="w-full h-full relative z-10 border-0"
+                    title="Report Preview"></iframe>
+            </div>
+
+        </div>
+    </div>
+
     <script>
         // --- Favicon Animation Logic ---
         const FAVICON_SIZE = 32;
@@ -1218,6 +1486,84 @@
         window.onunload = function () {
             cancelAnimationFrame(animationFrameId);
         };
+
+        // --- Report Deep Dive Modal Logic ---
+        const reportModal = document.getElementById('report-modal');
+        const reportClose = document.getElementById('report-close');
+        const reportIframe = document.getElementById('report-iframe');
+
+        // Context Elements
+        const modalCategory = document.getElementById('modal-category');
+        const modalTitle = document.getElementById('modal-title');
+        const modalObjective = document.getElementById('modal-objective');
+        const modalInsight = document.getElementById('modal-insight');
+        const modalResult = document.getElementById('modal-result');
+
+        // Dynamic Data Content (Could be externalized, but inline for efficiency here)
+        const reportData = {
+            'home-services': {
+                objective: "To dominate local search voice and build trust before the first phone call.",
+                insight: "Viewers were dropping off at 10s because the 'hook' was too generic. We needed to be controversial and helpful immediately.",
+                result: "The 'No Visit? No Trust.' campaign drove 1,800+ local views and a 45% increase in retention."
+            },
+            'construction': {
+                objective: "To position Apex Roofing as the 'Engineering Choice' for storm safety, not just another contractor.",
+                insight: "Homeowners fear insurance denial more than leaks. Content focusing on 'Insurance Compliance' had 2x the CTR.",
+                result: "Reached 37k+ weekly views and increased high-intent watch time by 91%."
+            },
+            'biotech': {
+                objective: "To translate complex immunotherapy science into investor-ready narratives.",
+                insight: "Investors engaged 3x more with 'Patient Impact' stories than technical molecular breakdown videos.",
+                result: "Short-form video strategy drove 80% of total engagement, expanding the investor funnel."
+            },
+            'cpg': {
+                objective: "To establish culinary authority for StrategyOS in a crowded spice market.",
+                insight: "Educational 'How-To' content dramatically outperformed lifestyle shots. People wanted to learn, not just look.",
+                result: "The 'Authority Pillar' reel drove 1.2M reach and 80% of weekly engagement."
+            },
+            'dashboard': {
+                objective: "To provide a centralized, real-time view of all GTM activities for executive stakeholders.",
+                insight: "Fragmented reporting across email, PDF, and Slack was causing 'Data Paralysis'.",
+                result: "Built a consolidated HTML5 dashboard, reducing reporting latency by 100% and unifying cross-channel metrics."
+            }
+        };
+
+        window.openReportModal = (id, title, category, url) => {
+            // Set Text
+            modalTitle.innerText = title;
+            modalCategory.innerText = category;
+
+            // Set Data
+            if (reportData[id]) {
+                modalObjective.innerText = reportData[id].objective;
+                modalInsight.innerText = reportData[id].insight;
+                modalResult.innerText = reportData[id].result;
+            }
+
+            // Load Iframe
+            reportIframe.src = url;
+
+            // Show Modal
+            reportModal.classList.remove('invisible', 'opacity-0');
+            reportModal.classList.add('visible', 'opacity-100');
+        };
+
+        const closeReportModal = () => {
+            reportModal.classList.add('invisible', 'opacity-0');
+            reportModal.classList.remove('visible', 'opacity-100');
+            // Clear iframe src to stop playing media
+            setTimeout(() => {
+                reportIframe.src = '';
+            }, 300);
+        };
+
+        if (reportClose) reportClose.addEventListener('click', closeReportModal);
+
+        if (reportModal) {
+            reportModal.addEventListener('click', (e) => {
+                if (e.target === reportModal) closeReportModal();
+            });
+        }
 
     </script>
 </body>

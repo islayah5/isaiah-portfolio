@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BioGen Innovations Weekly Social Media Report Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+        /* Basic Reset & Font */
+        body,
+        table,
+        td,
+        a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 40px 0 !important;
+            background-color: #f8f9fa;
+            font-family: 'DM Sans', Arial, sans-serif;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            border: 1px solid #55C3C0;
+        }
+
+        .header-section {
+            background-color: #F1F3F5;
+            padding: 20px 0;
+            text-align: center;
+            color: #ffffff;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-bottom: 2px solid #55C3C0;
+        }
+
+        .header-logo {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #55C3C0;
+            margin: 0;
+            padding: 0;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .header-tagline {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #295A6E;
+            margin-top: 4px;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #172A3D;
+            margin: 0;
+            letter-spacing: 0.06em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #172A3D;
+            margin: 0 0 25px 0;
+            border-bottom: 2px solid #25B7E3;
+            padding-bottom: 10px;
+            display: inline-block;
+            text-align: left;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        h3 {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: #295A6E;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        p {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #4A5568;
+            margin: 0;
+        }
+
+        .date-text {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            color: #25B7E3;
+            margin: 8px 0 0;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .positive-change {
+            color: #55C3C0;
+            font-weight: 600;
+        }
+
+        .small-text {
+            font-size: 11px;
+            color: #718096;
+            font-family: 'DM Sans', Arial, sans-serif;
+        }
+
+        /* Metrics */
+        .metric-box {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 14px 10px 16px;
+            text-align: center;
+            border: 1px solid #DDE1E5;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .metric-value {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 26px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin: 0;
+            color: #172A3D;
+        }
+
+        .metric-label {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            color: #718096;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        /* Bar Charts */
+        .bar-label {
+            padding: 8px 0;
+            font-weight: 600;
+            font-size: 13px;
+            width: 170px;
+            color: #2D3748;
+            font-family: 'DM Sans', Arial, sans-serif;
+        }
+
+        .bar-label-desc {
+            font-size: 11px;
+            color: #718096;
+            font-weight: 400;
+        }
+
+        .bar-outer {
+            width: 100%;
+            background-color: #E9ECEF;
+            border-radius: 999px;
+            border: 1px solid #DDE1E5;
+        }
+
+        .bar-inner {
+            height: 18px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: right;
+            padding-right: 8px;
+            line-height: 18px;
+            color: #FFFFFF;
+            white-space: nowrap;
+        }
+
+        .bar-youtube {
+            background-color: #25B7E3;
+        }
+
+        .bar-meta {
+            background-color: #55C3C0;
+        }
+
+        .bar-linkedin {
+            background-color: #BFEDEF;
+            color: #172A3D;
+        }
+
+        /* Card Styles */
+        .action-plan-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px solid #DDE1E5;
+        }
+
+        .action-plan-card h3 {
+            color: #25B7E3;
+            font-size: 13px;
+        }
+
+        .action-plan-card p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .key-takeaway-card {
+            background-color: #ffffff;
+            border-left: 4px solid #25B7E3;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .key-takeaway-card p {
+            font-family: 'DM Sans', Arial, sans-serif;
+            font-size: 14px;
+            color: #4A5568;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .key-takeaway-card strong {
+            color: #172A3D;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body style="margin: 0 !important; padding: 40px 0 !important; background-color: #f8f9fa;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center">
+                <div class="container">
+                    <div class="header-section">
+                        <div class="header-logo">BioGen Innovations</div>
+                        <div class="header-tagline">IMMUNE-SYSTEM-FIRST CANCER INNOVATION</div>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td align="center" style="padding: 30px 40px;">
+                                <h1>Social Media Performance Report</h1>
+                                <p class="date-text">[INSERT DATE RANGE, E.G., NOV 1 – 7, 2025]</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 0 40px 20px;">
+                                <p><strong>Executive Summary:</strong> [Write 2-3 sentences here summarizing the week's
+                                    performance. Mention which platform performed best, the total view count, and the
+                                    most popular content theme of the week.]</p>
+                                <br>
+                                <p>This report covers <strong>YouTube</strong>, <strong>Meta
+                                        (Facebook/Instagram)</strong>, and <strong>LinkedIn</strong>.</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 30px 40px; background-color: #f8f9fa;">
+                                <h2>Key Takeaways</h2>
+                                <div class="key-takeaway-card">
+                                    <p><strong>1. [INSERT HEADLINE]:</strong> [Detail your first key finding. Use
+                                        numbers to back it up, e.g., "YouTube Shorts drove 80% of traffic."]</p>
+                                </div>
+                                <div class="key-takeaway-card">
+                                    <p><strong>2. [INSERT HEADLINE]:</strong> [Detail your second key finding. Discuss
+                                        what content topics are resonating.]</p>
+                                </div>
+                                <div class="key-takeaway-card">
+                                    <p><strong>3. [INSERT HEADLINE]:</strong> [Detail your third key finding. Highlight
+                                        any areas for improvement.]</p>
+                                </div>
+                                <div class="key-takeaway-card">
+                                    <p><strong>4. [INSERT HEADLINE]:</strong> [Detail your fourth key finding.]</p>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 30px 40px;">
+                                <h2>Performance Snapshot</h2>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td width="32%" valign="top">
+                                            <div class="metric-box">
+                                                <p class="metric-label">Total Reach</p>
+                                                <p class="metric-value">[#]</p>
+                                            </div>
+                                        </td>
+                                        <td width="2%"></td>
+                                        <td width="32%" valign="top">
+                                            <div class="metric-box">
+                                                <p class="metric-label">Total Engagements</p>
+                                                <p class="metric-value">[#]</p>
+                                            </div>
+                                        </td>
+                                        <td width="2%"></td>
+                                        <td width="32%" valign="top">
+                                            <div class="metric-box">
+                                                <p class="metric-label">% Engagements from YouTube</p>
+                                                <p class="metric-value positive-change">[#]%</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p class="small-text" style="margin-top: 8px;">*Engagements = YouTube ([#]) + Meta ([#])
+                                    + LinkedIn ([#])</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 30px 40px; background-color: #f8f9fa;">
+                                <h2>Anatomy of a Win</h2>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td width="45%" valign="top" style="padding-right: 20px;">
+                                            <div
+                                                style="background-color: #ffffff; height: 220px; border-radius: 8px; display: table-cell; align-items: center; justify-content: center; color: #4A5568; font-size: 12px; text-align: center; border: 1px dashed #DDE1E5; width: 100%;">
+                                                <strong style="display:block;">Thumbnail Placeholder</strong>
+                                                <span>[PASTE IMAGE]</span>
+                                            </div>
+                                        </td>
+                                        <td width="55%" valign="top" style="padding-left: 20px;">
+                                            <h3>Top Performer: “[INSERT VIDEO TITLE]” (Platform)</h3>
+                                            <p
+                                                style="font-weight: 600; color: #55C3C0; font-size: 11px; letter-spacing: 0.14em;">
+                                                WHY IT WORKED: [SHORT REASON]</p>
+                                            <p>[Explain briefly why this post succeeded.]</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 30px 40px;">
+                                <h2>Engagements by Platform</h2>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td class="bar-label" valign="top">YouTube</td>
+                                        <td class="bar-container" valign="middle">
+                                            <div class="bar-outer">
+                                                <div class="bar-inner bar-youtube" style="width: 80%;">[#] · [#]%</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bar-label" valign="top">Meta</td>
+                                        <td class="bar-container" valign="middle">
+                                            <div class="bar-outer">
+                                                <div class="bar-inner bar-meta" style="width: 15%;">[#] · [#]%</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bar-label" valign="top">LinkedIn</td>
+                                        <td class="bar-container" valign="middle">
+                                            <div class="bar-outer">
+                                                <div class="bar-inner bar-linkedin" style="width: 5%;">[#] · [#]%</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 30px 40px; background-color: #f8f9fa;">
+                                <h2>Path Forward: Action Plan</h2>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td width="32%" valign="top" style="padding-right: 10px;">
+                                            <div class="action-plan-card">
+                                                <h3>DO MORE OF THIS</h3>
+                                                <p>[What worked well?]</p>
+                                            </div>
+                                        </td>
+                                        <td width="2%"></td>
+                                        <td width="32%" valign="top" style="padding: 0 10px;">
+                                            <div class="action-plan-card">
+                                                <h3>TEST &amp; OPTIMIZE</h3>
+                                                <p>[What needs testing?]</p>
+                                            </div>
+                                        </td>
+                                        <td width="2%"></td>
+                                        <td width="32%" valign="top" style="padding-left: 10px;">
+                                            <div class="action-plan-card">
+                                                <h3>STRATEGIC EXPANSION</h3>
+                                                <p>[What is the big picture goal?]</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td
+                                style="padding: 30px; text-align: center; font-size: 11px; color: #718096; border-top: 1px solid #e9ecef;">
+                                <p style="margin: 0;">Social media performance report prepared for <strong
+                                        style="color: #172A3D;">BioGen Innovations</strong>. For investor information,
+                                    visit <a href="#"
+                                        style="color: #55C3C0; font-weight: 600; text-decoration: none;">biogen.investors.com</a>.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
