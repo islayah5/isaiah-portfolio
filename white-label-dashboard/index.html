@@ -1,725 +1,1038 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
-    <title>SpiceX Weekly Social Report</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Performance Architecture</title>
 
-    <meta name="color-scheme" content="light dark">
-    <meta name="supported-color-schemes" content="light dark">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    <style type="text/css">
-        /* ====== CLIENT RESET ====== */
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" href="https://placehold.co/32x32/131313/FFFFFF/png?text=SO">
+
+    <style>
+        /* --- BRAND PALETTE APPLIED --- */
         :root {
-            color-scheme: light dark;
-            supported-color-schemes: light dark;
+            --bg-dark: #131313;
+            --panel-bg: rgba(20, 20, 20, 0.7);
+            --text-light: #FFFFFF;
+            /* FIX: Further lightened grey for maximum readability & accessibility */
+            --text-muted: #CCCCCC;
+            --accent-red: #F01C23;
+            --accent-red-2: #D11C23;
+            --accent-red-3: #B3242A;
+            --panel-border: rgba(102, 102, 102, 0.2);
+            --border-color: rgba(240, 28, 35, 0.2);
+
+            --font-family-heading: 'Montserrat', sans-serif;
+            --font-family-subheading: 'Oswald', sans-serif;
+            --font-family-body: 'Montserrat', sans-serif;
         }
 
-        body,
-        table,
-        td,
-        a {
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
+        /* --- END BRAND PALETTE --- */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        table,
-        td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-        }
-
-        img {
-            -ms-interpolation-mode: bicubic;
-            border: 0;
-            line-height: 100%;
-            outline: none;
-            text-decoration: none;
-        }
-
-        table {
-            border-collapse: collapse !important;
-            border-spacing: 0;
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 4rem;
         }
 
         body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
+            font-family: var(--font-family-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
         }
 
-        /* ====== LAYOUT ====== */
-        .email-bg {
-            background-color: #f2f2f2;
-        }
-
-        .container {
+        /* Scanline Overlay for a retro-tech feel */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.2s ease-in-out;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.5;
+            animation: scanlines 10s linear infinite;
         }
 
-        .px {
-            padding-left: 40px;
-            padding-right: 40px;
+        @keyframes scanlines {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 100vh;
+            }
         }
 
-        .section {
-            padding-top: 28px;
-            padding-bottom: 28px;
-        }
-
-        .section-dark {
-            background: #f8f8f8;
-        }
-
-        .divider {
-            height: 1px;
-            line-height: 1px;
-            background: #ececec;
-        }
-
-        /* ====== BRAND ====== */
-        .sx-black {
-            color: #131313;
-        }
-
-        .sx-red {
-            color: #F01C23;
-        }
-
-        .sx-red-bg {
-            background: #F01C23;
-        }
-
-        .muted {
-            color: #666666;
-        }
-
-        /* ====== TYPE ====== */
         h1,
         h2,
         h3,
-        p {
-            margin: 0;
-        }
-
-        h1 {
-            font-family: "Montserrat", Arial, sans-serif;
+        h4 {
+            font-family: var(--font-family-heading);
+            color: var(--text-light);
             font-weight: 900;
-            font-size: 26px;
-            line-height: 1.3;
-            color: #131313;
-            letter-spacing: -0.5px;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         h2 {
-            font-family: "Montserrat", Arial, sans-serif;
-            font-weight: 800;
-            font-size: 18px;
-            color: #131313;
-            border-bottom: 3px solid #F01C23;
-            padding-bottom: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 0.75rem;
+            display: inline-block;
         }
 
         h3 {
-            font-family: "Montserrat", Arial, sans-serif;
+            font-family: var(--font-family-subheading);
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
             font-weight: 700;
-            font-size: 16px;
-            color: #131313;
-            margin-bottom: 10px;
+            color: var(--text-light);
+            text-transform: uppercase;
         }
 
-        .copy {
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #333333;
+        h4 {
+            font-family: var(--font-family-subheading);
+            font-size: 1rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
         }
 
-        .date {
-            font-family: "Montserrat", Arial, sans-serif;
-            font-weight: 800;
-            color: #F01C23;
-            font-size: 14px;
-            padding-top: 6px;
+        p,
+        li {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-weight: 400;
         }
 
-        /* ====== HEADER ====== */
-        .header {
-            background: #131313;
-            color: #ffffff;
-            text-align: center;
-            padding: 22px 0;
-            border-bottom: 2px solid #2a2a2a;
+        .text-accent {
+            color: var(--accent-red);
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(240, 28, 35, 0.5);
         }
 
-        .logo {
-            font-family: "Montserrat", Arial, sans-serif;
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        #hero-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .title-glitch {
+            font-size: 5rem;
             font-weight: 900;
-            font-size: 24px;
-            letter-spacing: .10em;
-            margin: 0;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            position: relative;
+            color: var(--text-light);
+            text-shadow: 0 0 5px var(--accent-red);
         }
 
-        .logo .x {
-            color: #F01C23;
+        .title-glitch::before,
+        .title-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            overflow: hidden;
         }
 
-        /* ====== KPI ====== */
-        .metric {
-            background: #ffffff;
-            border: 1px solid #ededed;
-            border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            transition: all 0.2s ease-in-out;
+        .title-glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent-red);
+            animation: glitch-anim-1 2.5s infinite linear reverse;
         }
 
-        .metric .label {
-            font-family: "Montserrat", Arial, sans-serif;
-            font-weight: 800;
-            font-size: 12px;
-            color: #666;
-            letter-spacing: .06em;
+        .title-glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--accent-red-3), 2px 2px var(--accent-red);
+            animation: glitch-anim-2 2s infinite linear reverse;
         }
 
-        .metric .value {
-            font-family: "Montserrat", Arial, sans-serif;
-            font-weight: 900;
-            font-size: 30px;
-            color: #131313;
-            line-height: 1.1;
-            margin-top: 6px;
+        @keyframes glitch-anim-1 {
+            0% {
+                clip: rect(25px, 9999px, 89px, 0);
+            }
+
+            10% {
+                clip: rect(69px, 9999px, 35px, 0);
+            }
+
+            20% {
+                clip: rect(99px, 9999px, 73px, 0);
+            }
+
+            30% {
+                clip: rect(4px, 9999px, 9px, 0);
+            }
+
+            40% {
+                clip: rect(74px, 9999px, 93px, 0);
+            }
+
+            50% {
+                clip: rect(62px, 9999px, 2px, 0);
+            }
+
+            60% {
+                clip: rect(15px, 9999px, 88px, 0);
+            }
+
+            70% {
+                clip: rect(40px, 9999px, 20px, 0);
+            }
+
+            80% {
+                clip: rect(85px, 9999px, 5px, 0);
+            }
+
+            90% {
+                clip: rect(27px, 9999px, 69px, 0);
+            }
+
+            100% {
+                clip: rect(54px, 9999px, 95px, 0);
+            }
         }
 
-        .badge {
-            display: inline-block;
-            font-family: "Montserrat", Arial, sans-serif;
-            font-weight: 800;
-            font-size: 10px;
-            color: #F01C23;
-            border: 1px solid #F6C4C6;
-            background: #FFE7E8;
-            border-radius: 999px;
-            padding: 4px 8px;
-            letter-spacing: .06em;
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(28px, 9999px, 93px, 0);
+            }
+
+            10% {
+                clip: rect(2px, 9999px, 67px, 0);
+            }
+
+            20% {
+                clip: rect(81px, 9999px, 7px, 0);
+            }
+
+            30% {
+                clip: rect(6px, 9999px, 57px, 0);
+            }
+
+            40% {
+                clip: rect(3px, 9999px, 14px, 0);
+            }
+
+            50% {
+                clip: rect(19px, 9999px, 9px, 0);
+            }
+
+            60% {
+                clip: rect(93px, 9999px, 12px, 0);
+            }
+
+            70% {
+                clip: rect(52px, 9999px, 93px, 0);
+            }
+
+            80% {
+                clip: rect(10px, 9999px, 94px, 0);
+            }
+
+            90% {
+                clip: rect(88px, 9999px, 53px, 0);
+            }
+
+            100% {
+                clip: rect(74px, 9999px, 60px, 0);
+            }
         }
 
-        /* ====== CARDS ====== */
+        .section-divider {
+            position: relative;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+        }
+
+        .section-divider::before {
+            top: 0;
+            background: linear-gradient(to bottom, var(--bg-dark), transparent);
+        }
+
+        .section-divider::after {
+            bottom: 0;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+        }
+
+        .nav-item {
+            position: relative;
+            color: var(--text-muted);
+            transition: color 0.3s;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-item:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-red);
+            transition: width 0.3s;
+        }
+
+        .nav-item.active::after,
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-section h2,
+        .fade-in-section h3 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s;
+        }
+
+        .fade-in-section.is-visible h2,
+        .fade-in-section.is-visible h3 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .card {
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #ededed;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            padding: 18px;
-            transition: all 0.2s ease-in-out;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
         }
 
-        .key {
-            background: #FFF0F0;
-            border-left: 6px solid #F01C23;
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+            border-color: var(--accent-red);
+        }
+
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .card-animated-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            height: calc(100% + 4px);
+            width: calc(100% + 4px);
+            background: conic-gradient(from var(--angle),
+                    transparent 0%,
+                    var(--accent-red) 10%,
+                    transparent 25%,
+                    var(--accent-red-2) 50%,
+                    transparent 75%,
+                    #FFFFFF 90%,
+                    transparent 100%);
             border-radius: 10px;
-            padding: 14px 16px;
+            z-index: -1;
+            animation: spin 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        /* ====== FAUX GLASS (safe) ====== */
-        .glass {
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 16px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
-            padding: 18px;
-            transition: all 0.2s ease-in-out;
+        .card-animated-border:hover::before {
+            opacity: 0.7;
+            animation-duration: 4s;
         }
 
-        .chip {
-            font-family: "Montserrat", Arial, sans-serif;
-            font-weight: 800;
-            font-size: 11px;
-            border: 1px solid #efc2c4;
-            color: #A31218;
-            background: #FFE7E8;
-            border-radius: 999px;
-            padding: 6px 10px;
-            display: inline-block;
-            margin-right: 6px;
-            margin-bottom: 6px;
-        }
-
-        /* ====== RESPONSIVE ====== */
-        @media screen and (max-width:600px) {
-            .px {
-                padding-left: 20px !important;
-                padding-right: 20px !important;
+        @keyframes spin {
+            from {
+                --angle: 0deg;
             }
 
-            .stack {
-                display: block !important;
-                width: 100% !important;
-                padding: 0 !important;
-            }
-
-            .spacer-16 {
-                height: 16px !important;
-                line-height: 16px !important;
-            }
-
-            .mobile-center {
-                text-align: center !important;
+            to {
+                --angle: 360deg;
             }
         }
 
-        /* ====== DARK MODE STYLES ====== */
-        @media (prefers-color-scheme: dark) {
-            .email-bg {
-                background-color: #1e1e1e !important;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-family-subheading);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 2px solid var(--accent-red);
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            background: transparent;
+            padding: 1rem 2rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-red);
+            box-shadow: 0 0 25px rgba(240, 28, 35, 0.6);
+            color: var(--bg-dark);
+            transform: scale(1.05);
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(240, 28, 35, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(240, 28, 35, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .flywheel-container {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            max-width: 800px;
+            aspect-ratio: 1 / 1;
+            margin: 4rem auto 0;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .flywheel-center {
+            grid-area: 2 / 2 / 3 / 3;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px dashed var(--panel-border);
+            animation: spin 40s linear infinite;
+        }
+
+        .flywheel-center::before,
+        .flywheel-center::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid var(--accent-red);
+            opacity: 0.2;
+        }
+
+        .flywheel-center::before {
+            width: 100%;
+            height: 100%;
+            animation: spin 20s linear infinite reverse;
+        }
+
+        .flywheel-center::after {
+            width: 50%;
+            height: 50%;
+            animation: spin 15s linear infinite;
+        }
+
+        .flywheel-card {
+            width: 95%;
+            height: 95%;
+            justify-content: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            z-index: 5;
+        }
+
+        .flywheel-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .flywheel-attract {
+            grid-area: 1 / 2 / 2 / 3;
+        }
+
+        .flywheel-engage {
+            grid-area: 2 / 3 / 3 / 4;
+        }
+
+        .flywheel-amplify {
+            grid-area: 3 / 2 / 4 / 3;
+        }
+
+        .flywheel-convert {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+
+        @media (max-width: 768px) {
+            .flywheel-container {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                height: auto;
+                aspect-ratio: auto;
             }
 
-            .container,
-            .card,
-            .metric,
-            .glass {
-                background: #2b2b2b !important;
-                border-color: #444444 !important;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+            .flywheel-center {
+                display: none;
             }
 
-            .section-dark {
-                background: #252525 !important;
-            }
-
-            h1,
-            h2,
-            h3,
-            .copy,
-            .metric .value,
-            .sx-black {
-                color: #ffffff !important;
-            }
-
-            .logo {
-                color: #ffffff !important;
-            }
-
-            .muted,
-            .metric .label,
-            .copy-light {
-                color: #999999 !important;
-            }
-
-            .divider,
-            .card table td {
-                border-color: #444444 !important;
-            }
-
-            .key {
-                background: #3a2021 !important;
-                border-left-color: #F01C23 !important;
-            }
-
-            /* Specific overrides for branded elements */
-            .badge {
-                color: #F01C23 !important;
-                border-color: #F01C23 !important;
-                background: #4f292a !important;
-            }
-
-            .chip {
-                color: #A31218 !important;
-                border-color: #A31218 !important;
-                background: #4f292a !important;
-            }
-
-            /* Fix for Outlook.com dark mode */
-            [data-ogsc] .email-bg {
-                background-color: #1e1e1e !important;
-            }
-
-            [data-ogsc] .container,
-            [data-ogsc] .card,
-            [data-ogsc] .metric,
-            [data-ogsc] .glass {
-                background: #2b2b2b !important;
-                border-color: #444444 !important;
-            }
-
-            [data-ogsc] .section-dark {
-                background: #252525 !important;
-            }
-
-            [data-ogsc] h1,
-            [data-ogsc] h2,
-            [data-ogsc] h3,
-            [data-ogsc] .copy,
-            [data-ogsc] .metric .value,
-            [data-ogsc] .sx-black {
-                color: #ffffff !important;
-            }
-
-            [data-ogsc] .logo {
-                color: #ffffff !important;
-            }
-
-            [data-ogsc] .muted,
-            [data-ogsc] .metric .label,
-            [data-ogsc] .copy-light {
-                color: #999999 !important;
-            }
-
-            [data-ogsc] .divider,
-            [data-ogsc] .card table td {
-                border-color: #444444 !important;
-            }
-
-            [data-ogsc] .key {
-                background: #3a2021 !important;
-                border-left-color: #F01C23 !important;
-            }
-
-            [data-ogsc] .badge {
-                color: #F01C23 !important;
-                border-color: #F01C23 !important;
-                background: #4f292a !important;
-            }
-
-            [data-ogsc] .chip {
-                color: #A31218 !important;
-                border-color: #A31218 !important;
-                background: #4f292a !important;
+            .flywheel-card {
+                width: 100%;
+                height: auto;
             }
         }
     </style>
-
 </head>
 
-<body class="email-bg" style="margin:0; padding:40px 0; background-color:#f2f2f2;">
-    <center>
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing:0;">
-            <tr>
-                <td align="center">
+<body class="antialiased">
 
-                    <table role="article" aria-label="Weekly Performance Report" width="100%" cellpadding="0"
-                        cellspacing="0" border="0" class="container"
-                        style="width:100%; max-width:800px; margin:0 auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.08);">
+    <canvas id="hero-canvas"></canvas>
 
-                        <tr>
-                            <td class="header"
-                                style="background:#131313; color:#ffffff; text-align:center; padding:22px 0; border-bottom:2px solid #2a2a2a;">
-                                <p class="logo fallback-font" role="heading" aria-level="1"
-                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:900; font-size:24px; letter-spacing:.10em; margin:0;">
-                                    SPIC E<span class="x" style="color:#F01C23;">X</span> REPORT
-                                </p>
-                            </td>
-                        </tr>
+    <nav id="navbar"
+        class="sticky top-0 z-50 bg-black/50 backdrop-blur-lg border-b border-[var(--border-color)] shadow-lg">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center py-4">
+                <a href="#home" class="flex items-center space-x-3">
+                    <span class="text-2xl font-black text-white">Client<span class="text-accent">OS</span></span>
+                    <span class="text-sm font-light text-[var(--text-muted)] hidden sm:inline ml-3">| Performance
+                        Architecture</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-6" id="nav-links">
+                    <a href="#narrative" class="nav-item">Narrative</a>
+                    <a href="#audience" class="nav-item">Audience</a>
+                    <a href="#positioning" class="nav-item">Positioning</a>
+                    <a href="#content" class="nav-item">Content</a>
+                    <a href="#flywheel" class="nav-item">Flywheel</a>
+                    <a href="#governance" class="nav-item">KPIs</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-                        <tr>
-                            <td class="px section" align="center"
-                                style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
-                                <h1 class="fallback-font"
-                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:900; font-size:26px; line-height:1.3; color:#131313; letter-spacing:-0.5px; margin:0; text-shadow: 0 1px 1px rgba(0,0,0,0.05);">
-                                    Weekly Performance Report</h1>
-                                <div class="date fallback-font"
-                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; color:#F01C23; font-size:14px; padding-top:6px;">
-                                    October 13 – October 19, 2025</div>
-                            </td>
-                        </tr>
+    <header id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-dark)] via-transparent to-[var(--bg-dark)] z-10">
+        </div>
+        <div class="relative z-20 p-8 container mx-auto">
+            <h4 class="text-lg md:text-xl mb-4 tracking-widest">The Architecture Blueprint</h4>
+            <h1 class="title-glitch text-5xl md:text-7xl lg:text-8xl" data-text="PERFORMANCE ARCHITECTURE">PERFORMANCE
+                ARCHITECTURE</h1>
+            <p class="text-xl md:text-2xl text-[var(--text-muted)] font-light mt-8 mb-10 max-w-4xl mx-auto">To create
+                and dominate the category of <span class="text-accent">Market Self-Reliance</span>, transforming The
+                Ecosystem from a powerful platform into an essential movement for modern enterprises.</p>
+            <a href="#narrative" class="btn">
+                Initiate Briefing
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
+        </div>
+    </header>
 
-                        <tr>
-                            <td class="px section"
-                                style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
-                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                    style="border-spacing:0;">
-                                    <tr>
-                                        <td>
-                                            <div style="margin-bottom:8px;">
-                                                <span class="badge fallback-font"
-                                                    style="display:inline-block; font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:10px; color:#F01C23; border:1px solid #F6C4C6; background:#FFE7E8; border-radius:999px; padding:4px 8px; letter-spacing:.06em;">📈
-                                                    OVERALL HIGHLIGHTS</span>
-                                            </div>
-                                            <p class="copy"
-                                                style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                This week saw a major win with our new "Authority" pillar reel, which
-                                                drove 80% of our engagement. Community content lagged, representing an
-                                                opportunity for next week.
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+    <main>
+        <section id="narrative" class="py-20 md:py-28 bg-black/20 fade-in-section">
+            <div class="container mx-auto px-6 max-w-6xl text-center">
+                <h2 class="text-4xl md:text-5xl mb-12">The Unified Narrative</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-start text-left">
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl mb-3 text-accent">The Hidden Enemy: <span class="text-white">Vendor
+                                    Lock-In</span></h3>
+                            <p class="text-[var(--text-muted)] leading-relaxed">It’s the silent tax on innovation.
+                                Spiraling costs, brittle integrations, compliance nightmares, and data silos prevent
+                                enterprises from moving at the speed of the market. It forces them to rent their future
+                                from vendors who profit from complexity.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl mb-3 text-accent">The Liberator: <span class="text-white">The
+                                    Intelligent Launchpad</span></h3>
+                            <p class="text-[var(--text-muted)] leading-relaxed">This architecture provides the
+                                orchestration layer
+                                to reclaim control. By decoupling systems and processes from any single vendor, we
+                                restore agility, accelerate developer velocity, and truly future-proof the enterprise
+                                tech stack.</p>
+                        </div>
+                    </div>
+                    <div class="card p-8 rounded-xl text-center card-animated-border">
+                        <h3 class="text-2xl font-bold mb-6 text-white">Brand Symbiosis</h3>
+                        <div class="space-y-6 text-left">
+                            <div>
+                                <p class="font-bold text-lg mb-2"><span class="text-accent">ClientOS (The
+                                        Engine):</span> The What & The Proof</p>
+                                <p class="text-[var(--text-muted)] leading-relaxed">The platform is the tangible
+                                    evidence of our promise. Its voice is confident, systemic, and forward-looking,
+                                    speaking the language of orchestration, modularity, and future-proofing.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-lg mb-2"><span class="text-accent">The Executive (The
+                                        Navigator):</span> The Why & The How</p>
+                                <p class="text-[var(--text-muted)] leading-relaxed">The practitioner CEO who has lived
+                                    the pain and architected the solution. His voice provides clarity, mentorship, and
+                                    leadership in a complex world, translating abstract concepts into actionable
+                                    frameworks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <tr>
-                            <td class="px section"
-                                style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
-                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                    style="border-spacing:0;">
-                                    <tr>
-                                        <td class="stack" width="32%" valign="top">
-                                            <div class="metric"
-                                                style="background:#ffffff; border:1px solid #ededed; border-radius:12px; padding:16px 12px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.04); transition: all 0.2s ease-in-out;">
-                                                <div class="label fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:12px; color:#666; letter-spacing:.06em;">
-                                                    Total Reach</div>
-                                                <div class="value fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:900; font-size:30px; color:#131313; line-height:1.1; margin-top:6px;">
-                                                    1.2M</div>
-                                            </div>
-                                        </td>
-                                        <td width="2%" class="stack" style="font-size:1px; line-height:1px;">&nbsp;</td>
-                                        <td class="stack" width="32%" valign="top">
-                                            <div class="metric"
-                                                style="background:#ffffff; border:1px solid #ededed; border-radius:12px; padding:16px 12px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.04); transition: all 0.2s ease-in-out;">
-                                                <div class="label fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:12px; color:#666; letter-spacing:.06em;">
-                                                    Interactions</div>
-                                                <div class="value fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:900; font-size:30px; color:#131313; line-height:1.1; margin-top:6px;">
-                                                    8,451</div>
-                                            </div>
-                                        </td>
-                                        <td width="2%" class="stack" style="font-size:1px; line-height:1px;">&nbsp;</td>
-                                        <td class="stack" width="32%" valign="top">
-                                            <div class="metric"
-                                                style="background:#ffffff; border:1px solid #ededed; border-radius:12px; padding:16px 12px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.04); transition: all 0.2s ease-in-out;">
-                                                <div class="label fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:12px; color:#666; letter-spacing:.06em;">
-                                                    New Followers</div>
-                                                <div class="value fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:900; font-size:30px; color:#131313; line-height:1.1; margin-top:6px;">
-                                                    +987</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+        <section id="audience" class="py-20 md:py-28 bg-[var(--bg-dark)] fade-in-section grid-bg">
+            <div class="container mx-auto px-6 max-w-7xl text-center">
+                <h2 class="text-4xl md:text-5xl mb-16">The Audience & Battlefield</h2>
+                <div class="grid md:grid-cols-2 gap-10 text-left">
+                    <div>
+                        <h3 class="text-3xl mb-6">Target Personas</h3>
+                        <div class="space-y-4">
+                            <div
+                                class="p-4 border border-[var(--panel-border)] rounded-lg bg-black/20 hover:border-[var(--accent-red)] transition-colors duration-300">
+                                <h4 class="font-bold text-accent">The C-Suite</h4>
+                                <p class="text-sm text-[var(--text-muted)]">Pains: Budget overruns, security risks, slow
+                                    time-to-market. Cares About: De-risking transformation, ROI, strategic & operational
+                                    agility.</p>
+                            </div>
+                            <div
+                                class="p-4 border border-[var(--panel-border)] rounded-lg bg-black/20 hover:border-[var(--accent-red)] transition-colors duration-300">
+                                <h4 class="font-bold text-accent">Head of LOB / Product</h4>
+                                <p class="text-sm text-[var(--text-muted)]">Pains: Can't launch features fast enough,
+                                    dependent on IT bottlenecks. Cares About: Speed, customer experience, competitive
+                                    advantage.</p>
+                            </div>
+                            <div
+                                class="p-4 border border-[var(--panel-border)] rounded-lg bg-black/20 hover:border-[var(--accent-red)] transition-colors duration-300">
+                                <h4 class="font-bold text-accent">Lead Architect / Dev Team</h4>
+                                <p class="text-sm text-[var(--text-muted)]">Pains: Technical debt, brittle
+                                    point-to-point integrations, talent retention. Cares About: Scalability, modularity,
+                                    developer & user experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl mb-6">Competitive Landscape</h3>
+                        <div class="space-y-4">
+                            <div
+                                class="p-4 border border-[var(--panel-border)] rounded-lg bg-black/20 hover:border-[var(--accent-red)] transition-colors duration-300">
+                                <h4 class="font-bold text-[var(--text-muted)]">The Old Guard (Monoliths)</h4>
+                                <p class="text-sm text-[var(--text-muted)]">Legacy ERP/CRM systems. Our message: "Don't
+                                    rip and replace. Orchestrate and innovate around the core."</p>
+                            </div>
+                            <div
+                                class="p-4 border border-[var(--panel-border)] rounded-lg bg-black/20 hover:border-[var(--accent-red)] transition-colors duration-300">
+                                <h4 class="font-bold text-[var(--text-muted)]">The Walled Gardens (Hyperscalers)</h4>
+                                <p class="text-sm text-[var(--text-muted)]">Cloud providers that encourage lock-in to
+                                    their native services. Our message: "Embrace multi-cloud without the
+                                    multi-complexity."</p>
+                            </div>
+                            <div
+                                class="p-4 border border-[var(--panel-border)] rounded-lg bg-black/20 hover:border-[var(--accent-red)] transition-colors duration-300">
+                                <h4 class="font-bold text-[var(--text-muted)]">The Point Solutions (iPaaS/Low-Code)</h4>
+                                <p class="text-sm text-[var(--text-muted)]">Tools that solve one piece of the puzzle,
+                                    creating more silos. Our message: "Move beyond simple integration to true end-to-end
+                                    orchestration."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <tr>
-                            <td class="px section"
-                                style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
-                                <div class="card"
-                                    style="background:#ffffff; border-radius:12px; border:1px solid #ededed; box-shadow:0 4px 16px rgba(0,0,0,0.04); padding:18px; transition: all 0.2s ease-in-out;">
-                                    <h3 class="fallback-font"
-                                        style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                        Anatomy of a Win 🏆</h3>
-                                    <p class="copy"
-                                        style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                        Our top performer was the <strong>“5 Spices You Aren't Using”</strong> reel,
-                                        which drove the majority of this week's engagement.</p>
-                                    <div style="height:12px; line-height:12px;">&nbsp;</div>
+        <section id="positioning" class="py-20 md:py-28 bg-black/20 fade-in-section">
+            <div class="container mx-auto px-6 max-w-6xl text-center">
+                <h2 class="text-4xl md:text-5xl mb-16">Strategic Positioning</h2>
+                <div class="grid md:grid-cols-2 gap-10 text-left">
+                    <div class="border-l-4 border-accent pl-6">
+                        <h3 class="text-3xl mb-3">ClientOS <span class="text-lg font-light text-[var(--text-muted)]">|
+                                The Enterprise Brand</span></h3>
+                        <p class="text-2xl text-accent font-bold leading-relaxed">"Future Proof Your Innovation. Build
+                            What’s Next."</p>
+                        <p class="text-md text-[var(--text-muted)] mt-4">We are not another tool in the stack. We are
+                            the system that makes the <span class="font-bold text-white">entire stack</span> work for
+                            you, not the other way around. We replace vendor dependency with strategic control.</p>
+                    </div>
+                    <div class="border-l-4 border-[var(--panel-border)] pl-6">
+                        <h3 class="text-3xl mb-3">The Executive <span
+                                class="text-lg font-light text-[var(--text-muted)]">| The Personal Brand</span></h3>
+                        <p class="text-2xl text-accent font-bold leading-relaxed">"Clarity is the antidote to
+                            complexity."</p>
+                        <p class="text-md text-[var(--text-muted)] mt-4">This isn't theory. This is decades of tested
+                            wisdom from the trenches and the boardroom, designed for leaders who must deliver results.
+                            He shares <span class="font-bold text-white">scars, not just trophies</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                        style="background:#eaeaea; border-radius:10px;">
-                                        <tr>
-                                            <td align="center" style="padding:40px 22px;">
-                                                <div
-                                                    style="display:inline-block; width:48px; height:48px; border-radius:50%; background:#F01C23; line-height:48px; text-align:center;">
-                                                    <span
-                                                        style="display:inline-block; width:0; height:0; border-left:12px solid #fff; border-top:8px solid transparent; border-bottom:8px solid transparent; vertical-align:middle;"></span>
-                                                </div>
-                                                <div class="copy-light"
-                                                    style="font-family:Arial, sans-serif; font-size:12px; color:#666; margin-top:8px;">
-                                                    [REPLACE THIS BOX WITH YOUR CLICKABLE THUMBNAIL IMAGE]
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px section section-dark"
-                                style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px; background:#f8f8f8;">
-                                <h2 class="fallback-font"
-                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:18px; color:#131313; border-bottom:3px solid #F01C23; padding-bottom:10px; margin:0;">
-                                    Platform Performance 📊</h2>
+        <section id="content" class="section-divider fade-in-section">
+            <div class="container mx-auto px-6 max-w-7xl relative z-20">
+                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-white">The Content Engine</h2>
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl text-accent mb-4">Core Content Pillars</h3>
+                            <ul class="list-none text-[var(--text-muted)] space-y-4">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 text-accent flex-shrink-0"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                        </path>
+                                    </svg><span><strong class="text-white">De-Risk Transformation:</strong> Tackling
+                                        vendor lock-in, compliance, data governance, and technical debt.</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 text-accent flex-shrink-0"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                        </path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg><span><strong class="text-white">Build Self-Reliance:</strong> Showcasing
+                                        orchestration, modularity, multi-vendor agility, and API-first
+                                        strategies.</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 text-accent flex-shrink-0"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg><span><strong class="text-white">Shape the Future:</strong> Exploring Agentic
+                                        AI, future-of-work, and leadership in an era of disruption.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card p-8 card-animated-border">
+                        <h3 class="text-2xl text-accent mb-4 text-center">Atomization Model</h3>
+                        <p class="text-center text-[var(--text-muted)] mb-6">One long-form "Hero" asset is filmed weekly
+                            and then atomized into micro-content across all personal &amp; business brand channels,
+                            totaling ~180 posts per month.</p>
+                        <div class="grid md:grid-cols-2 gap-6 text-left text-sm text-[var(--text-muted)]">
+                            <div class="bg-black/20 p-4 rounded-lg border border-[var(--panel-border)]">
+                                <h4 class="font-bold text-center text-white mb-3">The Executive (Personal)</h4>
+                                <ul class="space-y-2 list-none p-0">
+                                    <li><strong class="text-white">YouTube:</strong> 1x Primary, 2x Shorts, 1x
+                                        Image/Quote</li>
+                                    <li><strong class="text-white">Facebook:</strong> 1x Primary, 2x Reels, 1x Carousel,
+                                        1x Image/Quote</li>
+                                    <li><strong class="text-white">Instagram:</strong> 2x Reels, 1x Carousel, 1x
+                                        Image/Quote</li>
+                                    <li><strong class="text-white">LinkedIn:</strong> 1x Primary, 2x Shorts, 1x
+                                        Carousel, 1x Quote</li>
+                                    <li><strong class="text-white">X / Twitter:</strong> 4x Images/Quotes</li>
+                                </ul>
+                            </div>
+                            <div class="bg-black/20 p-4 rounded-lg border border-[var(--panel-border)]">
+                                <h4 class="font-bold text-center text-white mb-3">ClientOS (Business)</h4>
+                                <ul class="space-y-2 list-none p-0">
+                                    <li><strong class="text-white">YouTube:</strong> 1x Primary, 2x Shorts, 1x
+                                        Image/Quote</li>
+                                    <li><strong class="text-white">Facebook:</strong> 1x Primary, 2x Reels, 1x Carousel,
+                                        1x Image/Quote</li>
+                                    <li><strong class="text-white">Instagram:</strong> 2x Reels, 1x Carousel, 1x
+                                        Image/Quote</li>
+                                    <li><strong class="text-white">LinkedIn:</strong> 1x Primary, 2x Shorts, 1x
+                                        Carousel, 1x Quote</li>
+                                    <li><strong class="text-white">TikTok:</strong> 2x Clips, 1x Carousel</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                    style="border-spacing:0; margin-top:20px;">
-                                    <tr>
-                                        <td class="stack" width="32%" valign="top" style="padding:0;">
-                                            <div class="card"
-                                                style="background:#ffffff; border-radius:12px; border:1px solid #ededed; box-shadow:0 4px 16px rgba(0,0,0,0.04); padding:18px; transition: all 0.2s ease-in-out;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    Instagram</h3>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Reach: <strong>890k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Interactions: <strong>6.2k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Top Reel: “<strong>5 Spices</strong>”</p>
-                                            </div>
-                                        </td>
-                                        <td width="2%" class="stack" style="font-size:1px; line-height:1px;">&nbsp;</td>
+        <section id="flywheel" class="py-20 md:py-28 bg-black/20 fade-in-section">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center text-white">The Growth Flywheel</h2>
+                <div class="flywheel-container">
+                    <div class="flywheel-center"></div>
+                    <div class="card p-4 text-center flywheel-card flywheel-attract">
+                        <h3 class="text-2xl text-accent mb-2">1. Attract</h3>
+                        <p class="text-base text-[var(--text-muted)]">Attract executive attention with high-utility
+                            frameworks and strategic insights.</p>
+                    </div>
+                    <div class="card p-4 text-center flywheel-card flywheel-engage">
+                        <h3 class="text-2xl text-accent mb-2">2. Engage</h3>
+                        <p class="text-base text-[var(--text-muted)]">Engage authentically in high-level conversations,
+                            building credibility.</p>
+                    </div>
+                    <div class="card p-4 text-center flywheel-card flywheel-amplify">
+                        <h3 class="text-2xl text-accent mb-2">3. Amplify</h3>
+                        <p class="text-base text-[var(--text-muted)]">Community shares our content because it makes them
+                            look insightful.</p>
+                    </div>
+                    <div class="card p-4 text-center flywheel-card flywheel-convert">
+                        <h3 class="text-2xl text-accent mb-2">4. Convert</h3>
+                        <p class="text-base text-[var(--text-muted)]">A seamless narrative where sales is a natural
+                            extension of the content they trust.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                                        <td class="stack" width="32%" valign="top" style="padding:0;">
-                                            <div class="card"
-                                                style="background:#ffffff; border-radius:12px; border:1px solid #ededed; box-shadow:0 4px 16px rgba(0,0,0,0.04); padding:18px; transition: all 0.2s ease-in-out;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:7E00; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    TikTok</h3>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Views: <strong>310k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Interactions: <strong>1.9k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Watch %: <strong>58%</strong></p>
-                                            </div>
-                                        </td>
-                                        <td width="2%" class="stack" style="font-size:1px; line-height:1px;">&nbsp;</td>
+        <section id="governance" class="py-20 md:py-28 bg-[var(--bg-dark)] fade-in-section">
+            <div class="container mx-auto px-6 max-w-6xl text-center">
+                <h2 class="text-4xl md:text-5xl mb-16">Measurement & Governance</h2>
+                <div class="grid md:grid-cols-2 gap-10 text-left">
+                    <div class="card p-8">
+                        <h3 class="text-2xl mb-4 text-accent">North Star Metrics (KPIs)</h3>
+                        <ul class="list-disc list-inside text-[var(--text-muted)] space-y-2">
+                            <li><strong class="text-white">Engagement Rate:</strong> Comments and shares, not just
+                                likes. We must measure resonance.</li>
+                            <li><strong class="text-white">Share of Voice:</strong> Mentions and keyword ownership
+                                within the "Enterprise Self-Reliance" category.</li>
+                            <li><strong class="text-white">Pipeline Influence:</strong> Number of clicks, sourced from
+                                compelling content.</li>
+                            <li><strong class="text-white">Audience Velocity:</strong> Rate of growth of relevant
+                                followers & potential collaborators (LI & YT).</li>
+                        </ul>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="text-2xl mb-4 text-accent">Guiding Principles</h3>
+                        <ul class="list-disc list-inside text-[var(--text-muted)] space-y-2">
+                            <li><strong class="text-white">Create the Category First:</strong> Every post must reinforce
+                                the "Self-Reliance" narrative.</li>
+                            <li><strong class="text-white">Consistency > Virality:</strong> We are building compounding
+                                trust over the long term.</li>
+                            <li><strong class="text-white">Authenticity is the Strategy:</strong> Clarity trumps polish.
+                                Whiteboards beat glossy ads.</li>
+                            <li><strong class="text-white">No Unverified Claims:</strong> All technical and compliance
+                                claims must be provably true.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-                                        <td class="stack" width="32%" valign="top" style="padding:0;">
-                                            <div class="card"
-                                                style="background:#ffffff; border-radius:12px; border:1px solid #ededed; box-shadow:0 4px 16px rgba(0,0,0,0.04); padding:18px; transition: all 0.2s ease-in-out;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    Facebook</h3>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Reach: <strong>42k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Interactions: <strong>351</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Top Post: “<strong>Recipe Link</strong>”</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+    <footer class="bg-black/50 py-12 border-t border-[var(--border-color)]">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">MISSION STATUS: <span
+                    class="text-accent">ACTIVE</span></h2>
+            <p class="text-lg text-[var(--text-muted)] mb-8 font-light max-w-2xl mx-auto">This blueprint is a living
+                document. The mission is long-term. The principles are non-negotiable. Execution begins now.</p>
+            <p class="text-sm mt-12 text-[var(--text-muted)]">&copy; 2025 StrategyOS Branding Strategy. Confidential &
+                Proprietary. Created by Isaiah Chandler, Brand Manager</p>
+        </div>
+    </footer>
 
-                                <div style="height:16px; line-height:16px;" class="spacer-16">&nbsp;</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Interactive Energy Crackle Canvas ---
+            const canvas = document.getElementById('hero-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height, crackles, mouse;
 
-                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                    style="border-spacing:0;">
-                                    <tr>
-                                        <td class="stack" width="49%" valign="top" style="padding:0;">
-                                            <div class="card"
-                                                style="background:#ffffff; border-radius:12px; border:1px solid #ededed; box-shadow:0 4px 16px rgba(0,0,0,0.04); padding:18px; transition: all 0.2s ease-in-out;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    YouTube</h3>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Views: <strong>12.5k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Avg View Dur: <strong>2:18</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Top Video: “<strong>Longform: 5 Spices</strong>”</p>
-                                            </div>
-                                        </td>
-                                        <td width="2%" class="stack" style="font-size:1px; line-height:1px;">&nbsp;</td>
+                function init() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                    crackles = [];
+                    mouse = { x: null, y: null };
+                }
 
-                                        <td class="stack" width="49%" valign="top" style="padding:0;">
-                                            <div class="card"
-                                                style="background:#ffffff; border-radius:12px; border:1px solid #ededed; box-shadow:0 4px 16px rgba(0,0,0,0.04); padding:18px; transition: all 0.2s ease-in-out;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    LinkedIn</h3>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Impressions: <strong>4.8k</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Engagements: <strong>122</strong></p>
-                                                <p class="copy"
-                                                    style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                    Top Post: “<strong>Exec POV — Team Culture</strong>”</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+                class Crackle {
+                    constructor(x, y) {
+                        this.x = x;
+                        this.y = y;
+                        this.life = Math.random() * 50 + 20;
+                        this.maxLife = this.life;
+                        this.segments = [new CrackleSegment(this.x, this.y)];
+                        this.color = `rgba(240, 28, 35, 1)`; // #F01C23
+                    }
 
-                        <tr>
-                            <td class="px section"
-                                style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
-                                <h2 class="fallback-font"
-                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:18px; color:#131313; border-bottom:3px solid #F01C23; padding-bottom:10px; margin:0;">
-                                    Next Week’s Plan 🎯</h2>
-                                <div style="height:20px; line-height:20px;">&nbsp;</div>
-                                <div class="glass"
-                                    style="background:#ffffff; border:1px solid #e5e5e5; border-radius:16px; box-shadow:0 16px 40px rgba(0,0,0,0.06); padding:18px; transition: all 0.2s ease-in-out;">
-                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                        style="border-spacing:0;">
-                                        <tr>
-                                            <td class="stack" width="64%" valign="top" style="padding-right:10px;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    Priority Actions</h3>
-                                                <ul
-                                                    style="padding-left:18px; margin:8px 0 0 0; font-family:Arial, sans-serif; color:#333333; font-size:15px; line-height:1.6;">
-                                                    <li class="copy"
-                                                        style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0; margin-bottom:5px;">
-                                                        Double down on the "5 Spices" authority reel format.</li>
-                                                    <li class="copy"
-                                                        style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0; margin-bottom:5px;">
-                                                        Test a new 'Authority' style text post on LinkedIn.</li>
-                                                    <li class="copy"
-                                                        style="font-family:Arial, sans-serif; font-size:16px; line-height:1.6; color:#333333; margin:0;">
-                                                        Repurpose top reel into an Instagram carousel.</li>
-                                                </ul>
-                                            </td>
-                                            <td class="stack spacer-16" style="font-size:1px; line-height:1px;">&nbsp;
-                                            </td>
-                                            <td class="stack" width="36%" valign="top" style="padding-left:10px;">
-                                                <h3 class="fallback-font"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:700; font-size:16px; color:#131313; margin:0; margin-bottom:10px;">
-                                                    Tags</h3>
-                                                <span class="chip"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:11px; border:1px solid #efc2c4; color:#A31218; background:#FFE7E8; border-radius:999px; padding:6px 10px; display:inline-block; margin-right:6px; margin-bottom:6px;">Authority</span>
-                                                <span class="chip"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:11px; border:1px solid #efc2c4; color:#A31218; background:#FFE7E8; border-radius:999px; padding:6px 10px; display:inline-block; margin-right:6px; margin-bottom:6px;">Relatable</span>
-                                                <span class="chip"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:11px; border:1px solid #efc2c4; color:#A31218; background:#FFE7E8; border-radius:999px; padding:6px 10px; display:inline-block; margin-right:6px; margin-bottom:6px;">Exec
-                                                    POV</span>
-                                                <span class="chip"
-                                                    style="font-family:'Montserrat', Arial, sans-serif; font-weight:800; font-size:11px; border:1px solid #efc2c4; color:#A31218; background:#FFE7E8; border-radius:999px; padding:6px 10px; display:inline-block; margin-right:6px; margin-bottom:6px;">Clip→Carousel</span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                    update() {
+                        this.life--;
+                        if (this.segments.length < 15 && Math.random() > 0.8) {
+                            const lastSegment = this.segments[this.segments.length - 1];
+                            this.segments.push(new CrackleSegment(lastSegment.x, lastSegment.y));
+                        }
 
-                        <tr>
-                            <td class="section section-dark" align="center"
-                                style="padding-top:28px; padding-bottom:28px; padding-left:30px; padding-right:30px; background:#f8f8f8;">
-                                <p class="copy copy-light"
-                                    style="font-family:Arial, sans-serif; font-size:12px; line-height:1.6; color:#888888; margin:0;">
-                                    Prepared for SpiceX by Attention Grabbing Media • Template v3.1 (Video-Optimized)
-                                </p>
-                            </td>
-                        </tr>
+                        this.segments.forEach(s => s.update());
+                    }
 
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </center>
+                    draw() {
+                        ctx.save();
+                        ctx.globalAlpha = this.life / this.maxLife;
+                        ctx.strokeStyle = this.color;
+                        ctx.lineWidth = 0.5 + (this.life / this.maxLife) * 1.5;
+                        ctx.shadowColor = this.color;
+                        ctx.shadowBlur = 10;
+
+                        ctx.beginPath();
+                        ctx.moveTo(this.segments[0].x, this.segments[0].y);
+                        for (let i = 1; i < this.segments.length; i++) {
+                            ctx.lineTo(this.segments[i].x, this.segments[i].y);
+                        }
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                class CrackleSegment {
+                    constructor(x, y) {
+                        this.x = x;
+                        this.y = y;
+                        this.angle = Math.random() * Math.PI * 2;
+                        this.speed = Math.random() * 1 + 1;
+                        this.friction = 0.95;
+                    }
+                    update() {
+                        this.x += Math.cos(this.angle) * this.speed;
+                        this.y += Math.sin(this.angle) * this.speed;
+                        this.speed *= this.friction;
+                        if (Math.random() > 0.95) {
+                            this.angle = Math.random() * Math.PI * 2;
+                        }
+                    }
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+
+                    if (Math.random() > 0.9) {
+                        crackles.push(new Crackle(Math.random() * width, Math.random() * height));
+                    }
+                    if (mouse.x && Math.random() > 0.7) {
+                        crackles.push(new Crackle(mouse.x, mouse.y));
+                    }
+
+                    for (let i = crackles.length - 1; i >= 0; i--) {
+                        const c = crackles[i];
+                        c.update();
+                        c.draw();
+                        if (c.life <= 0) {
+                            crackles.splice(i, 1);
+                        }
+                    }
+
+                    requestAnimationFrame(animate);
+                }
+
+                window.addEventListener('resize', init);
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+                window.addEventListener('mouseout', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+
+                init();
+                animate();
+            }
+
+            // --- Intersection Observer for Animations ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Active Nav Link Highlighting ---
+            const navLinks = document.querySelectorAll('#nav-links a');
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: "-40% 0px -40% 0px" });
+
+            document.querySelectorAll('main section, header').forEach(section => {
+                navObserver.observe(section);
+            });
+        });
+    </script>
 </body>
 
 </html>
