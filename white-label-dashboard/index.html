@@ -565,7 +565,7 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-[var(--bg-dark)]/80 backdrop-blur-md border-b border-[var(--border-light)]">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 pr-24 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-2">
                 <div class="w-8 h-8 bg-[var(--accent)] rounded-lg flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
@@ -577,10 +577,12 @@
                 <span class="text-xl font-bold tracking-tight">Client<span class="text-[var(--accent)]">OS</span></span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Overview</a>
-                <a href="#" class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Reports</a>
-                <a href="#" class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Intelligence</a>
-                <a href="#" class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Settings</a>
+                <a href="#highlights"
+                    class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Highlights</a>
+                <a href="#analysis"
+                    class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Analysis</a>
+                <a href="#metrics" class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Metrics</a>
+                <a href="#plan" class="text-sm font-medium hover:text-[var(--accent)] transition-colors">Plan</a>
             </div>
         </div>
     </nav>
@@ -619,7 +621,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr id="highlights" class="scroll-mt-24">
                                 <td class="px section"
                                     style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
                                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
@@ -693,7 +695,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr id="analysis" class="scroll-mt-24">
                                 <td class="px section"
                                     style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
                                     <div class="card"
@@ -726,7 +728,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="metrics" class="scroll-mt-24">
                                 <td class="px section section-dark"
                                     style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px; background:#f8f8f8;">
                                     <h2 class="fallback-font"
@@ -843,7 +845,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr id="plan" class="scroll-mt-24">
                                 <td class="px section"
                                     style="padding-left:40px; padding-right:40px; padding-top:28px; padding-bottom:28px;">
                                     <h2 class="fallback-font"
