@@ -91,6 +91,7 @@
         .text-gradient-gold {
             background: linear-gradient(135deg, #e6c888 0%, #c5a059 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -471,22 +472,61 @@
             <!-- 2x2 Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
 
-                <!-- Report Card 1: Home Services -->
+                <!-- Report Card 1: Enterprise GTM Dashboard (Moved from Work) -->
                 <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal"
-                    onclick="openReportModal('home-services', 'Elite Air & Home', 'Home Services / HVAC', 'reports/home-services.html')">
+                    onclick="openReportModal('dashboard', 'Enterprise GTM Dashboard', 'Strategic Sample', 'white-label-dashboard/index.html')">
+
+                    <!-- Visual Mockup Area -->
+                    <div
+                        class="h-64 bg-gradient-to-br from-[#111] to-[#000] relative flex items-center justify-center overflow-hidden">
+                        <!-- Used the template image from the repo -->
+                        <div
+                            class="absolute inset-0 bg-[url('client-dashboard/Cyber-truck-template.png')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="relative z-10 text-center p-6">
+                            <div
+                                class="w-16 h-16 mx-auto bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-chart-line text-gold text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white uppercase tracking-wider text-shadow-lg">Enterprise
+                                GTM</h4>
+                        </div>
+                    </div>
+
+                    <!-- At a Glance Metric -->
+                    <div class="p-6 bg-deep/50 backdrop-blur-sm border-t border-white/5">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-muted uppercase tracking-widest">At A Glance</span>
+                            <span
+                                class="text-xs font-bold text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View
+                                Assessment &rarr;</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-bold text-white">Real-Time</span>
+                            <span class="text-sm text-gold font-medium">Data Unification</span>
+                        </div>
+                        <p class="text-xs text-muted mt-2">Consolidated cross-channel metrics into a single source of
+                            truth.</p>
+                    </div>
+                </div>
+
+                <!-- Report Card 2: Trades & Home Services -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-100"
+                    onclick="openReportModal('home-services', 'Elite Air & Home', 'Strategic Sample', 'reports/home-services.html')">
 
                     <!-- Visual Mockup Area -->
                     <div
                         class="h-64 bg-gradient-to-br from-[#1a1a1a] to-[#000000] relative flex items-center justify-center overflow-hidden">
                         <div
-                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/1a1a1a/FFF?text=Report+Sample')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/1a1a1a/FFF?text=Trades+Sample')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
                         </div>
                         <div class="relative z-10 text-center p-6">
                             <div
                                 class="w-16 h-16 mx-auto bg-red-700 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
                                 <i class="fas fa-wrench text-white text-2xl"></i>
                             </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">Elite Air & Home</h4>
+                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">Trades & Home Services
+                            </h4>
                         </div>
                     </div>
 
@@ -506,22 +546,22 @@
                     </div>
                 </div>
 
-                <!-- Report Card 2: Construction -->
-                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-100"
-                    onclick="openReportModal('construction', 'Apex Roofing Systems', 'Construction / Roofing', 'reports/construction.html')">
+                <!-- Report Card 3: Renewable Energy -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-200"
+                    onclick="openReportModal('renewable', 'SolarFlow Solutions', 'Strategic Sample', 'reports/renewable-energy.html')">
 
                     <!-- Visual Mockup Area -->
                     <div
-                        class="h-64 bg-gradient-to-br from-[#141414] to-[#000000] relative flex items-center justify-center overflow-hidden">
+                        class="h-64 bg-gradient-to-br from-[#0a1a0f] to-[#000000] relative flex items-center justify-center overflow-hidden">
                         <div
-                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/1a1a1a/FFF?text=Report+Sample')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
+                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/0a1a0f/FFF?text=Renewable+Sample')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
                         </div>
                         <div class="relative z-10 text-center p-6">
                             <div
-                                class="w-16 h-16 mx-auto bg-red-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fas fa-hammer text-white text-2xl"></i>
+                                class="w-16 h-16 mx-auto bg-green-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                                <i class="fas fa-leaf text-white text-2xl"></i>
                             </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">Apex Roofing</h4>
+                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">Renewable Energy</h4>
                         </div>
                     </div>
 
@@ -534,17 +574,16 @@
                                 Assessment &rarr;</span>
                         </div>
                         <div class="flex items-baseline gap-2">
-                            <span class="text-3xl font-bold text-green-500">+91.6%</span>
-                            <span class="text-sm text-white font-medium">Watch Time</span>
+                            <span class="text-3xl font-bold text-green-500">-28%</span>
+                            <span class="text-sm text-white font-medium">Cost Per Lead</span>
                         </div>
-                        <p class="text-xs text-muted mt-2">Shifted strategy from broad reach to "Insurance Authority".
-                        </p>
+                        <p class="text-xs text-muted mt-2">Pivot to "Energy Independence" messaging reduced CPL.</p>
                     </div>
                 </div>
 
-                <!-- Report Card 3: Biotech -->
-                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-200"
-                    onclick="openReportModal('biotech', 'BioGen Innovations', 'Biotech / Pharma', 'reports/biotech.html')">
+                <!-- Report Card 4: Biotech -->
+                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-300"
+                    onclick="openReportModal('biotech', 'BioGen Innovations', 'Strategic Sample', 'reports/biotech.html')">
 
                     <!-- Visual Mockup Area -->
                     <div
@@ -575,41 +614,6 @@
                             <span class="text-sm text-teal-400 font-medium">Traffic from Shorts</span>
                         </div>
                         <p class="text-xs text-muted mt-2">Validated "Lab to User" simplified content strategy.</p>
-                    </div>
-                </div>
-
-                <!-- Report Card 4: CPG Strategy -->
-                <div class="group relative bg-surface/40 rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 cursor-pointer report-card reveal delay-300"
-                    onclick="openReportModal('cpg', 'StrategyOS', 'CPG / Food & Bev', 'reports/cpg-strategy.html')">
-
-                    <!-- Visual Mockup Area -->
-                    <div
-                        class="h-64 bg-gradient-to-br from-[#111] to-[#000] relative flex items-center justify-center overflow-hidden">
-                        <div
-                            class="absolute inset-0 bg-[url('https://placehold.co/600x400/000/FFF?text=StrategyOS')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="relative z-10 text-center p-6">
-                            <div
-                                class="w-16 h-16 mx-auto bg-red-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fas fa-bullseye text-white text-2xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold text-white uppercase tracking-wider">StrategyOS</h4>
-                        </div>
-                    </div>
-
-                    <!-- At a Glance Metric -->
-                    <div class="p-6 bg-deep/50 backdrop-blur-sm border-t border-white/5">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-bold text-muted uppercase tracking-widest">At A Glance</span>
-                            <span
-                                class="text-xs font-bold text-gold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">View
-                                Assessment &rarr;</span>
-                        </div>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-3xl font-bold text-white">1.2M</span>
-                            <span class="text-sm text-red-500 font-medium">Total Reach</span>
-                        </div>
-                        <p class="text-xs text-muted mt-2">Authority pillar content drove 80% of engagement.</p>
                     </div>
                 </div>
 
@@ -656,20 +660,6 @@
 
             <!-- Masonry Grid -->
             <div class="masonry-grid" id="gallery-grid">
-
-                <!-- Project 0 (Dashboard - White Label) - UPDATED TO OPEN MODAL -->
-                <div class="gallery-item group cursor-pointer reveal block" data-category="web"
-                    onclick="openReportModal('dashboard', 'Enterprise GTM Dashboard', 'Strategy Platform', 'white-label-dashboard/index.html')">
-                    <!-- Using the template image from the repo -->
-                    <img src="client-dashboard/Cyber-truck-template.png" alt="Enterprise GTM Dashboard"
-                        class="w-full h-auto object-cover rounded-xl">
-                    <div
-                        class="gallery-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 pointer-events-none rounded-xl">
-                        <p class="text-gold text-xs font-bold uppercase tracking-wider mb-1">Full-Stack Strategy
-                            Platform</p>
-                        <h4 class="text-white text-xl font-bold">Enterprise GTM Dashboard</h4>
-                    </div>
-                </div>
 
                 <!-- Project 1 (Spatial) -->
                 <div class="gallery-item group cursor-pointer reveal" data-category="spatial">
@@ -1042,11 +1032,13 @@
         <div class="w-full h-full max-w-[1600px] flex flex-col md:flex-row overflow-hidden relative">
 
             <!-- Left Side: Context & Strategy (Mobile: Top) -->
+            <!-- Left Side: Context & Strategy (Mobile: Top) -->
             <div
-                class="w-full md:w-[350px] lg:w-[400px] bg-surface/80 md:h-full overflow-y-auto border-r border-white/5 p-8 flex flex-col relative z-20 shadow-2xl">
+                class="w-full md:w-[350px] lg:w-[400px] bg-[#0b1221] md:h-full overflow-y-auto border-r border-white/5 p-8 flex flex-col relative z-20 shadow-2xl">
                 <div class="mb-8">
                     <span id="modal-category"
-                        class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-2 block">Category</span>
+                        class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-2 block">Strategic
+                        Sample</span>
                     <h2 id="modal-title" class="text-3xl font-bold text-white mb-4 leading-tight">Client Name</h2>
                     <div class="h-1 w-20 bg-gold/50 rounded-full"></div>
                 </div>
@@ -1516,10 +1508,10 @@
                 insight: "Investors engaged 3x more with 'Patient Impact' stories than technical molecular breakdown videos.",
                 result: "Short-form video strategy drove 80% of total engagement, expanding the investor funnel."
             },
-            'cpg': {
-                objective: "To establish culinary authority for StrategyOS in a crowded spice market.",
-                insight: "Educational 'How-To' content dramatically outperformed lifestyle shots. People wanted to learn, not just look.",
-                result: "The 'Authority Pillar' reel drove 1.2M reach and 80% of weekly engagement."
+            'renewable': {
+                objective: "To reduce Customer Acquisition Cost (CAC) by targeting high-intent 'energy independence' buyers.",
+                insight: "Generic savings messaging was largely ignored. Messaging focused on 'Grid Independence' saw 40% higher CTR.",
+                result: "Pivot drove a 28% reduction in Cost Per Lead and a significant increase in battery storage attachment rates."
             },
             'dashboard': {
                 objective: "To provide a centralized, real-time view of all GTM activities for executive stakeholders.",
