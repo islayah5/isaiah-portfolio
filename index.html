@@ -1268,6 +1268,8 @@
             contactModal.classList.remove('invisible', 'opacity-0');
             contactModal.classList.add('visible', 'opacity-100');
         };
+        // Expose to global scope for inline buttons
+        window.openContactModal = openContact;
 
         const closeContact = () => {
             contactModal.classList.add('invisible', 'opacity-0');
