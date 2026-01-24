@@ -4,6 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MWVXK5HJ');</script>
+    <!-- End Google Tag Manager -->
+
     <title>Isaiah Chandler | Strategic Brand Manager</title>
 
     <!-- Dynamic Favicon Link (Updated via JS) -->
@@ -276,6 +288,11 @@
 </head>
 
 <body class="antialiased selection:bg-gold selection:text-deep" onmousemove="handleMouseMove(event)">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWVXK5HJ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Hidden Canvas used for generating the animated Favicon -->
     <canvas id="faviconCanvas" width="32" height="32" class="hidden" style="display: none;"></canvas>
@@ -1072,6 +1089,11 @@
     </div>
 
     <script>
+        // ========================================
+        // Initialize Google Tag Manager Data Layer
+        // ========================================
+        window.dataLayer = window.dataLayer || [];
+
         // --- Favicon Animation Logic ---
         const FAVICON_SIZE = 32;
         const FPS = 30;
@@ -1485,6 +1507,14 @@
         };
 
         window.openReportModal = (id, title, category, url) => {
+            // Track report view in GTM/GA4
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'view_report',
+                'reportTitle': title,
+                'reportCategory': category
+            });
+
             // Load Iframe first to ensure it's ready
             reportIframe.src = url;
 
@@ -1586,6 +1616,14 @@
             window.openFeaturedModal = (spotId) => {
                 const data = featuredData[spotId];
                 if (!data) return;
+
+                // Track project view in GTM/GA4
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'view_project',
+                    'projectTitle': data.title,
+                    'projectCategory': 'Featured Proof'
+                });
 
                 // 1. Set Content
                 if (featTitle) featTitle.innerText = data.title;
