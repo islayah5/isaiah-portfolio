@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --deep: #020408;
+            --gold: #c5a059;
+            --gold-light: #e6c888;
+            --white: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--deep);
+            color: var(--white);
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- Background Tech Layer --- */
+        .scrolling-code {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(197, 160, 89, 0.03);
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.5;
+        }
+
+        .code-block {
+            position: absolute;
+            animation: scrollUp 20s linear infinite;
+        }
+
+        /* --- Container --- */
+        /* Reduced size to ensure ample margins and prevent "massive" feel */
+        .glass-stage {
+            position: relative;
+            width: 960px;
+            /* Reduced from 1100px */
+            height: 540px;
+            /* Reduced from 600px */
+            perspective: 1200px;
+            z-index: 10;
+        }
+
+        .card {
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: rgba(11, 18, 33, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateZ(-50px);
+            /* Subtle depth, no rotation to avoid cropping */
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .card.active {
+            opacity: 1;
+            transform: translateZ(0);
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.15);
+            border-color: rgba(197, 160, 89, 0.3);
+        }
+
+        .card.exit {
+            opacity: 0;
+            transform: translateZ(20px) scale(0.95);
+            filter: blur(5px);
+        }
+
+        /* --- Scene 1 specifics : Headshot --- */
+        /* Scaled down headshot ring */
+        .headshot-ring {
+            position: relative;
+            width: 180px;
+            /* Reduced from 250px */
+            height: 180px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(197, 160, 89, 0.5));
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .headshot-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: sepia(20%) contrast(110%);
+        }
+
+        /* Cleaned up Typography - No Glitch */
+        .hero-text {
+            /* Reduced font size for better framing */
+            font-size: 3.5rem;
+            /* ~56px */
+            line-height: 1.1;
+        }
+
+        .role-text {
+            margin-top: 1rem;
+            font-size: 1.125rem;
+            letter-spacing: 0.25em;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* --- Scene 2 specifics : Dashboard --- */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 249, 0.6);
+            box-shadow: 0 0 10px rgba(0, 255, 249, 0.8);
+            animation: scan 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            z-index: 5;
+        }
+
+        /* --- Scene 3 specifics : YES Photo --- */
+        .floating-badge {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold);
+            padding: 8px 16px;
+            border-radius: 6px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s 0.3s forwards ease-out;
+        }
+
+        /* --- Animations --- */
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        @keyframes scan {
+            0% {
+                top: -10%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Tech Background Layer -->
+    <div class="scrolling-code">
+        <div class="code-block" id="code-bg">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <div class="glass-stage">
+
+        <!-- SCENE 1: IDENTITY (0s - 4s) -->
+        <div id="scene-1" class="card active">
+            <div class="headshot-ring">
+                <!-- Using absolute path to image in the repo -->
+                <img src="IC–Headshot.PNG" class="headshot-img" alt="Isaiah">
+            </div>
+            <h1 class="hero-text font-black tracking-tighter text-white mb-2 drop-shadow-2xl text-center">
+                ISAIAH <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-gold via-gold-light to-white">CHANDLER</span>
+            </h1>
+            <div class="role-text font-medium">
+                <span>CREATIVE</span>
+                <span class="text-gold">//</span>
+                <span>TECHNICAL</span>
+            </div>
+            <div class="absolute bottom-6 text-[10px] text-white/30 font-mono tracking-widest">
+                SYSTEM.READY
+            </div>
+        </div>
+
+        <!-- SCENE 2: DATA OBSESSION (4s - 8s) -->
+        <div id="scene-2" class="card">
+            <div class="absolute inset-0">
+                <img src="assets/images/portfolio/client-os-dashboard.png" class="w-full h-full object-cover opacity-60"
+                    style="mix-blend-mode: luminosity;">
+            </div>
+            <div class="scan-line"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-transparent"></div>
+
+            <div class="relative z-10 text-center">
+                <h2
+                    class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 drop-shadow-[0_0_15px_rgba(0,255,255,0.5)] mb-2">
+                    UNIFIED NARRATIVE
+                </h2>
+                <div
+                    class="inline-block border border-cyan-500/30 bg-black/60 backdrop-blur-md px-5 py-2 rounded-full text-cyan-400 font-mono text-base tracking-widest mt-4">
+                    DATAPOINTS_CONNECTED: <span id="counter">1,024</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3: IMPACT (8s - 12s) -->
+        <div id="scene-3" class="card">
+            <div class="absolute inset-0">
+                <img src="assets/images/portfolio/yes-omnichannel.jpg"
+                    class="w-full h-full object-cover transform scale-110"
+                    style="animation: slowZoom 10s linear infinite;">
+            </div>
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 w-full h-full flex flex-col justify-center items-center">
+                <h2 class="text-4xl font-black text-white mb-6 text-center drop-shadow-xl w-3/4 leading-tight">
+                    FROM GLOBAL STRATEGY<br>
+                    <span class="text-gold italic font-serif">TO LOCAL IMPACT</span>
+                </h2>
+            </div>
+            <div class="floating-badge">
+                <span class="text-gold font-bold uppercase tracking-widest text-[10px]">Case Study: YES Group</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Populate Background Code
+        copet = `
+class BrandStrategy extends ForceMultiplier {
+    constructor() {
+        super();
+        this.creative = true;
+        this.technical = true;
+    }
+    
+    init() {
+        this.deploySystem();
+        this.animateWorld();
+    }
+}
+        `.repeat(20);
+        document.getElementById('code-bg').innerText = codeSnippet;
+
+        // Sequence Controller - Exposed for external capture tools
+        const scenes = [
+            document.getElementById('scene-1'),
+            document.getElementById('scene-2'),
+            document.getElementById('scene-3')
+        ];
+        
+        let cene = 0;
+
+        window.nextScene = function() {
+            // Exit current
+            scenes[currentScene].classList.remove('active');
+            scenes[currentScene].classList.add('exit');
+
+            // Setup next
+            currentScene = currentScene + 1;
+            if (currentScene >= scenes.length) currentScene = 0; // Loop or cl    
+            const next = scenes[currentScene];
+            
+            next.classList.remove('exit');
+            next.classList.add('active');
+
+            // Cleanup exit class after transition
+            setTimeout(() => {
+                 scenes.forEach((s, i) => {
+                     if (i !== currentScene) s.classList.remove('exit');
+                 });
+            }, 1000);
+        }
+ // Counter Animation
+        let count = 0;
+        const counterEl = document.getElementById('counter');
+        const interval = setInterval(() => {
+            count += 47;
+            counterEl.innerText = count.toLocaleString();
+        }, 50);
+
+    </script>
+</body>
+
+</html>
