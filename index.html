@@ -373,8 +373,8 @@
 
         <!-- CTA Actions -->
         <div class="flex flex-col sm:flex-row gap-5 reveal delay-300">
-            <a href="#featured-proof" class="btn-gold px-8 py-3.5 rounded-full text-xs tracking-widest uppercase">
-                View Featured Proof
+            <a href="#" id="resume-btn" class="btn-gold px-8 py-3.5 rounded-full text-xs tracking-widest uppercase">
+                View Resume
             </a>
             <a href="#capabilities"
                 class="px-8 py-3.5 rounded-full text-xs tracking-widest uppercase border border-white/10 hover:border-gold/50 hover:bg-gold/5 transition-all text-white/80">
@@ -382,16 +382,21 @@
             </a>
         </div>
 
-        <!-- Scroll Hint -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-muted/30">
-            <i class="fas fa-arrow-down text-sm"></i>
+        <!-- Elegant Scroll Indicator -->
+        <div
+            class="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 group cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <div class="flex flex-col gap-0.5 animate-bounce">
+                <i class="fas fa-chevron-down text-gold text-xs"></i>
+                <i class="fas fa-chevron-down text-gold text-xs -mt-2"></i>
+            </div>
         </div>
     </header>
 
-    <!-- 2. Featured Proof (Mini-Gallery) -->
+    <!-- 2. My Featured Favorites (Mini-Gallery) -->
     <section id="featured-proof" class="py-20 px-6 border-b border-white/5 bg-deep relative z-10">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-12 text-center reveal">Featured Proof
+            <h2 class="text-xs font-bold text-gold uppercase tracking-[0.2em] mb-12 text-center reveal">My Featured
+                Favorites
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Spot 1: The Omnichannel Brand Identity (YES Group) -->
@@ -1276,26 +1281,47 @@
             });
         });
 
-        // --- Resume Lightbox Logic ---
+        // --- Enhanced Resume Viewer Logic ---
         const resumeBtn = document.getElementById('resume-btn');
         if (resumeBtn) {
             resumeBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 lightboxContent.innerHTML = '';
 
+                // Create enhanced resume viewer container
+                const viewerContainer = document.createElement('div');
+                viewerContainer.className = 'w-full max-w-6xl mx-auto flex flex-col h-full p-4 md:p-6';
+
+                // Header with controls
+                const header = document.createElement('div');
+                header.className = 'flex items-center justify-between mb-4 pb-4 border-b border-white/10';
+                header.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-file-pdf text-gold text-2xl"></i>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Isaiah Chandler - Resume</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="Resume - Isaiah C. Chandler.pdf" download 
+                           class="px-4 py-2 bg-gold/10 hover:bg-gold/20 border border-gold/40 rounded-lg text-gold text-sm font-medium transition-all flex items-center gap-2">
+                            <i class="fas fa-download"></i>
+                            <span class="hidden sm:inline">Download</span>
+                        </a>
+                    </div>
+                `;
+
+                // PDF iframe with better styling
                 const iframe = document.createElement('iframe');
-                iframe.src = "Isaiah-Chandler-Resume.pdf";
+                iframe.src = "Resume - Isaiah C. Chandler.pdf";
                 iframe.title = "Resume PDF";
-                // Optimized sizing: taller height, white background for clean read
-                iframe.classList.add('w-full', 'h-[90vh]', 'rounded-xl', 'border-0', 'shadow-2xl', 'bg-white');
+                iframe.className = 'w-full flex-1 rounded-xl border border-white/10 shadow-2xl bg-white';
+                iframe.style.minHeight = '70vh';
 
-                const container = document.createElement('div');
-                // Ensuring centering container
-                container.classList.add('w-full', 'max-w-5xl', 'mx-auto', 'flex', 'items-center', 'justify-center', 'h-full', 'p-4');
-                container.appendChild(iframe);
+                // Assembly
+                viewerContainer.appendChild(header);
+                viewerContainer.appendChild(iframe);
+                lightboxContent.appendChild(viewerContainer);
 
-                lightboxContent.appendChild(container);
-
+                // Show lightbox
                 lightbox.classList.remove('invisible', 'opacity-0');
                 lightbox.classList.add('visible', 'opacity-100');
             });
@@ -1622,7 +1648,7 @@
                 window.dataLayer.push({
                     'event': 'view_project',
                     'projectTitle': data.title,
-                    'projectCategory': 'Featured Proof'
+                    'projectCategory': 'My Featured Favorites'
                 });
 
                 // 1. Set Content
